@@ -1,5 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
+	import { dataset_dev } from 'svelte/internal';
 	import { getLyrics } from '../helpers/fetchLyrics';
 	import { answer } from '../helpers/fetchLyrics';
 
@@ -21,7 +22,13 @@
 			lyric = fetched;
 		}
 		let textSplitted = lyric[0].firstObject.split(/(?=[A-Z])/);
-		snippet = textSplitted[0] + textSplitted[1] + textSplitted[2];
+		let snippet1 = textSplitted[0];
+		console.log(snippet1);
+		let snippet2 = textSplitted[1];
+		console.log(snippet2);
+		let snippet3 = textSplitted[2];
+		console.log(snippet3);
+		snippet = [textSplitted[0], textSplitted[1], textSplitted[2]];
 		song = lyric[0].song;
 		let distractor1 = lyric[0].distractor1;
 		let distractor2 = lyric[0].distractor2;
@@ -58,9 +65,13 @@
 		if (innerHtml === correct) {
 			document.getElementById(button).style.backgroundColor = 'green';
 			score = score + 1;
+            let audio = new Audio("../static/sounds/correct.wav")
+            audio.play();
 			dispatch('correct');
 		} else {
 			document.getElementById(button).style.backgroundColor = 'red';
+            let audio = new Audio("../static/sounds/wrong.wav")
+            audio.play();
 			dispatch('wrong');
 		}
 		setTimeout(function () {
@@ -75,11 +86,25 @@
 		<p>{round}</p>
 		<h1>Which song is this?</h1>
 	</div>
-	<div class="songLyric" />
+	<div class="songLyricWrapper" />
 	{#await handleLyrics()}
 		<p>loading</p>
 	{:then data}
-		<p style="color: white">{data.allData.snippet}</p>
+		<div>
+			{#if data.allData.snippet[0].length < 10}
+				<p class="songLyric" style="color: white">
+					{data.allData.snippet[0]}{data.allData.snippet[1]}<br />{data.allData.snippet[2]}
+				</p>
+			{:else if data.allData.snippet[1].length < 10}
+				<p class="songLyric" style="color: white">
+					{data.allData.snippet[0]}<br />{data.allData.snippet[1] + data.allData.snippet[2]}
+				</p>
+			{:else}
+				<p class="songLyric" style="color: white">
+					{data.allData.snippet[0]}<br />{data.allData.snippet[1]}<br />{data.allData.snippet[2]}
+				</p>
+			{/if}
+		</div>
 		<div class="answerAlternatives">
 			<button id="button1" on:click={(event) => buttonClicked(event)}>{data.alts[0]}</button>
 			<button id="button2" on:click={(event) => buttonClicked(event)}>{data.alts[1]}</button>
@@ -89,18 +114,43 @@
 </div>
 
 <style>
+	.left-quotation {
+		transform: scaleX(-1);
+		height: 20px;
+	}
+
+	.right-quotation {
+		height: 20px;
+	}
+
 	.gameHeading {
 		border-bottom: 1px solid white;
 		text-align: center;
 		width: 300px;
 		color: white;
+        margin-bottom: 30px;
 	}
 
-	.songLyric {
+    .gameHeading > h1 {
+        margin-bottom: 0;
+        margin-top: 0px;
+        font-size: x-large;
+    }
+
+    .gameHeading > p {
+        margin-bottom: 0px;
+    }
+
+	.songLyricWrapper {
 		width: 300px;
 		text-align: center;
 		color: white;
 	}
+
+    .songLyric {
+        text-align: center;
+        font-size: large;
+    }
 
 	.answerAlternatives {
 		display: flex;
@@ -119,4 +169,8 @@
 		height: 50px;
 		font-size: 20px;
 	}
+
+    button:hover {
+        background-color: #0b6088;
+    }
 </style>

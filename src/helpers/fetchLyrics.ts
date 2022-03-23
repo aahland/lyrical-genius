@@ -16,6 +16,7 @@ export async function getLyrics() {
   
     if (!lyrics1.ok) {
       throw new Error(`HTTP error! Status: ${lyrics1.status}`)
+        
     }
     if (!lyrics2.ok) {
       throw new Error(`HTTP error! Status: ${lyrics2.status}`)

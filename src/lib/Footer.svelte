@@ -58,7 +58,7 @@
 .footer {
     background-color: #198dc1;
     width: 100vw;
-    height: 250px;
+    height: 230px;
     position: sticky;
     bottom: 0px;
     

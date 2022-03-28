@@ -1,31 +1,22 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { onMount } from 'svelte';
 	import { getLyrics } from '../helpers/fetchLyrics';
 	import { answer } from '../helpers/fetchLyrics';
-
 	const dispatch = createEventDispatcher();
-	let round = 'Round 1';
-	let score = 0;
+
+	let round = 'Round 4';
 	let lyric;
 	let song;
-	let correct = answer[0].answer1.song;
-
+	let correct = answer[3].answer4.song;
 
 	async function handleLyrics() {
 		let snippet;
 		lyric = await getLyrics();
-		let textSplitted = lyric[0].firstObject.split(/(?=[A-Z])/);
-		let snippet1 = textSplitted[0];
-		console.log(snippet1);
-		let snippet2 = textSplitted[1];
-		console.log(snippet2);
-		let snippet3 = textSplitted[2];
-		console.log(snippet3);
+		let textSplitted = lyric[3].fourthObject.split(/(?=[A-Z])/);
 		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-		song = lyric[0].song;
-		let distractor1 = lyric[0].distractor1;
-		let distractor2 = lyric[0].distractor2;
+		song = lyric[3].song;
+		let distractor1 = lyric[3].distractor1;
+		let distractor2 = lyric[3].distractor2;
 		let alternatives = [song, distractor1, distractor2];
 
 		function randomArrayShuffle(array) {
@@ -43,7 +34,6 @@
 			return array;
 		}
 		let shuffledAlternatives = randomArrayShuffle(alternatives);
-		console.log(shuffledAlternatives);
 
 		let data = {
 			allData: { snippet: snippet, song: song, distractor1: distractor1, distractor2: distractor2 },
@@ -58,19 +48,17 @@
 		let button = event.target.id;
 		if (innerHtml === correct) {
 			document.getElementById(button).style.backgroundColor = 'green';
-			score = score + 1;
-			let audio = new Audio('../static/sounds/correct.wav');
-			audio.play();
+            let audio = new Audio("../static/sounds/correct.wav")
+            audio.play();
 			dispatch('correct');
 		} else {
 			document.getElementById(button).style.backgroundColor = 'red';
-			let audio = new Audio('../static/sounds/wrong.wav');
-			audio.play();
+            let audio = new Audio("../static/sounds/wrong.wav")
+            audio.play();
 			dispatch('wrong');
 		}
 		setTimeout(function () {
 			dispatch('newRound');
-			dispatch('score', score);
 		}, 2000);
 	}
 </script>
@@ -82,20 +70,19 @@
 	</div>
 	<div class="songLyricWrapper" />
 	{#await handleLyrics()}
-		<div class="spinnerContainer">
-			<div class="lds-ring">
-				<div />
-				<div />
-				<div />
-				<div />
-			</div>
-		</div>
+    <div class="spinnerContainer">
+        <div class="lds-ring">
+            <div />
+            <div />
+            <div />
+            <div />
+        </div>
+    </div>
 	{:then data}
 		<div>
 			{#if data.allData.snippet[0].length < 10}
 				<p class="songLyric" style="color: white">
-					{data.allData.snippet[0]}{data.allData.snippet[1]}<br />{data.allData.snippet[2] +
-						data.allData.snippet[3]}
+					{data.allData.snippet[0]}{data.allData.snippet[1]}<br />{data.allData.snippet[2] + data.allData.snippet[3]}
 				</p>
 			{:else if data.allData.snippet[1].length < 10}
 				<p class="songLyric" style="color: white">
@@ -107,6 +94,7 @@
 				</p>
 			{/if}
 		</div>
+
 		<div class="answerAlternatives">
 			<button id="button1" on:click={(event) => buttonClicked(event)}>{data.alts[0]}</button>
 			<button id="button2" on:click={(event) => buttonClicked(event)}>{data.alts[1]}</button>
@@ -116,5 +104,7 @@
 </div>
 
 <style>
+    
+
 	
 </style>

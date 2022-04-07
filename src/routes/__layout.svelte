@@ -1,12 +1,12 @@
 <script>
 	import '../app.css';
-	import Round1 from '../lib/Round1.svelte';
-	import Round2 from '../lib/Round2.svelte';
-	import Round3 from '../lib/Round3.svelte';
-	import Round4 from '../lib/Round4.svelte';
-	import Gamefinished from '../lib/Gamefinished.svelte';
-	import Footer from '../lib/Footer.svelte';
-	import Signin from '../lib/Signin.svelte';
+	import Round1 from '../lib/round1.svelte';
+	import Round2 from '../lib/round2.svelte';
+	import Round3 from '../lib/round3.svelte';
+	import Round4 from '../lib/round4.svelte';
+	import Gamefinished from '../lib/gamefinished.svelte';
+	import Footer from '../lib/footer.svelte';
+	import Signin from '../lib/signin.svelte';
 
 	const round = [
 		{ component: Signin },

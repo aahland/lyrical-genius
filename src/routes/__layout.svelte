@@ -4,7 +4,7 @@
 	import Round2 from '../lib/Round2.svelte';
 	import Round3 from '../lib/Round3.svelte';
 	import Round4 from '../lib/Round4.svelte';
-	import GameFinished from '../lib/Gamefinished.svelte';
+	import Gamefinished from '../lib/Gamefinished.svelte';
 	import Footer from '../lib/Footer.svelte';
 	import Signin from '../lib/Signin.svelte';
 
@@ -14,7 +14,7 @@
 		{ component: Round2 },
 		{ component: Round3 },
 		{ component: Round4 },
-		{ component: GameFinished }
+		{ component: Gamefinished }
 	];
 
 	let i = 0;

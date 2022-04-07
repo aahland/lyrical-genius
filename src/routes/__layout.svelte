@@ -38,8 +38,7 @@
 
 	function restart() {
 		i = 0;
-		score = 0; //laddar samma frågor igen. behöver refresha på ngt annat sätt. location reload inte ok
-		//location.reload();
+		score = 0; 
 	}
 </script>
 

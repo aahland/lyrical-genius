@@ -1,24 +1,32 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { getLyrics } from '../helpers/fetchLyrics';
-	import { answer } from '../helpers/fetchLyrics';
+	import { questions } from '../helpers/store';
+	import { get } from 'svelte/store';
+
 	const dispatch = createEventDispatcher();
-
 	let round = 'Round 3';
+	let score = 0;
 	let lyric;
-	let song;
-	let correct = answer[2].answer3.song;
+	let playerName = localStorage.getItem('Playername');
 
-	async function handleLyrics() {
-		let snippet;
-		lyric = await getLyrics();
-		let textSplitted = lyric[2].thirdObject.split(/(?=[A-Z])/);
-		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-		song = lyric[2].song;
-		let distractor1 = lyric[2].distractor1;
-		let distractor2 = lyric[2].distractor2;
-		let alternatives = [song, distractor1, distractor2];
+	let objects = get(questions);
 
+	let snippet = [];
+	let song1 = '';
+	let artist1 = '';
+	let d1 = '';
+	let d2 = '';
+	let allAlternatives = [];
+	let shuffled = [];
+	let alts = [];
+
+	async function fetchLyrics() {
+		song1 = objects[2].data.song.answer.song;
+		artist1 = objects[2].data.song.answer.artist;
+		d1 = objects[2].data.distractor1;
+		d2 = objects[2].data.distractor2;
+		alts = [song1, d1, d2];
+		allAlternatives = [...allAlternatives, alts];
 		function randomArrayShuffle(array) {
 			var currentIndex = array.length,
 				temporaryValue,
@@ -33,21 +41,53 @@
 
 			return array;
 		}
-		let shuffledAlternatives = randomArrayShuffle(alternatives);
+		shuffled = randomArrayShuffle(alts);
+		let btn = document.getElementById('btn');
+		btn.remove();
+		let head = document.getElementById('head');
+		let header = document.createElement('h1');
+		header.innerHTML = 'Which song is this?';
+		header.style.marginBottom = '0';
+		header.style.marginTop = '0';
+		head.appendChild(header);
+		head.style.borderBottom = '1px solid white';
+		let button1 = document.createElement('button');
+		button1.id = 'button1';
+		button1.innerHTML = alts[0];
+		let alternatives = document.getElementById('alternatives');
+		alternatives.appendChild(button1);
+		button1.addEventListener('click', buttonClicked);
+		let button2 = document.createElement('button');
+		button2.id = 'button2';
+		button2.innerHTML = alts[1];
+		alternatives.appendChild(button2);
+		button2.addEventListener('click', buttonClicked);
+		let button3 = document.createElement('button');
+		button3.id = 'button3';
+		button3.innerHTML = alts[2];
+		alternatives.appendChild(button3);
+		button3.addEventListener('click', buttonClicked);
+		let lyricsWrapper = document.getElementById('lyricsWrapper');
+		lyricsWrapper.style.color = 'white';
 
-		let data = {
-			allData: { snippet: snippet, song: song, distractor1: distractor1, distractor2: distractor2 },
-			alts: shuffledAlternatives
-		};
+		let url = 'https://api.lyrics.ovh/v1/' + artist1 + '/' + song1;
+		let lyrics = await fetch(url);
+		if (!lyrics.ok) {
+			throw new Error(`HTTP error! Status: ${lyric.status}`);
+		}
+		let lyricsResponse = await lyrics.json();
+		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
+		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 
-		return data;
+		return snippet;
 	}
 
 	async function buttonClicked(event) {
 		let innerHtml = event.target.innerHTML;
 		let button = event.target.id;
-		if (innerHtml === correct) {
+		if (innerHtml === song1) {
 			document.getElementById(button).style.backgroundColor = 'green';
+			score = score + 1;
 			let audio = new Audio('../static/sounds/correct.wav');
 			audio.play();
 			dispatch('correct');
@@ -58,52 +98,64 @@
 			dispatch('wrong');
 		}
 		setTimeout(function () {
+			// let stats = [score, playerName]
 			dispatch('newRound');
+			//dispatch('score', score);
+			// io.emit("stats", stats)
 		}, 2000);
 	}
+
+	// shareData();
 </script>
 
-<div class="gameComponent">
-	<div class="gameHeading">
-		<p>{round}</p>
-		<h1>Which song is this?</h1>
+<div id="mainWrapper" class="mainWrapper">
+	<div class="componentWrapper" id="componentWrapper">
+		<p class="round">{round}</p>
+		<div id="head" />
+		<button id="btn" on:click={fetchLyrics}>start round</button>
+		<div class="lyricsWrapper" id="lyricsWrapper">
+			<p>{snippet[0]}</p>
+			<p>{snippet[1]}</p>
+			<p>{snippet[2]}</p>
+			<p>{snippet[3]}</p>
+		</div>
+		<div class="alternatives" id="alternatives" />
 	</div>
-	<div class="songLyricWrapper" />
-	{#await handleLyrics()}
-		<div class="spinnerContainer">
-			<div class="lds-ring">
-				<div />
-				<div />
-				<div />
-				<div />
-			</div>
-		</div>
-	{:then data}
-		<div>
-			{#if data.allData.snippet[0].length < 10}
-				<p class="songLyric" style="color: white">
-					{data.allData.snippet[0]}{data.allData.snippet[1]}<br />{data.allData.snippet[2] +
-						data.allData.snippet[3]}
-				</p>
-			{:else if data.allData.snippet[1].length < 10}
-				<p class="songLyric" style="color: white">
-					{data.allData.snippet[0]}<br />{data.allData.snippet[1] + data.allData.snippet[2]}
-				</p>
-			{:else}
-				<p class="songLyric" style="color: white">
-					{data.allData.snippet[0]}<br />{data.allData.snippet[1]}<br />{data.allData.snippet[2]}
-				</p>
-			{/if}
-		</div>
-
-		<div class="answerAlternatives">
-			<button id="button1" on:click={(event) => buttonClicked(event)}>{data.alts[0]}</button>
-			<button id="button2" on:click={(event) => buttonClicked(event)}>{data.alts[1]}</button>
-			<button id="button3" on:click={(event) => buttonClicked(event)}>{data.alts[2]}</button>
-		</div>
-	{/await}
 </div>
 
 <style>
-	
+	#head {
+		color: white;
+		font-family: sans-serif;
+		text-align: center;
+	}
+
+	.mainWrapper {
+		color: white;
+	}
+
+	.alternatives {
+		color: white;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-family: sans-serif;
+	}
+
+	.lyricsWrapper {
+		color: black;
+		text-align: center;
+	}
+
+	.componentWrapper {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.round {
+		color: white;
+		text-align: center;
+		margin-bottom: 0;
+		font-family: sans-serif;
+	}
 </style>

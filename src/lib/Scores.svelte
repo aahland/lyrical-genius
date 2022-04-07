@@ -63,10 +63,6 @@
 </div>
 
 <style>
-	p {
-		color: white;
-		margin-bottom: 0px;
-	}
 
 	#displayScoresBtn {
 		margin-top: 50px;

@@ -4,7 +4,7 @@
 	import Round2 from '../lib/Round2.svelte';
 	import Round3 from '../lib/Round3.svelte';
 	import Round4 from '../lib/Round4.svelte';
-	import GameFinished from '../lib/gameFinished.svelte';
+	import GameFinished from '../lib/GameFinished.svelte';
 	import Footer from '../lib/footer.svelte';
 	import Signin from '../lib/Signin.svelte';
 

@@ -1,12 +1,12 @@
 <script>
 	import '../app.css';
-	import Round1 from '../lib/Round1.svelte';
-	import Round2 from '../lib/Round2.svelte';
-	import Round3 from '../lib/Round3.svelte';
-	import Round4 from '../lib/Round4.svelte';
-	import GameFinished from '../lib/gameFinished.svelte';
-	import Footer from '../lib/footer.svelte';
-	import Signin from '../lib/Signin.svelte';
+	import Round1 from '../lib/round-1.svelte';
+	import Round2 from '../lib/round-2.svelte';
+	import Round3 from '../lib/round-3.svelte';
+	import Round4 from '../lib/round-4.svelte';
+	import Gamefinished from '../lib/game-finished.svelte';
+	import Footer from '../lib/footr.svelte';
+	import Signin from '../lib/sign-in.svelte';
 
 	const round = [
 		{ component: Signin },
@@ -14,7 +14,7 @@
 		{ component: Round2 },
 		{ component: Round3 },
 		{ component: Round4 },
-		{ component: GameFinished }
+		{ component: Gamefinished }
 	];
 
 	let i = 0;
@@ -38,8 +38,7 @@
 
 	function restart() {
 		i = 0;
-		score = 0; //laddar samma frågor igen. behöver refresha på ngt annat sätt. location reload inte ok
-		//location.reload();
+		score = 0; 
 	}
 </script>
 

@@ -1,5 +1,5 @@
 <script>
-	export let score;
+	
 	import { createEventDispatcher } from 'svelte';
 	import { storedStats } from '../helpers/store';
 	import { get } from 'svelte/store';
@@ -74,11 +74,6 @@
 		color: white;
 	}
 
-	p {
-		color: white;
-		text-align: center;
-		font-size: 20px;
-	}
 
 	h1 {
 		color: white;

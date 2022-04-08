@@ -90,12 +90,6 @@
 		margin-top: 50px;
 	}
 
-	.welcome {
-		color: white;
-		text-align: center;
-		font-family: sans-serif;
-	}
-
 	.signInWrapper {
 		display: flex;
 		flex-direction: column;

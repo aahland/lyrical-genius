@@ -5,7 +5,7 @@
 	import Round3 from '../lib/round-3.svelte';
 	import Round4 from '../lib/round-4.svelte';
 	import Gamefinished from '../lib/game-finished.svelte';
-	import Footer from '../lib/footer.svelte';
+	import Footer from '../lib/footr.svelte';
 	import Signin from '../lib/sign-in.svelte';
 
 	const round = [

@@ -22,11 +22,11 @@
 
 	async function shareData() {
 		let number = Math.floor(Math.random() * 3);
-		let number2 = Math.floor(Math.random() * 7);
-		let number3 = Math.floor(Math.random() * 7);
+		// let number2 = Math.floor(Math.random() * 7);
+		// let number3 = Math.floor(Math.random() * 7);
 		let song = answer[number];
-		let distractor1 = distractors[number2];
-		let distractor2 = distractors[number3];
+		let distractor1 = distractors[0];
+		let distractor2 = distractors[1];
 		data2 = { song: song, distractor1: distractor1, distractor2: distractor2 };
 		io.emit('data', data2); //sends the data
 	}

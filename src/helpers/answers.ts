@@ -1,4 +1,3 @@
-import { onMount } from "svelte";
 
 let answers = [
 	{ song: "Sultans of swing", artist: "dire straits" },
@@ -91,10 +90,10 @@ export function getRandomAnswer() {
 		randomNumber4 = getRandomNumber();
 	} 
 	let answer = [
-		{ answer1: answers[randomNumber1] },
-		{ answer2: answers[randomNumber2] },
-		{ answer3: answers[randomNumber3] },
-		{ answer4: answers[randomNumber4] }
+		{ answer: answers[randomNumber1] },
+		{ answer: answers[randomNumber2] },
+		{ answer: answers[randomNumber3] },
+		{ answer: answers[randomNumber4] }
 	]
 
 	return answer;

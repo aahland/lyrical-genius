@@ -16,40 +16,37 @@ let distractors = [
 ];
 
 function getRandomDistractor() {
-	return Math.floor(Math.random() * distractors.length);
+	let random1 = Math.floor(Math.random() * distractors.length);
+	let random2 = random1 + 1
+	if (random2 > distractors.length) {
+		random2 = 0
+	}
+	let randomNumbers = [random1, random2]
+	return randomNumbers
 }
 
+
+
 export function getRandomDistractors() {
-	let randomNumber1 = getRandomDistractor();
+	let randomNumber = getRandomDistractor();
+	let r1 = randomNumber[0];
+	let r2 = randomNumber[1];
+
 	let randomNumber2 = getRandomDistractor();
-	if (randomNumber2 === randomNumber1) {
-		randomNumber2 = randomNumber1 + 1
-	}
+	let r3 = randomNumber2[0];
+	let r4 = randomNumber2[1];
+
 	let randomNumber3 = getRandomDistractor();
-	if (randomNumber3 === randomNumber2) {
-		randomNumber3 = randomNumber2 + 1
-	}
+	let r5 = randomNumber3[0];
+	let r6 = randomNumber3[1];
+
 	let randomNumber4 = getRandomDistractor();
-	if (randomNumber4 === randomNumber3) {
-		randomNumber4 = randomNumber3 + 1
-	}
-	let randomNumber5 = getRandomDistractor();
-	if (randomNumber5 === randomNumber4) {
-		randomNumber5 = randomNumber4 + 1
-	}
-	let randomNumber6 = getRandomDistractor();
-	if (randomNumber6 === randomNumber5) {
-		randomNumber6 = randomNumber5 + 1
-	}
-	let randomNumber7 = getRandomDistractor();
-	if (randomNumber7 === randomNumber6) {
-		randomNumber7 = randomNumber6 + 1
-	}
-	let randomNumber8 = getRandomDistractor();
-	if (randomNumber8 === randomNumber7) {
-		randomNumber8 = randomNumber7 + 1
-	}
-	let eightDistractors = [distractors[randomNumber1], distractors[randomNumber2], distractors[randomNumber3], distractors[randomNumber4], distractors[randomNumber5], distractors[randomNumber6], distractors[randomNumber7], distractors[randomNumber8]]
+	let r7 = randomNumber4[0];
+	let r8 = randomNumber4[1];
+
+
+
+	let eightDistractors = [distractors[r1], distractors[r2], distractors[r3], distractors[r4], distractors[r5], distractors[r6], distractors[r7], distractors[r8]]
 
 	return eightDistractors;
 

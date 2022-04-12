@@ -16,38 +16,32 @@ let distractors = [
 ];
 
 function getRandomDistractor() {
-	let random1 = Math.floor(Math.random() * distractors.length);
-	let random2 = random1 + 1
-	if (random2 > distractors.length) {
-		random2 = 0
+	let randomNumber1 = Math.floor(Math.random() * distractors.length);
+	let randomNumber2 = randomNumber1 + 1
+	if (randomNumber2 > distractors.length) {
+		randomNumber2 = 0
 	}
-	let randomNumbers = [random1, random2]
+	let randomNumbers = [randomNumber1, randomNumber2]
 	return randomNumbers
 }
 
-
-
 export function getRandomDistractors() {
-	let randomNumber = getRandomDistractor();
-	let r1 = randomNumber[0];
-	let r2 = randomNumber[1];
+	let randomNumbers = getRandomDistractor();
+	let r1 = randomNumbers[0];
+	let r2 = randomNumbers[1];
 
-	let randomNumber2 = getRandomDistractor();
-	let r3 = randomNumber2[0];
-	let r4 = randomNumber2[1];
+	let randomNumbers2 = getRandomDistractor();
+	let r3 = randomNumbers2[0];
+	let r4 = randomNumbers2[1];
 
-	let randomNumber3 = getRandomDistractor();
-	let r5 = randomNumber3[0];
-	let r6 = randomNumber3[1];
+	let randomNumbers3 = getRandomDistractor();
+	let r5 = randomNumbers3[0];
+	let r6 = randomNumbers3[1];
 
-	let randomNumber4 = getRandomDistractor();
-	let r7 = randomNumber4[0];
-	let r8 = randomNumber4[1];
-
-
-
+	let randomNumbers4 = getRandomDistractor();
+	let r7 = randomNumbers4[0];
+	let r8 = randomNumbers4[1];
 	
-
 	let eightDistractors = [distractors[r1], distractors[r2], distractors[r3], distractors[r4], distractors[r5], distractors[r6], distractors[r7], distractors[r8]]
 	
 	

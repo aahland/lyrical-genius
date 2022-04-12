@@ -24,7 +24,6 @@
 	function sendMessage() {
 		storedStats.set([]);
 		const message = textfield.trim();
-		console.log(message);
 		let btn = document.getElementById('btn');
 		let input = document.getElementById('input');
 		input.style.visibility = 'hidden';
@@ -43,7 +42,7 @@
 		on:submit|preventDefault={sendMessage}
 		class="px-6 py-4 border-t border-zinc-800 bg-zinc-700 text-white shrink-0 flex items-center"
 	>
-		<div class="signInWrapper">
+		<div class="signInWrapper" id="signInWrapper">
 			<input
 				id="input"
 				type="text"

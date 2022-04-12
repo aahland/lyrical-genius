@@ -18,7 +18,7 @@
 	let data;
 
 	async function shareData() {
-		let number = Math.floor(Math.random() * 3);
+		let number = Math.floor(Math.random() * answer.length);
 		let song = answer[number];
 		let distractor1 = distractors[0];
 		let distractor2 = distractors[1];

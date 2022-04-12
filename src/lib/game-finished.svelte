@@ -32,7 +32,6 @@
 
 
 		storeData.splice(0,1);
-		console.log(storeData);
 
 		let ob1 = parseInt(storeData[0].finalScores[0].score);
 		storeData[0].finalScores[0].score = ob1;
@@ -44,16 +43,16 @@
 		storeData[3].finalScores[0].score = ob4;
 
 		let finalScores = storeData;
-		console.log(finalScores);
+		
 
 		let sortedFinal = finalScores;
 
 		let sortedResults = sortedFinal.sort((a, b) => {
-			console.log("sorting")
+			
 		return  b.finalScores[0].score - a.finalScores[0].score;
 		});
 
-		console.log(sortedResults);
+	
 		playersReady.remove();
 		waiting.remove();
 

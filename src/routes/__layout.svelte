@@ -7,6 +7,7 @@
 	import Gamefinished from '../lib/game-finished.svelte';
 	import Footer from '../lib/footr.svelte';
 	import Signin from '../lib/sign-in.svelte';
+	import { storedStats } from '../helpers/store';
 
 	const round = [
 		{ component: Signin },
@@ -18,11 +19,9 @@
 	];
 
 	let i = 0;
-	let stats;
 
 	function newRound() {
 		i = i + 1;
-		console.log(i);
 	}
 
 	function gameFinished() {
@@ -38,6 +37,7 @@
 
 	function restart() {
 		i = 0;
+		storedStats.set([]);
 		score = 0;
 	}
 </script>
@@ -49,9 +49,7 @@
 			on:newRound={newRound}
 			on:gameFinished={gameFinished}
 			on:correct={addToScore}
-			{score}
 			on:restartGame={restart}
-			{stats}
 		/>
 	</main>
 	<Footer />

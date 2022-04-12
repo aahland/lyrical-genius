@@ -7,7 +7,6 @@
 	let round = 'Round 3';
 	let score = 0;
 	let lyric;
-	let playerName = localStorage.getItem('Playername');
 
 	let objects = get(questions);
 
@@ -81,7 +80,7 @@
 
 		if(textSplitted[0].includes("Paroles")){
 			lyricsWrapper.style.visibility = "hidden";
-			console.log("We got paroles");
+			
 			let lyrics = await fetch(url);
 			let lyricsResponse = await lyrics.json();
 			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
@@ -89,7 +88,7 @@
 			
 			if(textSplitted[0].includes("Paroles")){
 			lyricsWrapper.style.visibility = "hidden";
-			console.log("We got paroles");
+			
 			let lyrics = await fetch(url);
 			let lyricsResponse = await lyrics.json();
 			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
@@ -117,14 +116,11 @@
 			dispatch('wrong');
 		}
 		setTimeout(function () {
-			// let stats = [score, playerName]
 			dispatch('newRound');
-			//dispatch('score', score);
-			// io.emit("stats", stats)
 		}, 2000);
 	}
 
-	// shareData();
+
 </script>
 
 <div id="mainWrapper" class="mainWrapper">

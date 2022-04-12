@@ -1,15 +1,12 @@
 <script>
 	import { io } from '$lib/realtime';
-
 	import { createEventDispatcher } from 'svelte';
 	import { storedStats, questions } from '../helpers/store';
 	import { get } from 'svelte/store';
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 4';
-	let score = 0;
 	let lyric;
-	let playerName = localStorage.getItem('Playername');
 
 	let objects = get(questions);
 
@@ -79,7 +76,7 @@
 		let lyricsWrapper = document.getElementById('lyricsWrapper');
 		lyricsWrapper.style.color = 'white';
 
-		console.log(song1);
+	
 		let url = 'https://api.lyrics.ovh/v1/' + artist1 + '/' + song1;
 		let lyrics = await fetch(url);
 		if (!lyrics.ok) {
@@ -88,11 +85,9 @@
 		let lyricsResponse = await lyrics.json();
 		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-		console.log(snippet);
-
+		
 		if (textSplitted[0].includes('Paroles')) {
-			lyricsWrapper.style.visibility = 'hidden';	
-			console.log('We got paroles');
+			lyricsWrapper.style.visibility = 'hidden';
 			let lyrics = await fetch(url);
 			let lyricsResponse = await lyrics.json();
 			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
@@ -100,7 +95,6 @@
 
 			if (textSplitted[0].includes('Paroles')) {
 				lyricsWrapper.style.visibility = 'hidden';
-				console.log('We got paroles');
 				let lyrics = await fetch(url);
 				let lyricsResponse = await lyrics.json();
 				let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
@@ -116,11 +110,9 @@
 		let button = event.target.id;
 		if (innerHtml === song1) {
 			document.getElementById(button).style.backgroundColor = 'green';
-			//score = score + 1;
 			let audio = new Audio('../static/sounds/correct.wav');
 			audio.play();
 			dispatch('correct');
-			//console.log(score);
 		} else {
 			document.getElementById(button).style.backgroundColor = 'red';
 			let audio = new Audio('../static/sounds/wrong.wav');
@@ -128,15 +120,9 @@
 			dispatch('wrong');
 		}
 		setTimeout(function () {
-			// let stats = [score, playerName]
-			// console.log(stats);
 			dispatch('newRound');
-			//dispatch('score', score);
-			// io.emit("stats", stats)
-			// console.log(stats);
 			let componentWrapper = document.getElementById('componentWrapper');
 			componentWrapper.remove();
-
 			let name = localStorage.getItem('Playername');
 			let score = localStorage.getItem('Score');
 			let finalScores = { name, score };

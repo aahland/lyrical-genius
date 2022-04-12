@@ -30,29 +30,25 @@
 		if (clicked.length === 4){
 		let storeData = get(storedStats);
 
-
 		storeData.splice(0,1);
 
-		let ob1 = parseInt(storeData[0].finalScores[0].score);
-		storeData[0].finalScores[0].score = ob1;
-		let ob2 = parseInt(storeData[1].finalScores[0].score);
-		storeData[1].finalScores[0].score = ob2;
-		let ob3 = parseInt(storeData[2].finalScores[0].score);
-		storeData[2].finalScores[0].score = ob3;
-		let ob4 = parseInt(storeData[3].finalScores[0].score);
-		storeData[3].finalScores[0].score = ob4;
+		let scoreOne = parseInt(storeData[0].finalScores[0].score);
+		storeData[0].finalScores[0].score = scoreOne;
+		let scoreTwo = parseInt(storeData[1].finalScores[0].score);
+		storeData[1].finalScores[0].score = scoreTwo;
+		let scoreThree = parseInt(storeData[2].finalScores[0].score);
+		storeData[2].finalScores[0].score = scoreThree;
+		let scoreFour = parseInt(storeData[3].finalScores[0].score);
+		storeData[3].finalScores[0].score = scoreFour;
 
 		let finalScores = storeData;
 		
-
 		let sortedFinal = finalScores;
 
 		let sortedResults = sortedFinal.sort((a, b) => {
-			
-		return  b.finalScores[0].score - a.finalScores[0].score;
+			return  b.finalScores[0].score - a.finalScores[0].score;
 		});
 
-	
 		playersReady.remove();
 		waiting.remove();
 
@@ -96,7 +92,6 @@
 <div class="score">
 	<div class="stylistic-line">
 		<h1>Score</h1>
-		
 	</div>
 	<div>
 		<p id="waiting"></p>

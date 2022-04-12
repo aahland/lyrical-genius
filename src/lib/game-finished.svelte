@@ -60,7 +60,7 @@
 		scores.appendChild(firstPlace);
 		score1.id = "score1";
 		score1.innerHTML =
-			sortedResults[0].finalScores[0].name + ': ' + storeData[0].finalScores[0].score;
+			sortedResults[0].finalScores[0].name + ': ' + storeData[0].finalScores[0].score + " points";
 		score1.style.border = "solid #198dc1 3px";
 		score1.style.borderRadius = "10px";
 		score1.style.padding = "5px 10px 5px 20px";
@@ -86,7 +86,7 @@
 		let secondPlace = document.createElement('div');
 		scores.appendChild(secondPlace);
 		score2.innerHTML =
-			sortedResults[1].finalScores[0].name + ': ' + storeData[1].finalScores[0].score;
+			sortedResults[1].finalScores[0].name + ': ' + storeData[1].finalScores[0].score + " points";
 			score2.style.border = "solid #198dc1 3px";
 		score2.style.borderRadius = "10px";
 		score2.style.padding = "5px 10px 5px 20px";
@@ -111,7 +111,7 @@
 		let thirdPlace = document.createElement('div');
 		scores.appendChild(thirdPlace);
 		score3.innerHTML =
-			sortedResults[2].finalScores[0].name + ': ' + storeData[2].finalScores[0].score;
+			sortedResults[2].finalScores[0].name + ': ' + storeData[2].finalScores[0].score + " points";
 		score3.style.border = "solid #198dc1 3px";
 		score3.style.borderRadius = "10px";
 		score3.style.padding = "5px 10px 5px 20px";
@@ -136,7 +136,7 @@
 		let forthPlace = document.createElement('div');
 		scores.appendChild(forthPlace);
 		score4.innerHTML =
-			sortedResults[3].finalScores[0].name + ': ' + storeData[3].finalScores[0].score;
+			sortedResults[3].finalScores[0].name + ': ' + storeData[3].finalScores[0].score + " points";
 		score4.style.border = "solid #198dc1 3px";
 		score4.style.borderRadius = "10px";
 		score4.style.padding = "5px 10px 5px 20px";

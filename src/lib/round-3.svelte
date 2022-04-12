@@ -7,7 +7,6 @@
 	let round = 'Round 3';
 	let score = 0;
 	let lyric;
-	let playerName = localStorage.getItem('Playername');
 
 	let objects = get(questions);
 
@@ -79,6 +78,25 @@
 		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 
+		if(textSplitted[0].includes("Paroles")){
+			lyricsWrapper.style.visibility = "hidden";
+			
+			let lyrics = await fetch(url);
+			let lyricsResponse = await lyrics.json();
+			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
+			snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+			
+			if(textSplitted[0].includes("Paroles")){
+			lyricsWrapper.style.visibility = "hidden";
+			
+			let lyrics = await fetch(url);
+			let lyricsResponse = await lyrics.json();
+			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
+			snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+			
+		}
+		}
+		lyricsWrapper.style.visibility = "visible";
 		return snippet;
 	}
 
@@ -98,14 +116,11 @@
 			dispatch('wrong');
 		}
 		setTimeout(function () {
-			// let stats = [score, playerName]
 			dispatch('newRound');
-			//dispatch('score', score);
-			// io.emit("stats", stats)
 		}, 2000);
 	}
 
-	// shareData();
+
 </script>
 
 <div id="mainWrapper" class="mainWrapper">

@@ -3,6 +3,7 @@
 	const dispatch = createEventDispatcher();
 	import { io } from '$lib/realtime';
 	import { onMount } from 'svelte';
+	import { storedStats } from '../helpers/store';
 
 	let textfield = '';
 	let messages = [];
@@ -15,13 +16,13 @@
 
 	onMount(() => {
 		io.on('message', (message) => {
-			// Listen to the message event
 			messages = [...messages, message];
 			startGame();
 		});
 	});
 
 	function sendMessage() {
+		storedStats.set([]);
 		const message = textfield.trim();
 		console.log(message);
 		let btn = document.getElementById('btn');
@@ -32,7 +33,7 @@
 		localStorage.setItem('Playername', message);
 		localStorage.setItem('Score', '0');
 		textfield = '';
-		io.emit('message', message); // Send the message
+		io.emit('message', message); 
 	}
 </script>
 

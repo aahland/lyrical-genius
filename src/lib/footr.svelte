@@ -77,17 +77,23 @@
       border-right: 19px solid transparent;
       border-top: 20px solid black;
 }
+@media screen and (min-width: 768px) {
+  .footer {
+    height: 300px;
+ 
+  }
+}
 
 @media screen and (min-width: 1024px) {
   .footer {
-    height: 200px;
+    height: 300px;
  
   }
 }
 
 @media screen and (min-width: 1440px) {
   .footer {
-    height: 200px;
+    height: 280px;
     
   }
 }

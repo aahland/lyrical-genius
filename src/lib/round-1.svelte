@@ -124,7 +124,6 @@
 			document.getElementById(button).style.backgroundColor = 'red';
 			let audio = new Audio('../static/sounds/wrong.wav');
 			audio.play();
-			dispatch('wrong');
 		}
 		setTimeout(function () {
 			dispatch('newRound');

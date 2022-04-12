@@ -98,7 +98,24 @@
 		let lyricsResponse = await lyrics.json();
 		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-
+		if(textSplitted[0].includes("Paroles")){
+			lyricsWrapper.style.visibility = "hidden";
+			console.log("We got paroles");
+			let lyrics = await fetch(url);
+			let lyricsResponse = await lyrics.json();
+			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
+			snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+			
+			if(textSplitted[0].includes("Paroles")){
+			console.log("We got paroles");
+			let lyrics = await fetch(url);
+			let lyricsResponse = await lyrics.json();
+			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
+			snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+			
+		}
+		}
+		lyricsWrapper.style.visibility = "visible";
 		return snippet;
 	}
 

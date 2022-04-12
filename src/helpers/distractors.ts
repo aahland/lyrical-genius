@@ -49,7 +49,7 @@ export function getRandomDistractors() {
 	
 
 	let eightDistractors = [distractors[r1], distractors[r2], distractors[r3], distractors[r4], distractors[r5], distractors[r6], distractors[r7], distractors[r8]]
-	console.log(eightDistractors);
+	
 	
 	return eightDistractors;
 

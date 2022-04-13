@@ -32,7 +32,7 @@
 		localStorage.setItem('Playername', message);
 		localStorage.setItem('Score', '0');
 		textfield = '';
-		io.emit('message', message); 
+		io.emit('message', message);
 	}
 </script>
 
@@ -40,7 +40,6 @@
 	<form
 		action="#"
 		on:submit|preventDefault={sendMessage}
-		class="px-6 py-4 border-t border-zinc-800 bg-zinc-700 text-white shrink-0 flex items-center"
 	>
 		<div class="signInWrapper" id="signInWrapper">
 			<input
@@ -48,23 +47,19 @@
 				type="text"
 				bind:value={textfield}
 				placeholder="Enter your name..."
-				class="bg-transparent border-none px-4 py-3 w-full"
 			/>
-			<button id="btn" type="submit" class="shrink-0 border border-white rounded-lg px-4 py-3"
+			<button id="btn" type="submit"
 				>Join</button
 			>
 		</div>
 	</form>
 
 	<div class="usernames">
-		<div class="h-full w-full max-w-md mx-auto bg-zinc-500 flex flex-col">
-			<header
-				class="px-6 py-4 border-b border-zinc-800 bg-zinc-700 text-white shrink-0 flex items-center justify-between"
-			>
-				<span class="font-bold text-xl">Waiting for players..</span>
+		<div>
+			<header>
+				<span class="wait">Waiting for players..</span>
 			</header>
-
-			<div class="h-full w-full p-4">
+			<div>
 				{#each messages as message}
 					<div class="messages">
 						<span class="flex items-center space-between gap-4">
@@ -97,5 +92,9 @@
 
 	.messages {
 		color: white;
+	}
+
+	.wait {
+		font-family: sans-serif;
 	}
 </style>

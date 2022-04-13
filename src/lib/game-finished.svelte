@@ -3,6 +3,8 @@
 	import { storedStats } from '../helpers/store';
 	import { get } from 'svelte/store';
 	import { io } from '$lib/realtime';
+	import '../styles/vars.scss';
+
 
 	const dispatch = createEventDispatcher();
 
@@ -160,6 +162,7 @@
 		let buttonWrapper = document.getElementById('buttonWrapper');
 		let restartBtn = document.createElement('button');
 		restartBtn.innerHTML = 'Play Again';
+		restartBtn.className = "button";
 		buttonWrapper.appendChild(restartBtn);
 		restartBtn.onclick = restartGame;
 		let sendScoresBtn = document.getElementById('sendScoresBtn');
@@ -185,7 +188,7 @@
 	</div>
 	<div class="scores" id="scores" />
 	<div id="buttonWrapper">
-		<button id="sendScoresBtn" on:click={sendScores}>Hand in your score</button>
+		<button id="sendScoresBtn" class="button" on:click={sendScores}>Hand in your score</button>
 	</div>
 </div>
 

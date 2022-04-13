@@ -53,10 +53,11 @@
 </div>
 
 
-<style>
+<style type="text/scss">
+   @import '../styles/vars.scss';
 
 .footer {
-    background-color: #198dc1;
+    background-color: $maincolor;
     width: 100vw;
     height: 230px;
     position: sticky;

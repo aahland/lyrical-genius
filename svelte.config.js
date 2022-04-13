@@ -1,11 +1,15 @@
 import adapter from '@sveltejs/adapter-auto';
 import cloudflare from '@sveltejs/adapter-cloudflare'
 import { Server } from 'socket.io';
+import preprocessor from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
+	preprocess: preprocessor(),
 	kit: {
 		adapter: cloudflare(),
+		
+			
 		vite: {
 			plugins: [
 				{
@@ -58,6 +62,7 @@ const config = {
 				}
 			]
 		},
+		
 
 		// Override http methods in the Todo forms
 		methodOverride: {

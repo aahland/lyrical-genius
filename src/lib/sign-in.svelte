@@ -1,9 +1,11 @@
 <script>
+	import '../styles/vars.scss';
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 	import { io } from '$lib/realtime';
 	import { onMount } from 'svelte';
 	import { storedStats } from '../helpers/store';
+	
 
 	let textfield = '';
 	let messages = [];
@@ -50,7 +52,7 @@
 				placeholder="Enter your name..."
 				class="bg-transparent border-none px-4 py-3 w-full"
 			/>
-			<button id="btn" type="submit" class="shrink-0 border border-white rounded-lg px-4 py-3"
+			<button id="btn" class="button" type="submit"
 				>Join</button
 			>
 		</div>
@@ -84,11 +86,6 @@
 		margin-top: 50px;
 	}
 
-	.usernames {
-		color: white;
-		text-align: center;
-		margin-top: 50px;
-	}
 
 	.signInWrapper {
 		display: flex;
@@ -98,4 +95,10 @@
 	.messages {
 		color: white;
 	}
+
+	.usernames {
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+}
 </style>

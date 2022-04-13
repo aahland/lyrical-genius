@@ -3,6 +3,8 @@
 	import { createEventDispatcher } from 'svelte';
 	import { storedStats, questions } from '../helpers/store';
 	import { get } from 'svelte/store';
+	import '../styles/vars.scss';
+
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 4';
@@ -59,17 +61,20 @@
 		head.style.borderBottom = '1px solid white';
 		let button1 = document.createElement('button');
 		button1.id = 'button1';
+		button1.className = "button";
 		button1.innerHTML = alts[0];
 		let alternatives = document.getElementById('alternatives');
 		alternatives.appendChild(button1);
 		button1.addEventListener('click', buttonClicked);
 		let button2 = document.createElement('button');
 		button2.id = 'button2';
+		button2.className = "button";
 		button2.innerHTML = alts[1];
 		alternatives.appendChild(button2);
 		button2.addEventListener('click', buttonClicked);
 		let button3 = document.createElement('button');
 		button3.id = 'button3';
+		button3.className = "button";
 		button3.innerHTML = alts[2];
 		alternatives.appendChild(button3);
 		button3.addEventListener('click', buttonClicked);
@@ -105,6 +110,24 @@
 		return snippet;
 	}
 
+	async function displayLyrics() {
+		await fetchLyrics();
+		let lyricsWrapper = document.getElementById('lyricsWrapper')
+		let snippet1 = document.createElement('p');
+		snippet1.innerHTML = snippet[0];
+		lyricsWrapper.appendChild(snippet1);
+		let snippet2 = document.createElement('p');
+		snippet2.innerHTML = snippet[1];
+		lyricsWrapper.appendChild(snippet2);
+		let snippet3 = document.createElement('p');
+		snippet3.innerHTML = snippet[2];
+		lyricsWrapper.appendChild(snippet3);
+		let snippet4 = document.createElement('p');
+		snippet4.innerHTML = snippet[3];
+		lyricsWrapper.appendChild(snippet4);
+
+	}
+
 	async function buttonClicked(event) {
 		let innerHtml = event.target.innerHTML;
 		let button = event.target.id;
@@ -134,50 +157,14 @@
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">{round}</p>
 		<div id="head" />
-		<button id="btn" on:click={fetchLyrics}>start round</button>
+		<button id="btn" class="button" on:click={displayLyrics}>start round</button>
 		<div class="lyricsWrapper" id="lyricsWrapper">
-			<p>{snippet[0]}</p>
-			<p>{snippet[1]}</p>
-			<p>{snippet[2]}</p>
-			<p>{snippet[3]}</p>
+
 		</div>
 		<div class="alternatives" id="alternatives" />
 	</div>
 </div>
 
 <style>
-	#head {
-		color: white;
-		font-family: sans-serif;
-		text-align: center;
-	}
-
-	.mainWrapper {
-		color: white;
-	}
-
-	.alternatives {
-		color: white;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		font-family: sans-serif;
-	}
-
-	.lyricsWrapper {
-		color: black;
-		text-align: center;
-	}
-
-	.componentWrapper {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.round {
-		color: white;
-		text-align: center;
-		margin-bottom: 0;
-		font-family: sans-serif;
-	}
+	
 </style>

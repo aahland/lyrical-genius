@@ -1,0 +1,147 @@
+$maincolor: #198dc1;
+$maincolorHover: #0b6088;
+
+// Button
+
+.button {
+    margin-top: 15px;
+    background-color: #198dc1;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.button:hover {
+    background-color: #0b6088;
+}
+
+
+// STYLES FOR GAME COMPONENTS (ROUND 1-4)
+
+#head {
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.mainWrapper {
+    color: white;
+}
+
+.alternatives {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.lyricsWrapper {
+    color: black;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.componentWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.round {
+color: white;
+text-align: center;
+margin-bottom: 0;
+font-family: sans-serif;
+}
+
+.gameComponent {
+    width: 375px;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    background-color: black;
+    padding: 10px 20px 20px 20px;
+    font-family: sans-serif;
+    
+    
+}
+
+.gameHeading {
+    border-bottom: 1px solid white;
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.gameHeading > h1 {
+    margin-bottom: 0;
+    margin-top: 0px;
+    font-size: 24px;
+}
+
+.gameHeading > p {
+    margin-bottom: 0px;
+}
+
+.songLyricWrapper {
+    width: 300px;
+    text-align: center;
+    color: white;
+}
+
+.songLyric {
+    text-align: center;
+    font-size: 20px;
+}
+
+.answerAlternatives {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+}
+
+
+.spinnerContainer {
+    position: relative;
+    left: 125px;
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

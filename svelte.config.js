@@ -50,6 +50,14 @@ const config = {
 
 							});
 
+							socket.on('start', (start) => {
+								io.emit('start', {
+									start
+
+								});
+
+							});
+
 
 						});
 

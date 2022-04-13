@@ -13,10 +13,34 @@
 
 	io.on('data', (data) => {
 		objects = [...objects, data];
+		console.log(objects);
 		questions.set(objects);
 	});
 
 	let data;
+
+	let starts = [];
+
+	io.on('start', (start) => {
+		starts = [...starts, start]
+		let waiting = document.getElementById("waiting");
+		waiting.innerHTML = "waiting for other players"
+		let playersReady = document.getElementById("playersReady");
+		if (starts.length === 1) {
+			playersReady.innerHTML = "1/4";
+		}
+		if (starts.length === 2) {
+			playersReady.innerHTML = "2/4";
+		}
+		if (starts.length === 3) {
+			playersReady.innerHTML = "3/4";
+		}
+		if (starts.length === 4){
+		waiting.remove();
+		playersReady.remove();
+		displayLyrics()
+		}
+	});
 
 	async function shareData() {
 		let number = Math.floor(Math.random() * answer.length);
@@ -136,6 +160,14 @@
 
 	}
 
+	function startRound(){
+		let start = "start";
+		io.emit("start", start)
+		let btn = document.getElementById('btn');
+		btn.style.height = "0px";
+		btn.style.visibility = "hidden";
+	}
+
 	
 	async function buttonClicked(event) {
 		let innerHtml = event.target.innerHTML;
@@ -161,7 +193,11 @@
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">{round}</p>
 		<div id="head" />
-		<button id="btn" class="button" on:click={displayLyrics}>start round</button>
+		<button id="btn" class="button" on:click={startRound}>start round</button>
+		<div class="waitingForPlayers">
+			<p id="waiting"></p>
+			<p id="playersReady"></p>
+		</div>
 		<div class="lyricsWrapper" id="lyricsWrapper">
 			
 		</div>
@@ -203,5 +239,15 @@
 		text-align: center;
 		margin-bottom: 0;
 		font-family: sans-serif;
+	}
+
+	.waitingForPlayers {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	#playersReady {
+		margin-top: 0px;
 	}
 </style>

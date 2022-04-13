@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { questions } from '../helpers/store';
 	import { get } from 'svelte/store';
-	
+	import { io } from '$lib/realtime';
 
 
 	const dispatch = createEventDispatcher();
@@ -20,6 +20,29 @@
 	let allAlternatives = [];
 	let shuffled = [];
 	let alts = [];
+
+	let starts = [];
+
+	io.on('start', (start) => {
+		starts = [...starts, start]
+		let waiting = document.getElementById("waiting");
+		waiting.innerHTML = "waiting for other players"
+		let playersReady = document.getElementById("playersReady");
+		if (starts.length === 1) {
+			playersReady.innerHTML = "1/4";
+		}
+		if (starts.length === 2) {
+			playersReady.innerHTML = "2/4";
+		}
+		if (starts.length === 3) {
+			playersReady.innerHTML = "3/4";
+		}
+		if (starts.length === 4){
+		waiting.remove();
+		playersReady.remove();
+		displayLyrics()
+		}
+	});
 
 	async function fetchLyrics() {
 		song1 = objects[2].data.song.answer.song;
@@ -121,6 +144,13 @@
 
 	}
 
+	function startRound(){
+		let start = "start";
+		io.emit("start", start)
+		let btn = document.getElementById('btn');
+		btn.style.visibility = "hidden";
+	}
+
 	async function buttonClicked(event) {
 		let innerHtml = event.target.innerHTML;
 		let button = event.target.id;
@@ -147,7 +177,11 @@
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">{round}</p>
 		<div id="head" />
-		<button id="btn" class="button" on:click={displayLyrics}>start round</button>
+		<button id="btn" class="button" on:click={startRound}>start round</button>
+		<div class="waitingForPlayers">
+			<p id="waiting"></p>
+			<p id="playersReady"></p>
+		</div>
 		<div class="lyricsWrapper" id="lyricsWrapper">
 		</div>
 		<div class="alternatives" id="alternatives" />
@@ -188,5 +222,15 @@
 		text-align: center;
 		margin-bottom: 0;
 		font-family: sans-serif;
+	}
+
+	.waitingForPlayers {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	#playersReady {
+		margin-top: 0px;
 	}
 </style>

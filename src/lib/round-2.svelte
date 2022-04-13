@@ -4,7 +4,6 @@
 	import { get } from 'svelte/store';
 	import { io } from '$lib/realtime';
 
-
 	const dispatch = createEventDispatcher();
 	let round = 'Round 2';
 	let score = 0;
@@ -23,26 +22,25 @@
 	let starts = [];
 
 	io.on('start', (start) => {
-		starts = [...starts, start]
-		let waiting = document.getElementById("waiting");
-		waiting.innerHTML = "waiting for other players"
-		let playersReady = document.getElementById("playersReady");
+		starts = [...starts, start];
+		let waiting = document.getElementById('waiting');
+		waiting.innerHTML = 'waiting for other players';
+		let playersReady = document.getElementById('playersReady');
 		if (starts.length === 1) {
-			playersReady.innerHTML = "1/4";
+			playersReady.innerHTML = '1/4';
 		}
 		if (starts.length === 2) {
-			playersReady.innerHTML = "2/4";
+			playersReady.innerHTML = '2/4';
 		}
 		if (starts.length === 3) {
-			playersReady.innerHTML = "3/4";
+			playersReady.innerHTML = '3/4';
 		}
-		if (starts.length === 4){
-		waiting.remove();
-		playersReady.remove();
-		displayLyrics()
+		if (starts.length === 4) {
+			waiting.remove();
+			playersReady.remove();
+			displayLyrics();
 		}
 	});
-	
 
 	async function fetchLyrics() {
 		song1 = objects[1].data.song.answer.song;
@@ -77,20 +75,20 @@
 		head.style.borderBottom = '1px solid white';
 		let button1 = document.createElement('button');
 		button1.id = 'button1';
-		button1.className = "button";
+		button1.className = 'button';
 		button1.innerHTML = alts[0];
 		let alternatives = document.getElementById('alternatives');
 		alternatives.appendChild(button1);
 		button1.addEventListener('click', buttonClicked);
 		let button2 = document.createElement('button');
 		button2.id = 'button2';
-		button2.className = "button";
+		button2.className = 'button';
 		button2.innerHTML = alts[1];
 		alternatives.appendChild(button2);
 		button2.addEventListener('click', buttonClicked);
 		let button3 = document.createElement('button');
 		button3.id = 'button3';
-		button3.className = "button";
+		button3.className = 'button';
 		button3.innerHTML = alts[2];
 		alternatives.appendChild(button3);
 		button3.addEventListener('click', buttonClicked);
@@ -107,14 +105,14 @@
 
 		if (textSplitted[0].includes('Paroles')) {
 			lyricsWrapper.style.visibility = 'hidden';
-			
+
 			let lyrics = await fetch(url);
 			let lyricsResponse = await lyrics.json();
 			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 			snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 
 			if (textSplitted[0].includes('Paroles')) {
-				lyricsWrapper.style.visibility = "hidden";
+				lyricsWrapper.style.visibility = 'hidden';
 				let lyrics = await fetch(url);
 				let lyricsResponse = await lyrics.json();
 				let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
@@ -127,7 +125,7 @@
 
 	async function displayLyrics() {
 		await fetchLyrics();
-		let lyricsWrapper = document.getElementById('lyricsWrapper')
+		let lyricsWrapper = document.getElementById('lyricsWrapper');
 		let snippet1 = document.createElement('p');
 		snippet1.innerHTML = snippet[0];
 		lyricsWrapper.appendChild(snippet1);
@@ -140,14 +138,13 @@
 		let snippet4 = document.createElement('p');
 		snippet4.innerHTML = snippet[3];
 		lyricsWrapper.appendChild(snippet4);
-
 	}
 
-	function startRound(){
-		let start = "start";
-		io.emit("start", start)
+	function startRound() {
+		let start = 'start';
+		io.emit('start', start);
 		let btn = document.getElementById('btn');
-		btn.style.visibility = "hidden";
+		btn.style.visibility = 'hidden';
 	}
 
 	async function buttonClicked(event) {
@@ -168,7 +165,6 @@
 			dispatch('newRound');
 		}, 2000);
 	}
-
 </script>
 
 <div id="mainWrapper" class="mainWrapper">
@@ -177,11 +173,10 @@
 		<div id="head" />
 		<button id="btn" class="button" on:click={startRound}>start round</button>
 		<div class="waitingForPlayers">
-			<p id="waiting"></p>
-			<p id="playersReady"></p>
+			<p id="waiting" />
+			<p id="playersReady" />
 		</div>
-		<div class="lyricsWrapper" id="lyricsWrapper">
-		</div>
+		<div class="lyricsWrapper" id="lyricsWrapper" />
 		<div class="alternatives" id="alternatives" />
 	</div>
 </div>
@@ -227,7 +222,7 @@
 		flex-direction: column;
 		align-items: center;
 	}
-	
+
 	#playersReady {
 		margin-top: 0px;
 	}

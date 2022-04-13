@@ -37,20 +37,10 @@
 </script>
 
 <div class="wrap">
-	<form
-		action="#"
-		on:submit|preventDefault={sendMessage}
-	>
+	<form action="#" on:submit|preventDefault={sendMessage}>
 		<div class="signInWrapper" id="signInWrapper">
-			<input
-				id="input"
-				type="text"
-				bind:value={textfield}
-				placeholder="Enter your name..."
-			/>
-			<button id="btn" type="submit"
-				>Join</button
-			>
+			<input id="input" type="text" bind:value={textfield} placeholder="Enter your name..." />
+			<button id="btn" type="submit">Join</button>
 		</div>
 	</form>
 

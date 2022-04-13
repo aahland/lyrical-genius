@@ -2,7 +2,7 @@
 
 let distractors = [
 	'Hells Bells', 'Soul man', 'The saftey dance', "Don't stop me now", 'Something', "Ain't no mountain high enough",
-	'Push the button', 'Mr. Blue Sky', 'Disco Inferno', 'Wake me up before you go-go', 'Help', "Ain't no sunshine",
+	'Push the button', 'Mr. Blue Sky', 'Disco Inferno', 'Help', "Ain't no sunshine",
 	'Honk tonk woman', 'No diggity', 'The winner takes it all', 'Walk on the wild side', 'Despacito', 'Rolling in the deep',
 	'One', 'Heart of glass', 'Rockstar', 'Kiss', 'Wannabee', 'Bad', 'Genie in a bottle', 'Tik Tok', 'Losing my religion', 'Old town road',
 	'Roar', 'Heart of gold', 'The real slim shady', 'Jump', 'Dancing Queen', 'Poker face', 'Toxic', "I'm yours",
@@ -17,7 +17,7 @@ let distractors = [
 
 function getRandomDistractor() {
 	let randomNumber1 = Math.floor(Math.random() * distractors.length);
-	let randomNumber2 = randomNumber1 + 1
+	let randomNumber2 = randomNumber1 - 1
 	if (randomNumber2 > distractors.length) {
 		randomNumber2 = 0
 	}

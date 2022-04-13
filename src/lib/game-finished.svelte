@@ -171,7 +171,7 @@
 		let click = 'clicked';
 		io.emit('sendScores', click);
 		let sendScoresBtn = document.getElementById('sendScoresBtn');
-		sendScoresBtn.remove();
+		sendScoresBtn.style.visibility = "hidden";
 	}
 </script>
 

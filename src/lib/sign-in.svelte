@@ -7,7 +7,7 @@
 
 	let textfield = '';
 	let messages = [];
-
+// Starting the game when 4 players have signed in
 	function startGame() {
 		if (messages.length === 4) {
 			dispatch('newRound');
@@ -17,11 +17,12 @@
 	onMount(() => {
 		io.on('message', (message) => {
 			messages = [...messages, message];
+			console.log(messages);
 			startGame();
 		});
 	});
-
-	function sendMessage() {
+// Function for sending chosen username to server
+	function sendName() {
 		storedStats.set([]);
 		const message = textfield.trim();
 		let btn = document.getElementById('btn');
@@ -37,7 +38,7 @@
 </script>
 
 <div class="wrap">
-	<form action="#" on:submit|preventDefault={sendMessage}>
+	<form action="#" on:submit|preventDefault={sendName}>
 		<div class="signInWrapper" id="signInWrapper">
 			<input id="input" type="text" bind:value={textfield} placeholder="Enter your name..." />
 			<button id="btn" type="submit">Join</button>

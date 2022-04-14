@@ -10,6 +10,7 @@
 	let lyric;
 	let objects = [];
 
+// recieves sent data contains all songs and distractors for all 4 rounds. Saves data to store
 	io.on('data', (data) => {
 		objects = [...objects, data];
 		console.log(objects);
@@ -17,6 +18,8 @@
 	});
 
 	let data;
+
+// Listening on players ready to start round. Won't start until all 4 players are ready
 
 	let starts = [];
 
@@ -41,6 +44,7 @@
 		}
 	});
 
+// Sends one song and 2 distractors per player to the server for saving it to store.
 	async function shareData() {
 		let number = Math.floor(Math.random() * answer.length);
 		let song = answer[number];
@@ -59,6 +63,7 @@
 	let shuffled = [];
 	let alts = [];
 
+// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
 	async function fetchLyrics() {
 		song1 = objects[0].data.song.answer.song;
 		artist1 = objects[0].data.song.answer.artist;
@@ -120,13 +125,14 @@
 		let lyricsResponse = await lyrics.json();
 		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+// Function to fetch lyrics again if result contains Paroles and therefor is faulty
 		if (textSplitted[0].includes('Paroles')) {
 			lyricsWrapper.style.visibility = 'hidden';
 			let lyrics = await fetch(url);
 			let lyricsResponse = await lyrics.json();
 			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 			snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-
+	
 			if (textSplitted[0].includes('Paroles')) {
 				lyricsWrapper.style.visibility = 'hidden';
 				let lyrics = await fetch(url);
@@ -156,6 +162,7 @@
 		lyricsWrapper.appendChild(snippet4);
 	}
 
+// Sends info to server that you are ready to start the round
 	function startRound() {
 		let start = 'start';
 		io.emit('start', start);
@@ -164,6 +171,7 @@
 		btn.style.visibility = 'hidden';
 	}
 
+// Handles the players answer
 	async function buttonClicked(event) {
 		let innerHtml = event.target.innerHTML;
 		let button = event.target.id;

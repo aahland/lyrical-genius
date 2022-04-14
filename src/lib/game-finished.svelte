@@ -6,10 +6,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	function restartGame() {
-		dispatch('restartGame');
-	}
-
+// Socket listening for handed in scores, all players must hand in score before all scores can be displayed
 	let clicked = [];
 
 	io.on('sendScores', (click) => {
@@ -30,8 +27,11 @@
 		if (clicked.length === 4) {
 			let storeData = get(storedStats);
 
+// Removes empty index 0 from object array
 			storeData.splice(0, 1);
 
+
+// Transforming score from string to number for all players
 			let scoreOne = parseInt(storeData[0].finalScores[0].score);
 			storeData[0].finalScores[0].score = scoreOne;
 			let scoreTwo = parseInt(storeData[1].finalScores[0].score);
@@ -45,6 +45,7 @@
 
 			let sortedFinal = finalScores;
 
+// Arranges the array of players and scores so that the highest score is on index 0
 			let sortedResults = sortedFinal.sort((a, b) => {
 				return b.finalScores[0].score - a.finalScores[0].score;
 			});
@@ -52,7 +53,8 @@
 			playersReady.remove();
 			waiting.remove();
 
-			// KAN DETTA REFAKTORISERAS KANSKE?? LOOP
+// Creating dynamic content for displaying the scoreboard
+	// KAN DETTA REFAKTORISERAS KANSKE?? LOOP
 			let scores = document.getElementById('scores');
 			let score1 = document.createElement('p');
 			let position1 = document.createElement('div');
@@ -166,11 +168,16 @@
 		}
 	});
 
+// function for handing in scores (sending your score to the server)
 	function sendScores() {
 		let click = 'clicked';
 		io.emit('sendScores', click);
 		let sendScoresBtn = document.getElementById('sendScoresBtn');
 		sendScoresBtn.style.visibility = 'hidden';
+	}
+// dispatch to layout to start a new game
+	function restartGame() {
+		dispatch('restartGame');
 	}
 </script>
 
@@ -184,7 +191,7 @@
 	</div>
 	<div class="scores" id="scores" />
 	<div id="buttonWrapper">
-		<button id="sendScoresBtn" on:click={sendScores}>Hand in your score</button>
+		<button id="sendScoresBtn" on:click={sendScores}>Submit in your score</button>
 	</div>
 </div>
 

@@ -11,7 +11,7 @@
 	let objects = get(questions);
 
 	let allStats = [{}];
-
+// Server listening on final scores send for each player. Saves scores to store.
 	io.on('finalScores', ({ finalScores }) => {
 		allStats = [...allStats, { finalScores }];
 		storedStats.set(allStats);
@@ -25,9 +25,9 @@
 	let allAlternatives = [];
 	let shuffled = [];
 	let alts = [];
-
 	let starts = [];
 
+// Listening on players ready to start round. Won't start until all 4 players are ready.
 	io.on('start', (start) => {
 		starts = [...starts, start];
 		let waiting = document.getElementById('waiting');
@@ -48,7 +48,7 @@
 			displayLyrics();
 		}
 	});
-
+// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
 	async function fetchLyrics() {
 		song1 = objects[3].data.song.answer.song;
 		artist1 = objects[3].data.song.answer.artist;
@@ -110,7 +110,7 @@
 		let lyricsResponse = await lyrics.json();
 		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-
+// Function to fetch lyrics again if result contains Paroles and therefor is faulty
 		if (textSplitted[0].includes('Paroles')) {
 			lyricsWrapper.style.visibility = 'hidden';
 			let lyrics = await fetch(url);
@@ -146,14 +146,14 @@
 		snippet4.innerHTML = snippet[3];
 		lyricsWrapper.appendChild(snippet4);
 	}
-
+// Sends info to server that you are ready to start the round
 	function startRound() {
 		let start = 'start';
 		io.emit('start', start);
 		let btn = document.getElementById('btn');
 		btn.style.visibility = 'hidden';
 	}
-
+// Handles the players answer, sends the final score for each player to the server
 	async function buttonClicked(event) {
 		let innerHtml = event.target.innerHTML;
 		let button = event.target.id;

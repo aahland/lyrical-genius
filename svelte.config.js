@@ -14,9 +14,6 @@ const config = {
 						const io = new Server(server.httpServer);
 
 						io.on('connection', (socket) => {
-							// Generate a random username and send it to the client to display it
-							let username = `User ${Math.round(Math.random() * 999999)}`;
-							socket.emit('name', username);
 
 							// Receive incoming messages and broadcast them
 							socket.on('message', (message) => {

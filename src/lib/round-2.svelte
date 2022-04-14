@@ -10,7 +10,7 @@
 	let lyric;
 	let objects = get(questions);
 
-	let snippet = [];
+	let snippets = [];
 	let song1 = '';
 	let artist1 = '';
 	let d1 = '';
@@ -102,42 +102,29 @@
 		}
 		let lyricsResponse = await lyrics.json();
 		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
-		snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+		snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 // Function to fetch lyrics again if result contains Paroles and therefor is faulty
 		if (textSplitted[0].includes('Paroles')) {
 			lyricsWrapper.style.visibility = 'hidden';
 			let lyrics = await fetch(url);
 			let lyricsResponse = await lyrics.json();
 			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
-			snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 
 			if (textSplitted[0].includes('Paroles')) {
 				lyricsWrapper.style.visibility = 'hidden';
 				let lyrics = await fetch(url);
 				let lyricsResponse = await lyrics.json();
 				let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
-				snippet = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+				snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 			}
 		}
 		lyricsWrapper.style.visibility = 'visible';
-		return snippet;
+		return snippets;
 	}
 
 	async function displayLyrics() {
 		await fetchLyrics();
-		let lyricsWrapper = document.getElementById('lyricsWrapper');
-		let snippet1 = document.createElement('p');
-		snippet1.innerHTML = snippet[0];
-		lyricsWrapper.appendChild(snippet1);
-		let snippet2 = document.createElement('p');
-		snippet2.innerHTML = snippet[1];
-		lyricsWrapper.appendChild(snippet2);
-		let snippet3 = document.createElement('p');
-		snippet3.innerHTML = snippet[2];
-		lyricsWrapper.appendChild(snippet3);
-		let snippet4 = document.createElement('p');
-		snippet4.innerHTML = snippet[3];
-		lyricsWrapper.appendChild(snippet4);
 	}
 
 // Sends info to server that you are ready to start the round
@@ -145,6 +132,7 @@
 		let start = 'start';
 		io.emit('start', start);
 		let btn = document.getElementById('btn');
+		btn.style.height = '0px';
 		btn.style.visibility = 'hidden';
 	}
 
@@ -178,7 +166,15 @@
 			<p id="waiting" />
 			<p id="playersReady" />
 		</div>
-		<div class="lyricsWrapper" id="lyricsWrapper" />
+		<div class="lyricsWrapper" id="lyricsWrapper">
+			{#each snippets as snippet}
+			<div class="displayLyrics">
+				<p class="snippet">
+					{snippet}
+				</p>
+			</div>
+		{/each}
+		</div>
 		<div class="alternatives" id="alternatives" />
 	</div>
 </div>
@@ -205,6 +201,23 @@
 	.lyricsWrapper {
 		color: black;
 		text-align: center;
+	}
+
+	.displayLyrics {
+		color: white;
+		display: flex;
+		flex-direction: column;
+		margin-top: 20px;
+		margin-bottom: 10px;
+
+	}
+
+	.snippet {
+		margin-top: 0px;
+		margin-bottom: 0px;
+		font-family: sans-serif;
+		padding: 0px 0px 0px 0px;
+		
 	}
 
 	.componentWrapper {

@@ -6,8 +6,9 @@
 
 	const dispatch = createEventDispatcher();
 
-// Socket listening for handed in scores, all players must hand in score before all scores can be displayed
+	// Socket listening for handed in scores, all players must hand in score before all scores can be displayed
 	let clicked = [];
+	let sortedResults = [];
 
 	io.on('sendScores', (click) => {
 		clicked = [...clicked, click];
@@ -27,11 +28,10 @@
 		if (clicked.length === 4) {
 			let storeData = get(storedStats);
 
-// Removes empty index 0 from object array
+			// Removes empty index 0 from object array
 			storeData.splice(0, 1);
 
-
-// Transforming score from string to number for all players
+			// Transforming score from string to number for all players
 			let scoreOne = parseInt(storeData[0].finalScores[0].score);
 			storeData[0].finalScores[0].score = scoreOne;
 			let scoreTwo = parseInt(storeData[1].finalScores[0].score);
@@ -45,118 +45,19 @@
 
 			let sortedFinal = finalScores;
 
-// Arranges the array of players and scores so that the highest score is on index 0
-			let sortedResults = sortedFinal.sort((a, b) => {
+			// Arranges the array of players and scores so that the highest score is on index 0
+			sortedResults = sortedFinal.sort((a, b) => {
 				return b.finalScores[0].score - a.finalScores[0].score;
 			});
 
+			sortedResults[0].finalScores.push('1');
+			sortedResults[1].finalScores.push('2');
+			sortedResults[2].finalScores.push('3');
+			sortedResults[3].finalScores.push('4');
+			console.log(sortedResults[0]);
+
 			playersReady.remove();
 			waiting.remove();
-
-// Creating dynamic content for displaying the scoreboard
-	// KAN DETTA REFAKTORISERAS KANSKE?? LOOP
-			let scores = document.getElementById('scores');
-			let score1 = document.createElement('p');
-			let position1 = document.createElement('div');
-			let firstPlace = document.createElement('div');
-			scores.appendChild(firstPlace);
-			score1.id = 'score1';
-			score1.innerHTML =
-				sortedResults[0].finalScores[0].name + ': ' + storeData[0].finalScores[0].score + ' points';
-			score1.style.border = 'solid #198dc1 3px';
-			score1.style.borderRadius = '10px';
-			score1.style.padding = '5px 10px 5px 20px';
-			position1.innerHTML = '1';
-			position1.style.border = 'solid #198dc1 3px';
-			position1.style.borderRadius = '50%';
-			position1.style.height = '35px';
-			position1.style.width = '35px';
-			position1.style.fontSize = '30px';
-			position1.style.position = 'relative';
-			position1.style.left = '15px';
-			position1.style.top = '5px';
-			position1.style.backgroundColor = 'black';
-			firstPlace.appendChild(position1);
-			firstPlace.appendChild(score1);
-			firstPlace.style.display = 'flex';
-			firstPlace.style.flexDirection = 'row';
-			firstPlace.style.alignItems = 'baseline';
-			firstPlace.style.marginTop = '15px';
-
-			let score2 = document.createElement('p');
-			let position2 = document.createElement('div');
-			let secondPlace = document.createElement('div');
-			scores.appendChild(secondPlace);
-			score2.innerHTML =
-				sortedResults[1].finalScores[0].name + ': ' + storeData[1].finalScores[0].score + ' points';
-			score2.style.border = 'solid #198dc1 3px';
-			score2.style.borderRadius = '10px';
-			score2.style.padding = '5px 10px 5px 20px';
-			position2.innerHTML = '2';
-			position2.style.border = 'solid #198dc1 3px';
-			position2.style.borderRadius = '50%';
-			position2.style.height = '35px';
-			position2.style.width = '35px';
-			position2.style.fontSize = '30px';
-			position2.style.position = 'relative';
-			position2.style.left = '15px';
-			position2.style.top = '5px';
-			position2.style.backgroundColor = 'black';
-			secondPlace.appendChild(position2);
-			secondPlace.appendChild(score2);
-			secondPlace.style.display = 'flex';
-			secondPlace.style.flexDirection = 'row';
-			secondPlace.style.alignItems = 'baseline';
-
-			let score3 = document.createElement('p');
-			let position3 = document.createElement('div');
-			let thirdPlace = document.createElement('div');
-			scores.appendChild(thirdPlace);
-			score3.innerHTML =
-				sortedResults[2].finalScores[0].name + ': ' + storeData[2].finalScores[0].score + ' points';
-			score3.style.border = 'solid #198dc1 3px';
-			score3.style.borderRadius = '10px';
-			score3.style.padding = '5px 10px 5px 20px';
-			position3.innerHTML = '3';
-			position3.style.border = 'solid #198dc1 3px';
-			position3.style.borderRadius = '50%';
-			position3.style.height = '35px';
-			position3.style.width = '35px';
-			position3.style.fontSize = '30px';
-			position3.style.position = 'relative';
-			position3.style.left = '15px';
-			position3.style.top = '5px';
-			position3.style.backgroundColor = 'black';
-			thirdPlace.appendChild(position3);
-			thirdPlace.appendChild(score3);
-			thirdPlace.style.display = 'flex';
-			thirdPlace.style.flexDirection = 'row';
-			thirdPlace.style.alignItems = 'baseline';
-
-			let score4 = document.createElement('p');
-			let position4 = document.createElement('div');
-			let forthPlace = document.createElement('div');
-			scores.appendChild(forthPlace);
-			score4.innerHTML =
-				sortedResults[3].finalScores[0].name + ': ' + storeData[3].finalScores[0].score + ' points';
-			score4.style.border = 'solid #198dc1 3px';
-			score4.style.borderRadius = '10px';
-			score4.style.padding = '5px 10px 5px 20px';
-			position4.innerHTML = '4';
-			position4.style.border = 'solid #198dc1 3px';
-			position4.style.borderRadius = '50%';
-			position4.style.height = '35px';
-			position4.style.width = '35px';
-			position4.style.fontSize = '30px';
-			position4.style.position = 'relative';
-			position4.style.left = '15px';
-			position4.style.top = '5px';
-			position4.style.backgroundColor = 'black';
-			forthPlace.appendChild(position4);
-			forthPlace.appendChild(score4);
-			forthPlace.style.display = 'flex';
-			forthPlace.style.flexDirection = 'row';
-			forthPlace.style.alignItems = 'baseline';
 
 			let buttonWrapper = document.getElementById('buttonWrapper');
 			let restartBtn = document.createElement('button');
@@ -168,20 +69,20 @@
 		}
 	});
 
-// function for handing in scores (sending your score to the server)
+	// function for handing in scores (sending your score to the server)
 	function sendScores() {
 		let click = 'clicked';
 		io.emit('sendScores', click);
 		let sendScoresBtn = document.getElementById('sendScoresBtn');
 		sendScoresBtn.style.visibility = 'hidden';
 	}
-// dispatch to layout to start a new game
+	// dispatch to layout to start a new game
 	function restartGame() {
 		dispatch('restartGame');
 	}
 </script>
 
-<div class="score">
+<div class="scoreWrapper">
 	<div class="stylistic-line">
 		<h1>Score</h1>
 	</div>
@@ -190,13 +91,21 @@
 		<p id="playersReady" />
 	</div>
 	<div class="scores" id="scores" />
+	{#each sortedResults as sortedResult}
+		<div class="positionAndScore">
+			<div class="position"><p class="positionNumber">{sortedResult.finalScores[1]}</p></div>
+			<p class="score">
+				{sortedResult.finalScores[0].name + ': ' + sortedResult.finalScores[0].score}
+			</p>
+		</div>
+	{/each}
 	<div id="buttonWrapper">
 		<button id="sendScoresBtn" on:click={sendScores}>Submit in your score</button>
 	</div>
 </div>
 
 <style>
-	.score {
+	.scoreWrapper {
 		background-color: black;
 		text-align: center;
 		display: flex;
@@ -206,9 +115,42 @@
 		align-items: center;
 	}
 
+	.position {
+		height: 30px;
+		width: 30px;
+		border-radius: 50%;
+		border: solid #198dc1 3px;
+		position: relative;
+		top: 4px;
+		left: 15px;
+		background-color: black;
+	}
+
+	.positionNumber {
+		color: white;
+		font-size: 25px;
+		position: relative;
+		bottom: 23px;
+	}
+
+	.positionAndScore {
+		display: flex;
+		flex-direction: row;
+		padding: 0px 35px 0px 10px;
+	}
+
 	.scores {
 		color: white;
 		font-family: sans-serif;
+	}
+
+	.score {
+		color: white;
+		border: solid #198dc1 3px;
+		border-radius: 10px;
+		width: 60px;
+		padding: 5px 10px 5px 20px;
+		margin-top: 5px;
 	}
 
 	#waiting {
@@ -227,6 +169,7 @@
 
 	.stylistic-line {
 		border-bottom: 1px solid white;
+		margin-bottom: 15px;
 	}
 
 	@media screen and (min-width: 768px) {

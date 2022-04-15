@@ -5,8 +5,10 @@
 	import { onMount } from 'svelte';
 	import { storedStats } from '../helpers/store';
 
+
 	let textfield = '';
 	let messages = [];
+	let message;
 // Starting the game when 4 players have signed in
 	function startGame() {
 		if (messages.length === 4) {
@@ -22,9 +24,9 @@
 		});
 	});
 // Function for sending chosen username to server
+	
 	function sendName() {
 		storedStats.set([]);
-		const message = textfield.trim();
 		let btn = document.getElementById('btn');
 		let input = document.getElementById('input');
 		input.style.visibility = 'hidden';
@@ -35,10 +37,22 @@
 		textfield = '';
 		io.emit('message', message);
 	}
+
+	function submitName(){
+		message = textfield.trim();
+		
+		if(message.length === 0){
+			
+		}
+		else {
+			sendName();
+		}
+		
+	}
 </script>
 
 <div class="wrap">
-	<form action="#" on:submit|preventDefault={sendName}>
+	<form action="#" on:submit|preventDefault={submitName}>
 		<div class="signInWrapper" id="signInWrapper">
 			<input id="input" type="text" bind:value={textfield} placeholder="Enter your name..." />
 			<button id="btn" type="submit">Join</button>

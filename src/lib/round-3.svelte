@@ -84,6 +84,11 @@
 			let failedToFetch = document.getElementById("lyricsWrapper");
 			let sorryMessage = document.createElement("p");
 			sorryMessage.innerHTML = "Sorry, we couldn't get the lyrics for you. Have a blind guess and earn 2 points if you are correct";
+			sorryMessage.style.backgroundColor = "red";
+			sorryMessage.style.padding = "5px 10px 5px 10px";
+			sorryMessage.style.borderRadius = "10px";
+			sorryMessage.style.width = "280px";
+			sorryMessage.style.fontWeight = "bold";
 			failedToFetch.appendChild(sorryMessage);
 			extraPoint.push("1");
 		}
@@ -205,6 +210,8 @@
 	.lyricsWrapper {
 		color: black;
 		text-align: center;
+		font-family: sans-serif;
+		font-weight: 400px;
 	}
 
 	.displayLyrics {

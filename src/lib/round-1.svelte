@@ -112,7 +112,7 @@
 			sorryMessage.style.padding = "5px 10px 5px 10px";
 			sorryMessage.style.borderRadius = "10px";
 			sorryMessage.style.width = "280px";
-			
+			sorryMessage.style.fontWeight = "bold";
 			failedToFetch.appendChild(sorryMessage);
 			extraPoint.push("1");
 			

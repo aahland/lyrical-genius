@@ -31,8 +31,9 @@
 	let score = 0;
 
 	function addToScore() {
-		score = score + 1;
-		localStorage.setItem('Score', JSON.stringify(score));
+		let score = parseInt(localStorage.getItem("Score"));
+		let newScore = score + 1;
+		localStorage.setItem('Score', JSON.stringify(newScore));
 	}
 
 	function restart() {

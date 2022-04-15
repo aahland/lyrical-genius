@@ -63,6 +63,7 @@
 	let allAlternatives = [];
 	let shuffled = [];
 	let alts = [];
+	let extraPoint = [];
 
 // Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
 	async function fetchLyrics() {
@@ -70,7 +71,7 @@
 		artist1 = objects[0].data.song.answer.artist;
 		d1 = objects[0].data.distractor1;
 		d2 = objects[0].data.distractor2;
-		alts = [song1, d1, d2];
+		alts = [{song: song1, id: "button1"}, {song: d1, id: "button2"}, {song: d2, id: "button3"}];
 		allAlternatives = [...allAlternatives, alts];
 		function randomArrayShuffle(array) {
 			var currentIndex = array.length,
@@ -87,41 +88,34 @@
 			return array;
 		}
 		shuffled = randomArrayShuffle(alts);
-		let btn = document.getElementById('btn');
-		btn.remove();
-		let head = document.getElementById('head');
-		let header = document.createElement('h1');
-		header.innerHTML = 'Which song is this?';
-		header.style.marginBottom = '0';
-		header.style.marginTop = '0';
-		head.appendChild(header);
-		head.style.borderBottom = '1px solid white';
-		let button1 = document.createElement('button');
-		button1.id = 'button1';
-		button1.className = 'button';
-		button1.innerHTML = alts[0];
-		let alternatives = document.getElementById('alternatives');
-		alternatives.appendChild(button1);
-		button1.addEventListener('click', buttonClicked);
-		let button2 = document.createElement('button');
-		button2.id = 'button2';
-		button2.className = 'button';
-		button2.innerHTML = alts[1];
-		alternatives.appendChild(button2);
-		button2.addEventListener('click', buttonClicked);
-		let button3 = document.createElement('button');
-		button3.id = 'button3';
-		button3.className = 'button';
-		button3.innerHTML = alts[2];
-		alternatives.appendChild(button3);
-		button3.addEventListener('click', buttonClicked);
-		let lyricsWrapper = document.getElementById('lyricsWrapper');
-		lyricsWrapper.style.color = 'white';
+		console.log(shuffled);
+		// let btn = document.getElementById('btn');
+		// btn.remove();
+		 let head = document.getElementById('head');
+		 let header = document.createElement('h1');
+		 header.innerHTML = 'Which song is this?';
+		 header.style.marginBottom = '0';
+		 header.style.marginTop = '0';
+		 head.appendChild(header);
+		 head.style.borderBottom = '1px solid white';
+
+		 let lyricsWrapper = document.getElementById('lyricsWrapper');
+		 lyricsWrapper.style.color = 'white';
 
 		let url = 'https://api.lyrics.ovh/v1/' + artist1 + '/' + song1;
 		let lyrics = await fetch(url);
 		if (!lyrics.ok) {
-			throw new Error(`HTTP error! Status: ${lyric.status}`);
+			let failedToFetch = document.getElementById("lyricsWrapper");
+			let sorryMessage = document.createElement("p");
+			sorryMessage.innerHTML = "Sorry, we couldn't get the lyrics for you. Have a blind guess and earn 2 points if you are correct!";
+			sorryMessage.style.backgroundColor = "red";
+			sorryMessage.style.padding = "5px 10px 5px 10px";
+			sorryMessage.style.borderRadius = "10px";
+			sorryMessage.style.width = "280px";
+			
+			failedToFetch.appendChild(sorryMessage);
+			extraPoint.push("1");
+			
 		}
 		let lyricsResponse = await lyrics.json();
 		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
@@ -148,19 +142,6 @@
 
 	async function displayLyrics() {
 		await fetchLyrics();
-		// let lyricsWrapper = document.getElementById('lyricsWrapper');
-		// let snippet1 = document.createElement('p');
-		// snippet1.innerHTML = snippets[0];
-		// lyricsWrapper.appendChild(snippet1);
-		// let snippet2 = document.createElement('p');
-		// snippet2.innerHTML = snippets[1];
-		// lyricsWrapper.appendChild(snippet2);
-		// let snippet3 = document.createElement('p');
-		// snippet3.innerHTML = snippets[2];
-		// lyricsWrapper.appendChild(snippet3);
-		// let snippet4 = document.createElement('p');
-		// snippet4.innerHTML = snippets[3];
-		// lyricsWrapper.appendChild(snippet4);
 	}
 
 // Sends info to server that you are ready to start the round
@@ -181,6 +162,15 @@
 			let audio = new Audio('../static/sounds/correct.wav');
 			audio.play();
 			dispatch('correct');
+			if(extraPoint.length === 1){
+				let score = localStorage.getItem("Score");
+				let scoreAsNumber = parseInt(score);
+				let newScore = scoreAsNumber + 1;
+				let newScoreAsString = JSON.stringify(newScore);
+				localStorage.setItem("Score", newScoreAsString);
+				console.log("you got extra point");
+
+			}
 		} else {
 			document.getElementById(button).style.backgroundColor = 'red';
 			let audio = new Audio('../static/sounds/wrong.wav');
@@ -212,7 +202,15 @@
 	{/each}
 
 		</div>
-		<div class="alternatives" id="alternatives" />
+		<div class="alternatives" id="alternatives">
+			{#each alts as alt}
+		<div class="altBtns">
+			<button on:click={buttonClicked} class="altBtn" id={alt.id}>
+				{alt.song}
+			</button>
+		</div>
+	{/each}
+		</div>
 	</div>
 </div>
 
@@ -227,6 +225,10 @@
 		color: white;
 	}
 
+	.altBtn {
+		margin-bottom: 10px;
+	}
+
 	.alternatives {
 		color: white;
 		display: flex;
@@ -238,14 +240,15 @@
 	.lyricsWrapper {
 		color: black;
 		text-align: center;
+		font-family: sans-serif;
+		font-weight: 400px;
 	}
 
 	.displayLyrics {
 		color: white;
 		display: flex;
 		flex-direction: column;
-		margin-top: 20px;
-		margin-bottom: 10px;
+		margin-bottom: 15px;
 
 	}
 

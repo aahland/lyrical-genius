@@ -1,5 +1,5 @@
 import ioClient from "socket.io-client";
-const ENDPOINT = "https://lyrical-genius.pages.dev/";
+const ENDPOINT = "http://localhost:8080";
 
 const socket = ioClient(ENDPOINT)
 

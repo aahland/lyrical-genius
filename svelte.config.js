@@ -39,9 +39,9 @@ const config = {
 
 							});
 
-							socket.on('sendScores', (click) => {
-								io.emit('sendScores', {
-									click
+							socket.on('playersScoreReady', (ready) => {
+								io.emit('playersScoreReady', {
+									ready
 
 								});
 

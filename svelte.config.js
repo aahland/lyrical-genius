@@ -1,11 +1,11 @@
-import adapter from '@sveltejs/adapter-auto';
+import node from '@sveltejs/adapter-node';
 import cloudflare from '@sveltejs/adapter-cloudflare'
 import { Server } from 'socket.io';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: cloudflare(),
+		adapter: node({ env: { port: process.env.PORT } }),
 		vite: {
 			plugins: [
 				{

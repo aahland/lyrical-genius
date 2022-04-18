@@ -5,7 +5,7 @@ import { Server } from 'socket.io';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: node({ env: { port: process.env.PORT } }),
+		adapter: node(),
 		vite: {
 			plugins: [
 				{

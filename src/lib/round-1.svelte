@@ -1,7 +1,7 @@
 <script>
 	import { io } from '$lib/realtime';
 	import { createEventDispatcher } from 'svelte';
-	import { answer } from '../helpers/sendAlternatives';
+	import { getRandomAnswer } from '../helpers/answers';
 	import { distractors } from '../helpers/sendAlternatives';
 	import { questions } from '../helpers/store';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
@@ -52,8 +52,10 @@
 
 	// Sends one song and 2 distractors per player to the server for saving it to store.
 	async function shareData() {
-		let number = Math.floor(Math.random() * answer.length);
-		let song = answer[number];
+		let songs = getRandomAnswer();
+        let number = 1
+        let song = songs[number];
+        songs.splice(number, 1);
 		let distractor1 = distractors[0];
 		let distractor2 = distractors[1];
 		data = { song: song, distractor1: distractor1, distractor2: distractor2 };

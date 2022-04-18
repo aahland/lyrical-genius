@@ -4,48 +4,53 @@
 	import { answer } from '../helpers/sendAlternatives';
 	import { distractors } from '../helpers/sendAlternatives';
 	import { questions } from '../helpers/store';
-	
+	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 1';
-	let lyric;
 	let objects = [];
+	let data;
+	let playersReadyToStart = [];
+	let snippets = [];
+	let song1 = '';
+	let artist1 = '';
+	let distractor1 = '';
+	let distractor2 = '';
+	let allAlternatives = [];
+	let shuffled = [];
+	let alts = [];
+	let extraPoint = [];
 
-// recieves sent data contains all songs and distractors for all 4 rounds. Saves data to store
+	// recieves sent data contains all songs and distractors for all 4 rounds. Saves data to store
 	io.on('data', (data) => {
 		objects = [...objects, data];
 		console.log(objects);
 		questions.set(objects);
 	});
 
-	let data;
-
-// Listening on players ready to start round. Won't start until all 4 players are ready
-
-	let starts = [];
-
+	// Listening on players ready to start round. Won't start until all 4 players are ready
 	io.on('start', (start) => {
-		starts = [...starts, start];
+		playersReadyToStart = [...playersReadyToStart, start];
 		let waiting = document.getElementById('waiting');
 		waiting.innerHTML = 'waiting for other players';
 		let playersReady = document.getElementById('playersReady');
-		if (starts.length === 1) {
+		if (playersReadyToStart.length === 1) {
 			playersReady.innerHTML = '1/4';
 		}
-		if (starts.length === 2) {
+		if (playersReadyToStart.length === 2) {
 			playersReady.innerHTML = '2/4';
 		}
-		if (starts.length === 3) {
+		if (playersReadyToStart.length === 3) {
 			playersReady.innerHTML = '3/4';
 		}
-		if (starts.length === 4) {
+		if (playersReadyToStart.length === 4) {
 			waiting.remove();
 			playersReady.remove();
 			displayLyrics();
 		}
 	});
 
-// Sends one song and 2 distractors per player to the server for saving it to store.
+	// Sends one song and 2 distractors per player to the server for saving it to store.
 	async function shareData() {
 		let number = Math.floor(Math.random() * answer.length);
 		let song = answer[number];
@@ -55,79 +60,58 @@
 		io.emit('data', data);
 	}
 
-	let snippets = [];
-	let song1 = '';
-	let artist1 = '';
-	let d1 = '';
-	let d2 = '';
-	let allAlternatives = [];
-	let shuffled = [];
-	let alts = [];
-	let extraPoint = [];
-
-// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
+	// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
 	async function fetchLyrics() {
 		song1 = objects[0].data.song.answer.song;
 		artist1 = objects[0].data.song.answer.artist;
-		d1 = objects[0].data.distractor1;
-		d2 = objects[0].data.distractor2;
-		alts = [{song: song1, id: "button1"}, {song: d1, id: "button2"}, {song: d2, id: "button3"}];
+		distractor1 = objects[0].data.distractor1;
+		distractor2 = objects[0].data.distractor2;
+		alts = [
+			{ song: song1, id: 'button1' },
+			{ song: distractor1, id: 'button2' },
+			{ song: distractor2, id: 'button3' }
+		];
 		allAlternatives = [...allAlternatives, alts];
-		function randomArrayShuffle(array) {
-			var currentIndex = array.length,
-				temporaryValue,
-				randomIndex;
-			while (0 !== currentIndex) {
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex -= 1;
-				temporaryValue = array[currentIndex];
-				array[currentIndex] = array[randomIndex];
-				array[randomIndex] = temporaryValue;
-			}
-
-			return array;
-		}
+		//Shuffle alts so that the correct answer is not always the first
 		shuffled = randomArrayShuffle(alts);
 		console.log(shuffled);
-		// let btn = document.getElementById('btn');
-		// btn.remove();
-		 let head = document.getElementById('head');
-		 let header = document.createElement('h1');
-		 header.innerHTML = 'Which song is this?';
-		 header.style.marginBottom = '0';
-		 header.style.marginTop = '0';
-		 head.appendChild(header);
-		 head.style.borderBottom = '1px solid white';
+		let head = document.getElementById('head');
+		let header = document.createElement('h1');
+		header.innerHTML = 'Which song is this?';
+		header.style.marginBottom = '0';
+		header.style.marginTop = '0';
+		head.appendChild(header);
+		head.style.borderBottom = '1px solid white';
 
-		 let lyricsWrapper = document.getElementById('lyricsWrapper');
-		 lyricsWrapper.style.color = 'white';
+		let lyricsWrapper = document.getElementById('lyricsWrapper');
+		lyricsWrapper.style.color = 'white';
 
 		let url = 'https://api.lyrics.ovh/v1/' + artist1 + '/' + song1;
 		let lyrics = await fetch(url);
 		if (!lyrics.ok) {
-			let failedToFetch = document.getElementById("lyricsWrapper");
-			let sorryMessage = document.createElement("p");
-			sorryMessage.innerHTML = "Sorry, we couldn't get the lyrics for you. Have a blind guess and earn 2 points if you are correct!";
-			sorryMessage.style.backgroundColor = "red";
-			sorryMessage.style.padding = "5px 10px 5px 10px";
-			sorryMessage.style.borderRadius = "10px";
-			sorryMessage.style.width = "280px";
-			sorryMessage.style.fontWeight = "bold";
+			let failedToFetch = document.getElementById('lyricsWrapper');
+			let sorryMessage = document.createElement('p');
+			sorryMessage.innerHTML =
+				"Sorry, we couldn't get the lyrics for you. Have a blind guess and earn 2 points if you are correct!";
+			sorryMessage.style.backgroundColor = 'red';
+			sorryMessage.style.padding = '5px 10px 5px 10px';
+			sorryMessage.style.borderRadius = '10px';
+			sorryMessage.style.width = '280px';
+			sorryMessage.style.fontWeight = 'bold';
 			failedToFetch.appendChild(sorryMessage);
-			extraPoint.push("1");
-			
+			extraPoint.push('1');
 		}
 		let lyricsResponse = await lyrics.json();
 		let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 		snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-// Function to fetch lyrics again if result contains Paroles and therefor is faulty
+		// Function to fetch lyrics again if result contains Paroles and therefor is faulty
 		if (textSplitted[0].includes('Paroles')) {
 			lyricsWrapper.style.visibility = 'hidden';
 			let lyrics = await fetch(url);
 			let lyricsResponse = await lyrics.json();
 			let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
 			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-	
+
 			if (textSplitted[0].includes('Paroles')) {
 				lyricsWrapper.style.visibility = 'hidden';
 				let lyrics = await fetch(url);
@@ -144,7 +128,7 @@
 		await fetchLyrics();
 	}
 
-// Sends info to server that you are ready to start the round
+	// Sends info to server that you are ready to start the round
 	function startRound() {
 		let start = 'start';
 		io.emit('start', start);
@@ -153,7 +137,7 @@
 		btn.style.visibility = 'hidden';
 	}
 
-// Handles the players answer
+	// Handles the players answer
 	async function buttonClicked(event) {
 		let innerHtml = event.target.innerHTML;
 		let button = event.target.id;
@@ -162,14 +146,13 @@
 			let audio = new Audio('../static/sounds/correct.wav');
 			audio.play();
 			dispatch('correct');
-			if(extraPoint.length === 1){
-				let score = localStorage.getItem("Score");
+			if (extraPoint.length === 1) {
+				let score = localStorage.getItem('Score');
 				let scoreAsNumber = parseInt(score);
 				let newScore = scoreAsNumber + 1;
 				let newScoreAsString = JSON.stringify(newScore);
-				localStorage.setItem("Score", newScoreAsString);
-				console.log("you got extra point");
-
+				localStorage.setItem('Score', newScoreAsString);
+				console.log('you got extra point');
 			}
 		} else {
 			document.getElementById(button).style.backgroundColor = 'red';
@@ -194,22 +177,21 @@
 		</div>
 		<div class="lyricsWrapper" id="lyricsWrapper">
 			{#each snippets as snippet}
-		<div class="displayLyrics">
-			<p class="snippet">
-				{snippet}
-			</p>
-		</div>
-	{/each}
-
+				<div class="displayLyrics">
+					<p class="snippet">
+						{snippet}
+					</p>
+				</div>
+			{/each}
 		</div>
 		<div class="alternatives" id="alternatives">
 			{#each alts as alt}
-		<div class="altBtns">
-			<button on:click={buttonClicked} class="altBtn" id={alt.id}>
-				{alt.song}
-			</button>
-		</div>
-	{/each}
+				<div class="altBtns">
+					<button on:click={buttonClicked} class="altBtn" id={alt.id}>
+						{alt.song}
+					</button>
+				</div>
+			{/each}
 		</div>
 	</div>
 </div>
@@ -249,7 +231,6 @@
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 15px;
-
 	}
 
 	.snippet {
@@ -257,7 +238,6 @@
 		margin-bottom: 0px;
 		font-family: sans-serif;
 		padding: 0px 0px 0px 0px;
-		
 	}
 
 	.componentWrapper {
@@ -276,6 +256,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		font-family: sans-serif;
 	}
 
 	#playersReady {

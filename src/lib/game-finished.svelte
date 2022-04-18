@@ -7,42 +7,41 @@
 	const dispatch = createEventDispatcher();
 
 	// Socket listening for handed in scores, all players must hand in score before all scores can be displayed
-	let clicked = [];
+	let playersScoreReady = [];
 	let sortedResults = [];
 
-	io.on('sendScores', (click) => {
-		clicked = [...clicked, click];
+	io.on('playersScoreReady', (ready) => {
+		playersScoreReady = [...playersScoreReady, ready];
 		let waiting = document.getElementById('waiting');
 		waiting.innerHTML = 'waiting for other players score';
-		let playersReady = document.getElementById('playersReady');
+		let numberOfPlayersReady = document.getElementById('playersReady');
 
-		if (clicked.length === 1) {
-			playersReady.innerHTML = '1/4';
+		if (playersScoreReady.length === 1) {
+			numberOfPlayersReady.innerHTML = '1/4';
 		}
-		if (clicked.length === 2) {
-			playersReady.innerHTML = '2/4';
+		if (playersScoreReady.length === 2) {
+			numberOfPlayersReady.innerHTML = '2/4';
 		}
-		if (clicked.length === 3) {
-			playersReady.innerHTML = '3/4';
+		if (playersScoreReady.length === 3) {
+			numberOfPlayersReady.innerHTML = '3/4';
 		}
-		if (clicked.length === 4) {
-			let storeData = get(storedStats);
+		if (playersScoreReady.length === 4) {
+			let statsFromStore = get(storedStats);
 
 			// Removes empty index 0 from object array
-			storeData.splice(0, 1);
+			statsFromStore.splice(0, 1);
 
 			// Transforming score from string to number for all players
-			let scoreOne = parseInt(storeData[0].finalScores[0].score);
-			storeData[0].finalScores[0].score = scoreOne;
-			let scoreTwo = parseInt(storeData[1].finalScores[0].score);
-			storeData[1].finalScores[0].score = scoreTwo;
-			let scoreThree = parseInt(storeData[2].finalScores[0].score);
-			storeData[2].finalScores[0].score = scoreThree;
-			let scoreFour = parseInt(storeData[3].finalScores[0].score);
-			storeData[3].finalScores[0].score = scoreFour;
+			let scoreOne = parseInt(statsFromStore[0].finalScores[0].score);
+			statsFromStore[0].finalScores[0].score = scoreOne;
+			let scoreTwo = parseInt(statsFromStore[1].finalScores[0].score);
+			statsFromStore[1].finalScores[0].score = scoreTwo;
+			let scoreThree = parseInt(statsFromStore[2].finalScores[0].score);
+			statsFromStore[2].finalScores[0].score = scoreThree;
+			let scoreFour = parseInt(statsFromStore[3].finalScores[0].score);
+			statsFromStore[3].finalScores[0].score = scoreFour;
 
-			let finalScores = storeData;
-
+			let finalScores = statsFromStore;
 			let sortedFinal = finalScores;
 
 			// Arranges the array of players and scores so that the highest score is on index 0
@@ -56,7 +55,7 @@
 			sortedResults[3].finalScores.push('4');
 			console.log(sortedResults[0]);
 
-			playersReady.remove();
+			numberOfPlayersReady.remove();
 			waiting.remove();
 
 			let buttonWrapper = document.getElementById('buttonWrapper');
@@ -71,8 +70,8 @@
 
 	// function for handing in scores (sending your score to the server)
 	function sendScores() {
-		let click = 'clicked';
-		io.emit('sendScores', click);
+		let ready = 'ready';
+		io.emit('playersScoreReady', ready);
 		let sendScoresBtn = document.getElementById('sendScoresBtn');
 		sendScoresBtn.style.visibility = 'hidden';
 	}
@@ -83,7 +82,7 @@
 </script>
 
 <div class="scoreWrapper">
-	<div class="stylistic-line">
+	<div class="stylisticLine">
 		<h1>Score</h1>
 	</div>
 	<div>
@@ -92,7 +91,7 @@
 	</div>
 	<div class="scores" id="scores" />
 	{#each sortedResults as sortedResult}
-		<div class="positionAndScore">
+		<div class="positionWrapper">
 			<div class="position"><p class="positionNumber">{sortedResult.finalScores[1]}</p></div>
 			<p class="score">
 				{sortedResult.finalScores[0].name + ': ' + sortedResult.finalScores[0].score}
@@ -133,7 +132,7 @@
 		bottom: 23px;
 	}
 
-	.positionAndScore {
+	.positionWrapper {
 		display: flex;
 		flex-direction: row;
 		padding: 0px 35px 0px 10px;
@@ -167,7 +166,7 @@
 		width: 300px;
 	}
 
-	.stylistic-line {
+	.stylisticLine {
 		border-bottom: 1px solid white;
 		margin-bottom: 15px;
 	}

@@ -67,8 +67,8 @@
 			<div>
 				{#each messages as message}
 					<div class="messages">
-						<span class="flex items-center space-between gap-4">
-							<b>{message.message}</b>
+						<span>
+							<p>{message.message}</p>
 						</span>
 					</div>
 				{/each}
@@ -97,6 +97,7 @@
 
 	.messages {
 		color: white;
+		font-family: sans-serif;
 	}
 
 	.wait {

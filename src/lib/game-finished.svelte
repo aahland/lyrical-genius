@@ -166,11 +166,13 @@
 	#waiting {
 		color: white;
 		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-weight: bold;
 	}
 
 	#playersReady {
 		color: white;
 		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-weight: bold;
 	}
 
 	h1 {

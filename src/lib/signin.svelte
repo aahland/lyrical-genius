@@ -31,7 +31,7 @@
 		let inputAndBtn = document.getElementById("signinAndUsernamesWrapper")
 		inputAndBtn.remove();
 		let wrap = document.getElementById("wrap");
-		wrap.style.maxHeight = "245px";
+		wrap.style.maxHeight = "239px";
 		let instructions = document.getElementById("instructions");
 		instructions.style.visibility = "hidden";
 		let users = document.getElementById("playernames");

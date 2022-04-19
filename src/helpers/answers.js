@@ -66,7 +66,12 @@ let answers = [
 	{ song: "Duality", artist: "slipknot"},
 	{ song: "It ain't me babe", artist: "bob dylan"},
 	{ song: "White rabbit", artist: "jefferson airplane"},
-	{ song: "The letter", artist: "the box tops"}
+	{ song: "The letter", artist: "the box tops"},
+	{ song: "Pumped up kicks", artist: "foster the people"},
+	{ song: "Grenade", artist: "bruno mars"},
+	{ song: "My Boo", artist: "usher"},
+	{ song: "Family affair", artist: "mary j. blige"},
+	{ song: "Halo", artist: "beyonce"}
 
 ];
 

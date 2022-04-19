@@ -100,7 +100,12 @@
         }
         if (textSplitted[0].length + textSplitted[1].length > 70 ){
 			console.log("snippet to long remove half");
-			snippets = [textSplitted[0], textSplitted[1]];
+			snippets = [textSplitted[0], textSplitted[1], textSplitted[2]];
+		}
+        if((textSplitted[0].length < 40)&&(textSplitted[1].length < 10)){
+			textSplitted[1] = textSplitted[0] + textSplitted[1]
+			textSplitted.splice(0,1);
+			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]]
 		}
         lyricsWrapper.style.visibility = 'visible';
         return snippets;

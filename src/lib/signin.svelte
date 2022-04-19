@@ -28,13 +28,14 @@
 	
 	function sendName() {
 		storedStats.set([]);
-		let btn = document.getElementById('btn');
-		let input = document.getElementById('input');
-		input.remove();
-		btn.remove();
+		let inputAndBtn = document.getElementById("signinAndUsernamesWrapper")
+		inputAndBtn.remove();
+		let wrap = document.getElementById("wrap");
+		wrap.style.maxHeight = "245px";
 		let instructions = document.getElementById("instructions");
 		instructions.style.visibility = "hidden";
-		let users = document.getElementById("usernames");
+		let users = document.getElementById("playernames");
+		users.style.marginTop = "0px";
 		users.style.visibility = "visible"
 		if (!message) return;
 		localStorage.setItem('Playername', message);
@@ -58,19 +59,19 @@
 	
 </script>
 
-<div class="wrap">
+<div class="wrap" id="wrap">
 	<div>
 		<img id="logo" src="../static/images/logoMobile.png" alt="logotype">
 	</div>
-	<div class="signinAndUsernamesWrapper">
-	<form action="#" on:submit|preventDefault={submitName}>
-		<div class="signInContainer" id="signInContainer">
-			<input id="input" type="text" bind:value={textfield} placeholder="Enter your name..." />
-			<button id="btn" type="submit">Join</button>
-		</div>
-	</form>
-
-	<div class="usernames" id="usernames">
+	<div class="signinAndUsernamesWrapper" id="signinAndUsernamesWrapper">
+		<form action="#" on:submit|preventDefault={submitName}>
+			<div class="signInContainer" id="signInContainer">
+				<input id="input" type="text" bind:value={textfield} placeholder="Enter your name..." />
+				<button id="btn" type="submit">Join</button>
+			</div>
+		</form>
+	</div>
+	<div class="playernames" id="playernames">
 		<div>
 			<header>
 				<span class="wait">Waiting for players..</span>
@@ -86,7 +87,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 
     <div class="instructions" id="instructions">
 	<div>
@@ -100,11 +101,11 @@
 	.wrap {
 		display: flex;
 		flex-direction: column;
-		margin-top: 50px;
+		margin-top: 70px;
 		justify-content: space-around;
 		max-height: 400px;
 		justify-content: center;
-		justify-items: center;
+		align-items: center;
 	}
 
 	#logo {
@@ -112,6 +113,7 @@
 		position: relative;
 		left: 5px;
 		margin-bottom: 20px;
+		margin-top: 20px;
 	}
 
 	.messages, p {
@@ -120,15 +122,15 @@
 
 	.instructions {
 		color: rgba(255, 255, 255, 0.8);
-		display: flex;
-		flex-direction: column;
 		text-align: center;
-		max-width: 300px;
+		max-width: 250px;
 		padding: 0px 5px 5px 5px;
 		border: 1px solid rgba(255, 255, 255, 0.8);
 		border-radius: 10px;
 		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		margin-top: 20px;
+		position: relative;
+		bottom: 40px;
 	}
 
 	.instructions, h2 {
@@ -149,10 +151,11 @@
 		margin-bottom: 10px;
 	}
 
-	.usernames {
+	.playernames {
 		color: white;
 		text-align: center;
 		margin-top: 50px;
+		height: 0px;
 		visibility: hidden;
 		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
@@ -176,12 +179,13 @@
 	}
 
 	@media screen and (min-width: 1440px) {
-		.instructions {
-			margin-top: 30px;
-		}
-
 		.wrap {
 			height: 400px;
+		}
+
+		#logo {
+			width: 350px;
+			margin-top: 60px;
 		}
 	}
 </style>

@@ -174,14 +174,14 @@
 	}
 
 	h1 {
-		color: white;
+		color: #ffffffd4;
 		margin-bottom: 0px;
 		width: 300px;
 		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.stylisticLine {
-		border-bottom: 1px solid white;
+		border-bottom: 1px solid white;;
 		margin-bottom: 15px;
 	}
 

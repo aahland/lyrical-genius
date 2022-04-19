@@ -61,6 +61,7 @@
         btn.remove();
         let head = document.getElementById('head');
         let header = document.createElement('h1');
+        header.className = "header";
         header.innerHTML = 'Which song is this?';
         header.style.marginBottom = '0';
         header.style.marginTop = '0';
@@ -188,73 +189,5 @@
 </div>
 
 <style>
-    #head {
-        color: white;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        text-align: center;
-    }
-
-    .mainWrapper {
-        color: white;
-    }
-
-    .alternatives {
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .lyricsWrapper {
-        color: black;
-        text-align: center;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 400px;
-        width: 340px;
-    }
-
-    .componentWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
     
-    .displayLyrics {
-        color: white;
-        display: flex;
-        flex-direction: column;
-        margin-top: 20px;
-        margin-bottom: 10px;
-
-    }
-
-    .snippet {
-        margin-top: 0px;
-        margin-bottom: 0px;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: bold;
-        padding: 0px 0px 0px 0px;
-        
-    }
-
-    .round {
-        color: white;
-        text-align: center;
-        margin-bottom: 0;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        
-    }
-
-    .waitingForPlayers {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: bold;
-    }
-
-    #playersReady {
-        margin-top: 0px;
-    }
 </style>

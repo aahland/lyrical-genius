@@ -124,7 +124,7 @@
 		flex-direction: column;
 		text-align: center;
 		max-width: 300px;
-		padding: 0px 5px 0px 5px;
+		padding: 0px 5px 5px 5px;
 		border: 1px solid rgba(255, 255, 255, 0.8);
 		border-radius: 10px;
 		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

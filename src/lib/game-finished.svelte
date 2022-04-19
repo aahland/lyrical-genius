@@ -3,12 +3,22 @@
 	import { storedStats } from '../helpers/store';
 	import { get } from 'svelte/store';
 	import { io } from '$lib/realtime';
+	import { removeFirstObject } from '../helpers/splice';
+
 
 	const dispatch = createEventDispatcher();
 
 	// Socket listening for handed in scores, all players must hand in score before all scores can be displayed
 	let playersScoreReady = [];
 	let sortedResults = [];
+	let sortedFinal;
+
+	export function sortResults(){
+		sortedResults = sortedFinal.sort((a, b) => {
+				return b.finalScores[0].score - a.finalScores[0].score;
+			});
+	}
+	
 
 	io.on('playersScoreReady', (ready) => {
 		playersScoreReady = [...playersScoreReady, ready];
@@ -29,8 +39,9 @@
 			let statsFromStore = get(storedStats);
 
 			// Removes empty index 0 from object array
-			statsFromStore.splice(0, 1);
-
+			// statsFromStore.splice(0, 1);
+			removeFirstObject(statsFromStore);
+			
 			// Transforming score from string to number for all players
 			let scoreOne = parseInt(statsFromStore[0].finalScores[0].score);
 			statsFromStore[0].finalScores[0].score = scoreOne;
@@ -42,12 +53,10 @@
 			statsFromStore[3].finalScores[0].score = scoreFour;
 
 			let finalScores = statsFromStore;
-			let sortedFinal = finalScores;
+			sortedFinal = finalScores;
 
 			// Arranges the array of players and scores so that the highest score is on index 0
-			sortedResults = sortedFinal.sort((a, b) => {
-				return b.finalScores[0].score - a.finalScores[0].score;
-			});
+			sortResults();
 
 			sortedResults[0].finalScores.push('1');
 			sortedResults[1].finalScores.push('2');

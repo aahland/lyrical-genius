@@ -18,12 +18,12 @@ let array2 = [{playername: "steve", score: 4},{playername: "calle", score: 3},{p
 //     })})
 
 
-function sorting(array1){
+function sorting(string){
 
  let sortedResults;
 
-sortedResults = array1.sort((a, b) => {
- return b.finalScores[0].score - a.finalScores[0].score;
+sortedResults = string.sort((a, b) => {
+ return b.score - a.score;
         });
 }
 

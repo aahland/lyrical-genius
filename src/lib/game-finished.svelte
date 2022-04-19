@@ -3,7 +3,7 @@
 	import { storedStats } from '../helpers/store';
 	import { get } from 'svelte/store';
 	import { io } from '$lib/realtime';
-	import { removeFirstObject } from '../helpers/splice';
+	import { removeFirstObject } from '../helpers/splice.js';
 
 
 	const dispatch = createEventDispatcher();

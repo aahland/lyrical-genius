@@ -6,6 +6,7 @@
 	import { storedStats } from '../helpers/store';
 
 
+
 	let textfield = '';
 	let messages = [];
 	let message;
@@ -29,8 +30,12 @@
 		storedStats.set([]);
 		let btn = document.getElementById('btn');
 		let input = document.getElementById('input');
-		input.style.visibility = 'hidden';
-		btn.style.visibility = 'hidden';
+		input.remove();
+		btn.remove();
+		let instructions = document.getElementById("instructions");
+		instructions.style.visibility = "hidden";
+		let users = document.getElementById("usernames");
+		users.style.visibility = "visible"
 		if (!message) return;
 		localStorage.setItem('Playername', message);
 		localStorage.setItem('Score', '0');
@@ -54,14 +59,18 @@
 </script>
 
 <div class="wrap">
+	<div>
+		<img id="logo" src="../static/images/logoMobile.png" alt="logotype">
+	</div>
+	<div class="signinAndUsernamesWrapper">
 	<form action="#" on:submit|preventDefault={submitName}>
-		<div class="signInWrapper" id="signInWrapper">
+		<div class="signInContainer" id="signInContainer">
 			<input id="input" type="text" bind:value={textfield} placeholder="Enter your name..." />
 			<button id="btn" type="submit">Join</button>
 		</div>
 	</form>
 
-	<div class="usernames">
+	<div class="usernames" id="usernames">
 		<div>
 			<header>
 				<span class="wait">Waiting for players..</span>
@@ -79,22 +88,72 @@
 	</div>
 </div>
 
+    <div class="instructions" id="instructions">
+	<div>
+		<h2>Game Instructions</h2>
+		<p>Each round you are presented with a snippet of a songlyric and three answer alternatives.<br> A correct answer gives the player 1 point.<br> The player with the highest score after 4 rounds wins. Fair play!</p>
+	</div>
+	</div>
+</div>
+
 <style>
 	.wrap {
 		display: flex;
 		flex-direction: column;
 		margin-top: 50px;
+		justify-content: space-around;
+		max-height: 400px;
+		justify-content: center;
+		justify-items: center;
+	}
+
+	#logo {
+		width: 300px;
+		position: relative;
+		left: 5px;
+		margin-bottom: 10px;
+	}
+
+	.instructions {
+		color: white;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		max-width: 300px;
+		padding: 0px 5px 0px 5px;
+		border: 1px solid white;
+		border-radius: 10px;
+	}
+
+	.instructions, h2 {
+		margin-top: 5px;
+		margin-bottom: 0px;
+		
+	}
+
+	.instructions, p {
+		margin-top: 5px;
+	}
+
+	.signinAndUsernamesWrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		height: 100px;
 	}
 
 	.usernames {
 		color: white;
 		text-align: center;
 		margin-top: 50px;
+		visibility: hidden;
 	}
 
-	.signInWrapper {
+	.signInContainer {
 		display: flex;
 		flex-direction: column;
+		max-width: 300px;
+		align-items: center;
 	}
 
 	.messages {
@@ -104,5 +163,15 @@
 
 	.wait {
 		font-family: sans-serif;
+	}
+
+	@media screen and (min-width: 1440px) {
+		.instructions {
+			margin-top: 30px;
+		}
+
+		.wrap {
+			height: 400px;
+		}
 	}
 </style>

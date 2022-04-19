@@ -160,6 +160,8 @@
 			document.getElementById(button).style.backgroundColor = 'red';
 			let audio = new Audio('../static/sounds/wrong.wav');
 			audio.play();
+			let correct = document.getElementById("button1");
+			correct.style.backgroundColor = "green";
 		}
 		setTimeout(function () {
 			dispatch('newRound');

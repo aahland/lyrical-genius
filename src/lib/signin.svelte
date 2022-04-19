@@ -91,7 +91,7 @@
     <div class="instructions" id="instructions">
 	<div>
 		<h2>Game Instructions</h2>
-		<p>Each round you are presented with a snippet of a songlyric and three answer alternatives. A correct answer gives the player 1 point. The player with the highest score after 4 rounds wins. Fair play!</p>
+		<p>Each round the players are presented with a snippet of a songlyric and three answer alternatives. A correct answer gives the player 1 point. The player with the highest score after 4 rounds wins. Fair play!</p>
 	</div>
 	</div>
 </div>

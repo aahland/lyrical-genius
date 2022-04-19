@@ -176,7 +176,7 @@
 <style>
     #head {
         color: white;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         text-align: center;
     }
 
@@ -189,13 +189,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .lyricsWrapper {
         color: black;
         text-align: center;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 400px;
     }
 
@@ -211,7 +211,8 @@
     .snippet {
         margin-top: 0px;
         margin-bottom: 0px;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bold;
         padding: 0px 0px 0px 0px;
         
     }
@@ -225,14 +226,15 @@
         color: white;
         text-align: center;
         margin-bottom: 0;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .waitingForPlayers {
         display: flex;
         flex-direction: column;
         align-items: center;
-		font-family: sans-serif;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bold;
     }
 
     #playersReady {

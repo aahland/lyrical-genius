@@ -149,7 +149,7 @@
 
 	.scores {
 		color: white;
-		font-family: sans-serif;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.score {
@@ -159,6 +159,7 @@
 		width: 60px;
 		padding: 5px 10px 5px 20px;
 		margin-top: 5px;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	#waiting {
@@ -173,6 +174,7 @@
 		color: white;
 		margin-bottom: 0px;
 		width: 300px;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.stylisticLine {

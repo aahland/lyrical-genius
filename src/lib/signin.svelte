@@ -91,7 +91,7 @@
     <div class="instructions" id="instructions">
 	<div>
 		<h2>Game Instructions</h2>
-		<p>Each round you are presented with a snippet of a songlyric and three answer alternatives.<br> A correct answer gives the player 1 point.<br> The player with the highest score after 4 rounds wins. Fair play!</p>
+		<p>Each round you are presented with a snippet of a songlyric and three answer alternatives. A correct answer gives the player 1 point. The player with the highest score after 4 rounds wins. Fair play!</p>
 	</div>
 	</div>
 </div>
@@ -111,18 +111,23 @@
 		width: 300px;
 		position: relative;
 		left: 5px;
-		margin-bottom: 10px;
+		margin-bottom: 20px;
+	}
+
+	.messages, p {
+		margin-bottom: 5px;
 	}
 
 	.instructions {
-		color: white;
+		color: rgba(255, 255, 255, 0.8);
 		display: flex;
 		flex-direction: column;
 		text-align: center;
 		max-width: 300px;
 		padding: 0px 5px 0px 5px;
-		border: 1px solid white;
+		border: 1px solid rgba(255, 255, 255, 0.8);
 		border-radius: 10px;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.instructions, h2 {
@@ -147,6 +152,7 @@
 		text-align: center;
 		margin-top: 50px;
 		visibility: hidden;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.signInContainer {
@@ -154,15 +160,17 @@
 		flex-direction: column;
 		max-width: 300px;
 		align-items: center;
+		
 	}
 
 	.messages {
 		color: white;
-		font-family: sans-serif;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.wait {
-		font-family: sans-serif;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-weight: bold;
 	}
 
 	@media screen and (min-width: 1440px) {

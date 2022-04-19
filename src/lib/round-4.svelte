@@ -184,7 +184,7 @@
 <style>
     #head {
         color: white;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         text-align: center;
     }
 
@@ -197,13 +197,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .lyricsWrapper {
         color: black;
         text-align: center;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 400px;
     }
 
@@ -211,19 +211,39 @@
         display: flex;
         flex-direction: column;
     }
+    
+    .displayLyrics {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        margin-bottom: 10px;
+
+    }
+
+    .snippet {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bold;
+        padding: 0px 0px 0px 0px;
+        
+    }
 
     .round {
         color: white;
         text-align: center;
         margin-bottom: 0;
-        font-family: sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        
     }
 
     .waitingForPlayers {
         display: flex;
         flex-direction: column;
         align-items: center;
-		font-family: sans-serif;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bold;
     }
 
     #playersReady {

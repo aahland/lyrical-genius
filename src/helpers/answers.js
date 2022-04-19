@@ -83,19 +83,19 @@ export function getRandomAnswer() {
 	if((randomNumber1 === randomNumber2)||(randomNumber1 === randomNumber3)||(randomNumber1 === randomNumber4)){
 		console.log("this number already exist");
 		
-		randomNumber1 = randomNumber1 + 1;
-	}
-	if((randomNumber2 === randomNumber1)||(randomNumber2 === randomNumber3)||(randomNumber2 === randomNumber4)){
-		console.log("this number already exist");
-		randomNumber2 = randomNumber2 + 1;
-	}
-	if((randomNumber3 === randomNumber1)||(randomNumber3 === randomNumber2)||(randomNumber3 === randomNumber4)){
-		console.log("this number already exist");
-		randomNumber3 = randomNumber3 + 1;
-	}
-	if((randomNumber4 === randomNumber1)||(randomNumber4 === randomNumber2)||(randomNumber4 === randomNumber3)){
-		console.log("this number already exist");
-		randomNumber4 = randomNumber4 + 1;
+		randomNumber1 = randomNumber1 - 1;
+        if((randomNumber2 === randomNumber1)||(randomNumber2 === randomNumber3)||(randomNumber2 === randomNumber4)){
+            console.log("this number already exist");
+            randomNumber2 = randomNumber2 - 1;
+        }
+        if((randomNumber3 === randomNumber1)||(randomNumber3 === randomNumber2)||(randomNumber3 === randomNumber4)){
+            console.log("this number already exist");
+            randomNumber3 = randomNumber3 - 1;
+        }
+        if((randomNumber4 === randomNumber1)||(randomNumber4 === randomNumber2)||(randomNumber4 === randomNumber3)){
+            console.log("this number already exist");
+            randomNumber4 = randomNumber4 - 1;
+        }
 	}
 	
 	let answer = [

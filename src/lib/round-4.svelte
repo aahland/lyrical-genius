@@ -102,6 +102,10 @@
                 snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
             }
         }
+        if (textSplitted[0].length + textSplitted[1].length > 70 ){
+			console.log("snippet to long remove half");
+			snippets = [textSplitted[0], textSplitted[1]];
+		}
         lyricsWrapper.style.visibility = 'visible';
         return snippets;
     }
@@ -207,11 +211,13 @@
         text-align: center;
         font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 400px;
+        width: 340px;
     }
 
     .componentWrapper {
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
     
     .displayLyrics {

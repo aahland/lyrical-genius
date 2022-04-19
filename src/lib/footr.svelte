@@ -55,7 +55,7 @@
     .footer {
         background-color: #198dc1;
         width: 100vw;
-        height: 230px;
+        height: 200px;
         position: sticky;
         bottom: 0px;
     }
@@ -74,13 +74,8 @@
     }
     @media screen and (min-width: 768px) {
         .footer {
-            height: 300px;
-        }
-    }
-
-    @media screen and (min-width: 1440px) {
-        .footer {
             height: 280px;
         }
     }
+
 </style>

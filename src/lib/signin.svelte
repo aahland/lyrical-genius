@@ -128,6 +128,7 @@
 		border: 1px solid rgba(255, 255, 255, 0.8);
 		border-radius: 10px;
 		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		margin-top: 20px;
 	}
 
 	.instructions, h2 {
@@ -145,6 +146,7 @@
 		flex-direction: column;
 		justify-content: flex-start;
 		height: 100px;
+		margin-bottom: 10px;
 	}
 
 	.usernames {

@@ -144,6 +144,7 @@
 	.positionWrapper {
 		display: flex;
 		flex-direction: row;
+		width: fit-content;
 		padding: 0px 35px 0px 10px;
 	}
 
@@ -156,7 +157,7 @@
 		color: white;
 		border: solid #198dc1 3px;
 		border-radius: 10px;
-		width: 60px;
+		width: 75px;
 		padding: 5px 10px 5px 20px;
 		margin-top: 5px;
 		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -164,10 +165,12 @@
 
 	#waiting {
 		color: white;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	#playersReady {
 		color: white;
+		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	h1 {

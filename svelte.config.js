@@ -6,14 +6,13 @@ import node from '@sveltejs/adapter-node'
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: node(),
+		adapter: node({ env: { port: process.env.PORT } }),
 		vite: {
 			plugins: [
 				{
 					name: 'sveltekit-socket-io',
 					configureServer(server) {
 						const io = new Server(server.httpServer);
-						const port = process.env.PORT || 5000;
 						io.on('connection', (socket) => {
 
 							// Receive incoming messages and broadcast them

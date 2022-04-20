@@ -3,6 +3,7 @@ body {
     margin: 0px;
     overflow: hidden;
     max-height: 700px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html {
@@ -35,7 +36,6 @@ button:hover {
 
 #head {
     color: white;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
 }
 
@@ -57,13 +57,11 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .lyricsWrapper {
     color: black;
     text-align: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 400px;
     width: 340px;
     margin-top: 20px;
@@ -72,7 +70,6 @@ button:hover {
 .lyricsWrapper1 {
     color: black;
     text-align: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 400px;
     width: 340px;
 }
@@ -87,7 +84,6 @@ button:hover {
 .snippet {
     margin-top: 0px;
     margin-bottom: 0px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
     padding: 0px 0px 0px 0px;
 }
@@ -102,7 +98,6 @@ button:hover {
     color: #ffffffd4;
     text-align: center;
     margin-bottom: 0;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: relative;
     top: 10px;
     font-size: large;
@@ -113,7 +108,6 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
 

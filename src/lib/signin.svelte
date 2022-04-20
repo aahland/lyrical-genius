@@ -127,7 +127,6 @@
 		padding: 0px 5px 5px 5px;
 		border: 1px solid rgba(255, 255, 255, 0.8);
 		border-radius: 10px;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		margin-top: 20px;
 		position: relative;
 		bottom: 40px;
@@ -157,7 +156,6 @@
 		margin-top: 50px;
 		height: 0px;
 		visibility: hidden;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.signInContainer {
@@ -170,11 +168,9 @@
 
 	.messages {
 		color: white;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.wait {
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		font-weight: bold;
 	}
 

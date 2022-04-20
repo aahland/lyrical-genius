@@ -138,7 +138,7 @@
 		color: white;
 		font-size: 25px;
 		position: relative;
-		bottom: 23px;
+		bottom: 28px;
 	}
 
 	.positionWrapper {
@@ -150,28 +150,24 @@
 
 	.scores {
 		color: white;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.score {
 		color: white;
 		border: solid #198dc1 3px;
 		border-radius: 10px;
-		width: 75px;
+		width: 100px;
 		padding: 5px 10px 5px 20px;
 		margin-top: 5px;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	#waiting {
 		color: white;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		font-weight: bold;
 	}
 
 	#playersReady {
 		color: white;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		font-weight: bold;
 	}
 
@@ -179,7 +175,6 @@
 		color: #ffffffd4;
 		margin-bottom: 0px;
 		width: 300px;
-		font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.stylisticLine {

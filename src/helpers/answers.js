@@ -71,7 +71,8 @@ let answers = [
 	{ song: "Grenade", artist: "bruno mars"},
 	{ song: "My Boo", artist: "usher"},
 	{ song: "Family affair", artist: "mary j. blige"},
-	{ song: "Halo", artist: "beyonce"}
+	{ song: "Halo", artist: "beyonce"},
+	{ song: "Stan", artist: "eminem"}
 
 ];
 

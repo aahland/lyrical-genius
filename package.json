@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
+    "start": "node svelte.config.js",
     "test": "jest src",
     "test:watch": "npm run test -- --watch",
     "package": "svelte-kit package",

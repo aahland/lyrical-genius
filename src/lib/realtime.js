@@ -1,6 +1,6 @@
 import ioClient from "socket.io-client";
-const ENDPOINT = "https://lyrical-genius.vercel.app/";
+const ENDPOINT = "http://localhost:3000";
 
-const socket = ioClient()
+const socket = ioClient(ENDPOINT)
 
 export const io = socket

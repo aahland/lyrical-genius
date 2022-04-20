@@ -4,6 +4,7 @@
     import { get } from 'svelte/store';
     import { io } from '$lib/realtime';
     import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
+    import { splitLyrics } from '../helpers/splitLyrics';
 
     const dispatch = createEventDispatcher();
     let round = 'Round 2';
@@ -55,14 +56,14 @@
         shuffled = randomArrayShuffle(alts);
         let btn = document.getElementById('btn');
         btn.remove();
-        let head = document.getElementById('head');
+        let stylisticLine = document.getElementById('stylisticLine');
         let header = document.createElement('h1');
         header.className = "header";
         header.innerHTML = 'Which song is this?';
         header.style.marginBottom = '0';
         header.style.marginTop = '0';
-        head.appendChild(header);
-        head.style.borderBottom = '1px solid white';
+        stylisticLine.appendChild(header);
+        stylisticLine.style.borderBottom = '1px solid white';
         let lyricsWrapper = document.getElementById('lyricsWrapper');
         lyricsWrapper.style.color = 'white';
         let url = 'https://api.lyrics.ovh/v1/' + artist1 + '/' + song1;
@@ -80,21 +81,21 @@
             extraPoint.push("1");
         }
         let lyricsResponse = await lyrics.json();
-        let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
+        let textSplitted = splitLyrics(lyricsResponse.lyrics);
         snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 // Function to fetch lyrics again if result contains Paroles and therefor is faulty
         if (textSplitted[0].includes('Paroles')) {
             lyricsWrapper.style.visibility = 'hidden';
             let lyrics = await fetch(url);
             let lyricsResponse = await lyrics.json();
-            let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
+            let textSplitted = splitLyrics(lyricsResponse.lyrics);
             snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 
             if (textSplitted[0].includes('Paroles')) {
                 lyricsWrapper.style.visibility = 'hidden';
                 let lyrics = await fetch(url);
                 let lyricsResponse = await lyrics.json();
-                let textSplitted = lyricsResponse.lyrics.split(/(?=[A-Z])/);
+                let textSplitted = splitLyrics(lyricsResponse.lyrics);
                 snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
             }
         }
@@ -159,7 +160,7 @@
 <div id="mainWrapper" class="mainWrapper">
     <div class="componentWrapper" id="componentWrapper">
         <p class="round">{round}</p>
-        <div id="head" />  <!-- change this id -->
+        <div id="stylisticLine" />  <!-- change this id -->
         <button id="btn" class="button" on:click={startRound}>start round</button>
         <div class="waitingForPlayers">
             <p id="waiting" />

@@ -1,0 +1,1 @@
+import{S as a,i as o,s as n,Q as r,d,I as e}from"../chunks/vendor-88422b5e.js";function c(s){return{c(){this.h()},l(t){r('[data-svelte="svelte-1dfr2gz"]',document.head).forEach(d),this.h()},h(){document.title="Lyrical Genius"},m:e,p:e,i:e,o:e,d:e}}const i=!0;class h extends a{constructor(t){super();o(this,t,null,c,n,{})}}export{h as default,i as prerender};

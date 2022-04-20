@@ -38,9 +38,5 @@
     "cookie": "^0.4.1",
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1"
-  },
-  "engines": {
-    "node": "16.x",
-"npm": "8.x"
-}
+  }
 }

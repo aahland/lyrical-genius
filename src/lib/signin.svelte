@@ -5,12 +5,10 @@
 	import { onMount } from 'svelte';
 	import { storedStats } from '../helpers/store';
 
-
-
 	let textfield = '';
 	let messages = [];
 	let message;
-// Starting the game when 4 players have signed in
+	// Starting the game when 4 players have signed in
 	function startGame() {
 		if (messages.length === 4) {
 			dispatch('newRound');
@@ -24,19 +22,19 @@
 			startGame();
 		});
 	});
-// Function for sending chosen username to server
-	
+	// Function for sending chosen username to server
+
 	function sendName() {
 		storedStats.set([]);
-		let inputAndBtn = document.getElementById("signinAndUsernamesWrapper")
+		let inputAndBtn = document.getElementById('signinAndUsernamesWrapper');
 		inputAndBtn.remove();
-		let wrap = document.getElementById("wrap");
-		wrap.style.maxHeight = "239px";
-		let instructions = document.getElementById("instructions");
-		instructions.style.visibility = "hidden";
-		let users = document.getElementById("playernames");
-		users.style.marginTop = "0px";
-		users.style.visibility = "visible"
+		let wrap = document.getElementById('wrap');
+		wrap.style.maxHeight = '239px';
+		let instructions = document.getElementById('instructions');
+		instructions.style.visibility = 'hidden';
+		let users = document.getElementById('playernames');
+		users.style.marginTop = '0px';
+		users.style.visibility = 'visible';
 		if (!message) return;
 		localStorage.setItem('Playername', message);
 		localStorage.setItem('Score', '0');
@@ -44,24 +42,19 @@
 		io.emit('message', message);
 	}
 
-	function submitName(){
+	function submitName() {
 		message = textfield.trim();
-		
-		if(message.length === 0){
-			
-		}
-		else {
+
+		if (message.length === 0) {
+		} else {
 			sendName();
 		}
-		
 	}
-
-	
 </script>
 
 <div class="wrap" id="wrap">
 	<div>
-		<img id="logo" src="../static/images/logoMobile.png" alt="logotype">
+		<img id="logo" src="/images/logoMobile.png" alt="logotype" />
 	</div>
 	<div class="signinAndUsernamesWrapper" id="signinAndUsernamesWrapper">
 		<form action="#" on:submit|preventDefault={submitName}>
@@ -88,12 +81,15 @@
 		</div>
 	</div>
 
-
-    <div class="instructions" id="instructions">
-	<div>
-		<h2>Game Instructions</h2>
-		<p>Each round the players are presented with a snippet of a songlyric and three answer alternatives. A correct answer gives the player 1 point. The player with the highest score after 4 rounds wins. Fair play!</p>
-	</div>
+	<div class="instructions" id="instructions">
+		<div>
+			<h2>Game Instructions</h2>
+			<p>
+				Each round the players are presented with a snippet of a songlyric and three answer
+				alternatives. A correct answer gives the player 1 point. The player with the highest score
+				after 4 rounds wins. Fair play!
+			</p>
+		</div>
 	</div>
 </div>
 
@@ -116,7 +112,8 @@
 		margin-top: 20px;
 	}
 
-	.messages, p {
+	.messages,
+	p {
 		margin-bottom: 5px;
 	}
 
@@ -132,13 +129,14 @@
 		bottom: 40px;
 	}
 
-	.instructions, h2 {
+	.instructions,
+	h2 {
 		margin-top: 5px;
 		margin-bottom: 0px;
-		
 	}
 
-	.instructions, p {
+	.instructions,
+	p {
 		margin-top: 5px;
 	}
 
@@ -163,7 +161,6 @@
 		flex-direction: column;
 		max-width: 300px;
 		align-items: center;
-		
 	}
 
 	.messages {

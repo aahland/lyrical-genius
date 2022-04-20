@@ -1,31 +1,29 @@
-# create-svelte
+## About the project
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is Lyrical Genius. It is a realtime multiplayer game played in the browser. The goal of the game is to match a snippet of a song lyric to the correct song. In other words, a music quiz where song lyrics are the essential part of the question.
 
-## Creating a project
+The project is built with Sveltekit and socket.io. 
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Game play (how to play)
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+1. The players sign in on the first page. 
+2. When all 4 players are signed in they are redirected to the first round. 
+3. All players have to press the button "start round" and when everyone has done that the round begins. 
+4. All players are displayed the same snippet of a song lyric together with 3 answer alternatives. 
+5. The players choose the answer that they think is correct. 
+6. After answering the question the players are send forward to round 2. 
+7. The game continues like this for four rounds. 
+8. After the fourth round the players submit their scores and wait for the result/stats to be displayed.
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+## Run project locally 
 
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+1. Clone github repository https://github.com/aahland/lyrical-genius
+2. Install dependencies: `npm install`
+3. Open the code in your prefered code editor
+4. Go to lib/realtime.js and set the endpoint variable to http://localhost:3000/ if it is set to something else
+5. Run `npm run dev` to start the development server. 
+6. Navigate to http://localhost:3000/ in four instances (preferably different browsers)
+7. Play the game or continue developing it
 
 ## Building
 
@@ -36,5 +34,7 @@ npm run build
 ```
 
 You can preview the production build with `npm run preview`.
+As for now the preview version doesn't work. The game has to be played locally. 
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+

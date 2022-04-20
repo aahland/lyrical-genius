@@ -1,9 +1,11 @@
 
 import { Server } from 'socket.io';
 import node from '@sveltejs/adapter-node'
+import preprocess from "svelte-preprocess";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
+	preprocess: preprocess(),
 	kit: {
 		adapter: node({ out: 'production' }),
 		vite: {

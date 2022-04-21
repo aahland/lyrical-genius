@@ -1,1 +1,1 @@
-web:node index.svelte
+web:node route/index.svelte

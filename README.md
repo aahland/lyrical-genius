@@ -36,5 +36,26 @@ npm run build
 You can preview the production build with `npm run preview`.
 As for now the preview version doesn't work. The game has to be played locally. 
 
+## Testing 
+
+The project has 3 unit tests testing functions. 
+To run the test use `npm run test`
+
+## Issues 
+
+The project isn't live due to problems deploying. The live version renders but socket.io is not working. 
+
+I have tried to deploy to:
+
+Heroku 
+https://lyricalgeniusquiz.herokuapp.com/
+
+Cloudflare
+https://lyrical-genius.pages.dev/
+
+Vercel 
+https://vercel.com/aahland/lyrical-genius
+
+
 
 

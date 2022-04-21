@@ -1,17 +1,25 @@
+function spliceFunction(array) {
+array.splice(0,1);
+return array;
+}
+
+
 describe("testing the splice function", () => {
     test("should remove first object in array", () => {
-        const input = [
+        let input = [
             {playername: "per"},
             {playername: "anton"},
             {playername: "pelle"},
             {playername: "calle"}
         ]
 
-        const output = [
-            {playername: "per"}
+        let output = [
+            {playername: "anton"},
+            {playername: "pelle"},
+            {playername: "calle"}
         ]
 
-        expect(input.splice(0, 1)).toStrictEqual(output);
+        expect(spliceFunction(input)).toStrictEqual(output);
 
     })
 })

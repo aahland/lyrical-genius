@@ -18,7 +18,6 @@
 	onMount(() => {
 		io.on('message', (message) => {
 			messages = [...messages, message];
-			console.log(messages);
 			startGame();
 		});
 	});

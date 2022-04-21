@@ -5,7 +5,6 @@
 	import { io } from '$lib/realtime';
 	import { removeFirstObject } from '../helpers/splice.js';
 
-
 	const dispatch = createEventDispatcher();
 
 	// Socket listening for handed in scores, all players must hand in score before all scores can be displayed
@@ -13,12 +12,11 @@
 	let sortedResults = [];
 	let sortedFinal;
 
-	export function sortResults(){
+	export function sortResults() {
 		sortedResults = sortedFinal.sort((a, b) => {
-				return b.finalScores[0].score - a.finalScores[0].score;
-			});
+			return b.finalScores[0].score - a.finalScores[0].score;
+		});
 	}
-	
 
 	io.on('playersScoreReady', (ready) => {
 		playersScoreReady = [...playersScoreReady, ready];
@@ -39,9 +37,8 @@
 			let statsFromStore = get(storedStats);
 
 			// Removes empty index 0 from object array
-			// statsFromStore.splice(0, 1);
 			removeFirstObject(statsFromStore);
-			
+
 			// Transforming score from string to number for all players
 			let scoreOne = parseInt(statsFromStore[0].finalScores[0].score);
 			statsFromStore[0].finalScores[0].score = scoreOne;
@@ -62,7 +59,6 @@
 			sortedResults[1].finalScores.push('2');
 			sortedResults[2].finalScores.push('3');
 			sortedResults[3].finalScores.push('4');
-			console.log(sortedResults[0]);
 
 			numberOfPlayersReady.remove();
 			waiting.remove();
@@ -178,7 +174,7 @@
 	}
 
 	.stylisticLine {
-		border-bottom: 1px solid white;;
+		border-bottom: 1px solid white;
 		margin-bottom: 15px;
 	}
 

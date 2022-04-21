@@ -25,7 +25,6 @@
 	// recieves sent data contains all songs and distractors for all 4 rounds. Saves data to store
 	io.on('data', (data) => {
 		objects = [...objects, data];
-		console.log(objects);
 		questions.set(objects);
 	});
 
@@ -54,9 +53,9 @@
 	// Sends one song and 2 distractors per player to the server for saving it to store.
 	async function shareData() {
 		let songs = getRandomAnswer();
-        let number = 1
-        let song = songs[number];
-        songs.splice(number, 1);
+		let number = 1;
+		let song = songs[number];
+		songs.splice(number, 1);
 		let distractor1 = distractors[0];
 		let distractor2 = distractors[1];
 		data = { song: song, distractor1: distractor1, distractor2: distractor2 };
@@ -77,10 +76,9 @@
 		allAlternatives = [...allAlternatives, alts];
 		//Shuffle alts so that the correct answer is not always the first
 		shuffled = randomArrayShuffle(alts);
-		console.log(shuffled);
 		let stylisticLine = document.getElementById('stylisticLine');
 		let header = document.createElement('h1');
-		header.className = "header";
+		header.className = 'header';
 		header.innerHTML = 'Which song is this?';
 		header.style.marginBottom = '0';
 		header.style.marginTop = '0';
@@ -124,16 +122,15 @@
 				snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 			}
 		}
-		if (textSplitted[0].length + textSplitted[1].length > 70 ){
-			console.log("snippet to long remove half");
+		if (textSplitted[0].length + textSplitted[1].length > 70) {
 			snippets = [textSplitted[0], textSplitted[1], textSplitted[2]];
 		}
-		if((textSplitted[0].length < 40)&&(textSplitted[1].length < 10)){
-			textSplitted[1] = textSplitted[0] + textSplitted[1]
-			textSplitted.splice(0,1);
-			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]]
+		if (textSplitted[0].length < 40 && textSplitted[1].length < 10) {
+			textSplitted[1] = textSplitted[0] + textSplitted[1];
+			textSplitted.splice(0, 1);
+			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 		}
-		
+
 		lyricsWrapper.style.visibility = 'visible';
 		return snippets;
 	}
@@ -166,14 +163,13 @@
 				let newScore = scoreAsNumber + 1;
 				let newScoreAsString = JSON.stringify(newScore);
 				localStorage.setItem('Score', newScoreAsString);
-				console.log('you got extra point');
 			}
 		} else {
 			document.getElementById(button).style.backgroundColor = 'red';
 			let audio = new Audio('../static/sounds/wrong.wav');
 			audio.play();
-			let correct = document.getElementById("button1");
-			correct.style.backgroundColor = "green";
+			let correct = document.getElementById('button1');
+			correct.style.backgroundColor = 'green';
 		}
 		setTimeout(function () {
 			dispatch('newRound');
@@ -185,7 +181,8 @@
 <div id="mainWrapper" class="mainWrapper">
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">{round}</p>
-	<div id="stylisticLine" /> <!-- change this id -->
+		<div id="stylisticLine" />
+		<!-- change this id -->
 		<button id="btn" class="button" on:click={startRound}>start round</button>
 		<div class="waitingForPlayers">
 			<p id="waiting" />
@@ -213,5 +210,4 @@
 </div>
 
 <style>
-	
 </style>

@@ -1,1 +1,1 @@
-web:node route/index.svelte
+web:node svelte.config.js

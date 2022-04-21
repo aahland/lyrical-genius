@@ -182,7 +182,6 @@
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">{round}</p>
 		<div id="stylisticLine" />
-		<!-- change this id -->
 		<button id="btn" class="button" on:click={startRound}>start round</button>
 		<div class="waitingForPlayers">
 			<p id="waiting" />

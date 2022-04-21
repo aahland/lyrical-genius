@@ -14,7 +14,18 @@ const config = {
 					name: 'sveltekit-socket-io',
 					configureServer(server) {
 						const io = new Server(server.httpServer);
+						
 						io.on('connection', (socket) => {
+							var socket = io({
+								transports: [
+								  'websocket', 
+								  'flashsocket', 
+								  'htmlfile', 
+								  'xhr-polling', 
+								  'jsonp-polling', 
+								  'polling'
+								]
+							  });
 
 							// Receive incoming messages and broadcast them
 							socket.on('message', (message) => {

@@ -51,11 +51,12 @@ Heroku
 https://lyricalgeniusquiz.herokuapp.com/
 
 Cloudflare
-https://lyrical-genius.pages.dev/
+https://lyrical-genius.pages.dev/  
+(doesn't build on latest push)
 
 Vercel 
 https://vercel.com/aahland/lyrical-genius
-
+(doesn't build on latest push)
 
 
 

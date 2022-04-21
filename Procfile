@@ -1,1 +1,1 @@
-web:node svelte.config.js
+web:node build/index.js

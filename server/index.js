@@ -4,7 +4,7 @@ import { Server } from 'socket.io';
 
 import { handler } from '../build/handler.js';
 
-const port = 'https://lyricalgeniusquiz.herokuapp.com/';
+const port = 'https://lg-quiz.herokuapp.com/';
 const app = express();
 const server = createServer(app);
 

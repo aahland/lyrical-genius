@@ -25,6 +25,7 @@
 	// Listening on players ready to start round. Won't start until all 4 players are ready
 	io.on('start', (start) => {
 		playersReadyToStart = [...playersReadyToStart, start];
+		console.log(playersReadyToStart)
 		let waiting = document.getElementById('waiting');
 		waiting.innerHTML = 'waiting for other players';
 		let playersReady = document.getElementById('playersReady');
@@ -38,7 +39,6 @@
 			playersReady.innerHTML = '3/4';
 		}
 		if (playersReadyToStart.length === 4) {
-			playersReadyToStart = [];
 			waiting.remove();
 			playersReady.remove();
 			displayLyrics();

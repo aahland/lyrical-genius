@@ -99,7 +99,6 @@
 		margin-top: 10px;
 		justify-content: flex-start;
 		max-height: 100vh;
-		justify-content: center;
 		align-items: center; 
 		
 	}

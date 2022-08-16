@@ -43,26 +43,24 @@
 	}
 </script>
 
+
 <div class="layoutWrapper">
-	<main>
-		<svelte:component
-			this={round[i].component}
-			on:newRound={newRound}
-			on:gameFinished={gameFinished}
-			on:correct={addToScore}
-			on:restartGame={restart}
-		/>
-	</main>
-	<Footer />
+<svelte:component
+	this={round[i].component}
+	on:newRound={newRound}
+	on:gameFinished={gameFinished}
+    on:correct={addToScore}
+	on:restartGame={restart}/>
+<Footer />
 </div>
 
 <style>
-	.layoutWrapper {
+	 .layoutWrapper {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		height: 800px;
-	}
+		height: 100vh;
+	} 
 
 	
 

@@ -94,13 +94,14 @@
 
 <style>
 	.wrap {
-		display: flex;
+		 display: flex;
 		flex-direction: column;
-		margin-top: 70px;
-		justify-content: space-around;
-		max-height: 400px;
+		margin-top: 10px;
+		justify-content: flex-start;
+		max-height: 100vh;
 		justify-content: center;
-		align-items: center;
+		align-items: center; 
+		
 	}
 
 	#logo {
@@ -172,12 +173,23 @@
 
 	@media screen and (min-width: 1440px) {
 		.wrap {
-			height: 400px;
+			height: 100vh;
+			margin-top: 0px;
 		}
 
 		#logo {
 			width: 350px;
-			margin-top: 60px;
+			/* margin-top: 60px; */
+		}
+	}
+	@media screen and (min-width: 2440px) {
+		.wrap {
+			height: 100vh;
+		}
+
+		#logo {
+			width: 420px;
+			/* margin-top: 70px; */
 		}
 	}
 </style>

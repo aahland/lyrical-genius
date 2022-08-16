@@ -43,6 +43,7 @@
 			playersReady.innerHTML = '3/4';
 		}
 		if (playersReadytoStart.length === 4) {
+			playersReadytoStart = [];
 			waiting.remove();
 			playersReady.remove();
 			displayLyrics();

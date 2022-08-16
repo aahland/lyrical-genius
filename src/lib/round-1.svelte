@@ -44,6 +44,7 @@
 			playersReady.innerHTML = '3/4';
 		}
 		if (playersReadyToStart.length === 4) {
+			playersReadyToStart = [];
 			waiting.remove();
 			playersReady.remove();
 			displayLyrics();
@@ -107,6 +108,7 @@
 		let textSplitted = splitLyrics(lyricsResponse.lyrics);
 		snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
 		// Function to fetch lyrics again if result contains Paroles and therefor is faulty
+		// RECURSIVE FUNCTION INSTEAD OF NESTED IF STATEMENT FOR ALL ROUNDS
 		if (textSplitted[0].includes('Paroles')) {
 			lyricsWrapper.style.visibility = 'hidden';
 			let lyrics = await fetch(url);

@@ -48,6 +48,49 @@
         <div class="triangle" />
         <div class="triangle" />
         <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
+        <div class="triangle" />
     </div>
 </div>
 
@@ -56,7 +99,6 @@
         background-color: #198dc1;
         width: 100vw;
         height: 200px;
-        position: sticky;
         bottom: 0px;
     }
 
@@ -75,6 +117,21 @@
     @media screen and (min-width: 768px) {
         .footer {
             height: 250px;
+            bottom: 127px;
+        }
+    }
+
+    @media screen and (min-width: 1440px) {
+        .footer {
+            height: 200px;
+            bottom: 127px;
+        }
+    }
+
+    @media screen and (min-width: 2500px) {
+        .footer {
+            height: 300px;
+            
         }
     }
 

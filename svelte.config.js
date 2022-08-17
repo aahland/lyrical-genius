@@ -70,6 +70,16 @@ const config = {
 								});
 
 							});
+							socket.on('answered', (answered) => {
+
+								
+									 io.emit('answered', {
+										answered
+									});
+								   
+							
+								 });
+							
 
 
 						});

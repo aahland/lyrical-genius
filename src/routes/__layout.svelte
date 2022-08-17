@@ -20,8 +20,13 @@
 
 	let i = 0;
 
+	// let newRoundClicked = 0;
 	function newRound() {
-		i = i + 1;
+		// newRoundClicked ++
+		// if (newRoundClicked > 4){
+			i = i + 1;
+	//	}
+		
 	}
 
 	function gameFinished() {

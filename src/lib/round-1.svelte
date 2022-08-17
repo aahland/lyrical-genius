@@ -7,6 +7,7 @@
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
 	import { splitLyrics } from '../helpers/splitLyrics';
 
+
 	const dispatch = createEventDispatcher();
 	let round = 'Round 1';
 	let objects = [];
@@ -21,6 +22,8 @@
 	let shuffled = [];
 	let alts = [];
 	let extraPoint = [];
+	let playersAnswered = 0;
+	
 
 	// recieves sent data contains all songs and distractors for all 4 rounds. Saves data to store
 	io.on('data', (data) => {
@@ -32,24 +35,33 @@
 	io.on('start', (start) => {
 		playersReadyToStart = [...playersReadyToStart, start];
 		console.log(playersReadyToStart)
-		let waiting = document.getElementById('waiting');
-		waiting.innerHTML = 'waiting for other players';
-		let playersReady = document.getElementById('playersReady');
+		 let waiting = document.getElementById('waiting');
+	     waiting.innerHTML = 'waiting for other players';
+		 let playersReady = document.getElementById('playersReady');
 		if (playersReadyToStart.length === 1) {
-			playersReady.innerHTML = '1/4';
+			 playersReady.innerHTML = '1/4';
 		}
 		if (playersReadyToStart.length === 2) {
-			playersReady.innerHTML = '2/4';
+			 playersReady.innerHTML = '2/4';
 		}
 		if (playersReadyToStart.length === 3) {
-			playersReady.innerHTML = '3/4';
+			 playersReady.innerHTML = '3/4';
 		}
 		if (playersReadyToStart.length === 4) {
-			waiting.remove();
-			playersReady.remove();
+			 waiting.remove();
+			 playersReady.remove();
 			displayLyrics();
 		}
 	});
+
+	io.on("answered", (answered) => {
+				playersAnswered++
+				if (playersAnswered === 4){
+					dispatch("newRound")
+				}
+		 		let start = 'start';
+		 io.emit('start', start);
+			});
 
 	// Sends one song and 2 distractors per player to the server for saving it to store.
 	async function shareData() {
@@ -174,7 +186,7 @@
 			correct.style.backgroundColor = 'green';
 		}
 		setTimeout(function () {
-			dispatch('newRound');
+			io.emit("answered");
 		}, 2000);
 	}
 	shareData();
@@ -185,11 +197,11 @@
 		<p class="round">{round}</p>
 		<div id="stylisticLine" />
 		<!-- change this id -->
-		<button id="btn" class="button" on:click={startRound}>start round</button>
-		<div class="waitingForPlayers">
+		 <button id="btn" class="button" on:click={startRound}>start round</button> 
+	      <div class="waitingForPlayers">
 			<p id="waiting" />
 			<p id="playersReady" />
-		</div>
+		</div> 
 		<div class="lyricsWrapper1" id="lyricsWrapper1">
 			{#each snippets as snippet}
 				<div class="displayLyrics">

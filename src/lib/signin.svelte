@@ -12,6 +12,7 @@
 	function startGame() {
 		if (messages.length === 4) {
 			dispatch('newRound');
+		
 		}
 	}
 

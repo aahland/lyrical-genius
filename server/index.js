@@ -53,6 +53,16 @@ io.on('connection', (socket) => {
 
     });
 
+    // let playersAnswered = 0;
+     socket.on('answered', (answered) => {
+        io.emit('answered', {
+            answered
+        });
+        
+       
+
+     });
+
 
 });
 

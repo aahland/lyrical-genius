@@ -20,6 +20,7 @@
 	let alts = [];
 	let playersReadyToStart = [];
 	let extraPoint = [];
+	let playersAnswered = 0;
 
 	// Listening on players ready to start round. Won't start until all 4 players are ready
 	io.on('start', (start) => {
@@ -37,12 +38,19 @@
 			playersReady.innerHTML = '3/4';
 		}
 		if (playersReadyToStart.length === 4) {
-			// playersReadyToStart = [];
 			waiting.remove();
 			playersReady.remove();
 			displayLyrics();
 		}
 	});
+
+	io.on("answered", (answered) => {
+				playersAnswered++
+				if (playersAnswered === 4){
+					dispatch("newRound")
+				}
+				
+			});
 	// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
 	async function fetchLyrics() {
 		song1 = objects[2].data.song.answer.song;
@@ -154,7 +162,7 @@
 			correct.style.backgroundColor = 'green';
 		}
 		setTimeout(function () {
-			dispatch('newRound');
+			io.emit("answered");
 		}, 2000);
 	}
 </script>

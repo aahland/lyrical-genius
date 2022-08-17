@@ -21,29 +21,40 @@
 	let alts = [];
 	let playersReadyToStart = [];
 	let extraPoint = [];
+	let playersAnswered = 0;
 
 	// Listening on players ready to start round. Won't start until all 4 players are ready
 	io.on('start', (start) => {
-		playersReadyToStart = [...playersReadyToStart, start];
-		console.log(playersReadyToStart)
-		let waiting = document.getElementById('waiting');
-		waiting.innerHTML = 'waiting for other players';
-		let playersReady = document.getElementById('playersReady');
-		if (playersReadyToStart.length === 1) {
-			playersReady.innerHTML = '1/4';
-		}
-		if (playersReadyToStart.length === 2) {
-			playersReady.innerHTML = '2/4';
-		}
-		if (playersReadyToStart.length === 3) {
-			playersReady.innerHTML = '3/4';
-		}
-		if (playersReadyToStart.length === 4) {
+		 playersReadyToStart = [...playersReadyToStart, start];
+		 console.log(playersReadyToStart)
+		 let waiting = document.getElementById('waiting');
+		 waiting.innerHTML = 'waiting for other players';
+		 let playersReady = document.getElementById('playersReady');
+		 if (playersReadyToStart.length === 1) {
+		 	playersReady.innerHTML = '1/4';
+		 }
+		 if (playersReadyToStart.length === 2) {
+		 	playersReady.innerHTML = '2/4';
+		 }
+		 if (playersReadyToStart.length === 3) {
+		 	playersReady.innerHTML = '3/4';
+		 }
+		 if (playersReadyToStart.length === 4) {
 			waiting.remove();
 			playersReady.remove();
 			displayLyrics();
-		}
+            }
 	});
+
+	io.on("answered", (answered) => {
+				playersAnswered++
+				console.log(playersAnswered)
+				if (playersAnswered === 4){
+					dispatch("newRound")
+				}
+				
+				
+			});
 
 	// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
 	async function fetchLyrics() {
@@ -155,7 +166,7 @@
 			correct.style.backgroundColor = 'green';
 		}
 		setTimeout(function () {
-			dispatch('newRound');
+			io.emit("answered");
 		}, 2000);
 	}
 </script>
@@ -165,11 +176,11 @@
 		<p class="round">{round}</p>
 		<div id="stylisticLine" />
 		<!-- change this id -->
-		<button id="btn" class="button" on:click={startRound}>start round</button>
+		 <button id="btn" class="button" on:click={startRound}>start round</button>
 		<div class="waitingForPlayers">
 			<p id="waiting" />
 			<p id="playersReady" />
-		</div>
+		</div> 
 		<div class="lyricsWrapper" id="lyricsWrapper">
 			{#each snippets as snippet}
 				<div class="displayLyrics">

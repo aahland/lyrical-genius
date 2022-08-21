@@ -41,22 +41,26 @@ As for now the preview version doesn't work. The game has to be played locally.
 The project has 3 unit tests testing functions. 
 To run the test use `npm run test`
 
-## Issues 
+## Production
 
-The project isn't live due to problems deploying. The live version renders but socket.io is not working. 
+The application is live at https://lg-quiz.herokuapp.com/
 
-I have tried to deploy to:
+## Issues & Backlog
 
-Heroku 
-https://lyricalgeniusquiz.herokuapp.com/
+22022-08-21 - issues with the song lyric api. Can´t fetch
 
-Cloudflare
-https://lyrical-genius.pages.dev/  
-(doesn't build on latest push)
+Lyrics sometimes contains the portuguese sentence for "Song lyrics for the song XX by XX". This seems to happen randomly. The solution for handeling this is not good. This should be rewritten, maybe with a recursive function(?). Look in to that. 
 
-Vercel 
-https://vercel.com/aahland/lyrical-genius
-(doesn't build on latest push)
+There is still issues with the realtime socket functionality that needs to be taken care of
+
+One player mode should be added
+
+Refactior, refactor, refactor
+
+
+
+
+
 
 
 

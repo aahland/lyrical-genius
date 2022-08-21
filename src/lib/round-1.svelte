@@ -106,6 +106,7 @@
 		if (!lyrics.ok) {
 			let failedToFetch = document.getElementById('lyricsWrapper1');
 			let sorryMessage = document.createElement('p');
+			sorryMessage.id = "sorryMessage";
 			sorryMessage.innerHTML =
 				"Sorry, we couldn't get the lyrics for you. Have a blind guess and earn 2 points if you are correct!";
 			sorryMessage.style.backgroundColor = 'red';

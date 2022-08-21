@@ -60,6 +60,7 @@ button:hover {
     font-weight: 400px;
     width: 340px;
     margin-top: 20px;
+    margin-left: 41px;
 }
 
 .lyricsWrapper1 {
@@ -108,6 +109,10 @@ button:hover {
 
 #playersReady {
     margin-top: 0px;
+}
+
+#sorryMessage {
+    margin-left: 20px;
 }
 
 @media screen and (min-width: 768px) {

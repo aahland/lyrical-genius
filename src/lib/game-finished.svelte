@@ -20,6 +20,7 @@
 
 	io.on('playersScoreReady', (ready) => {
 		playersScoreReady = [...playersScoreReady, ready];
+		console.log(playersScoreReady)
 		let waiting = document.getElementById('waiting');
 		waiting.innerHTML = 'waiting for other players score';
 		let numberOfPlayersReady = document.getElementById('playersReady');

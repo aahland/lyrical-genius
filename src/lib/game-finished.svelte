@@ -7,6 +7,7 @@
 
 	const dispatch = createEventDispatcher();
 
+	// Socket listening for handed in scores, all players must hand in score before all scores can be displayed
 	let playersScoreReady = [];
 	let sortedResults = [];
 	let sortedFinal;
@@ -16,9 +17,10 @@
 			return b.finalScores[0].score - a.finalScores[0].score;
 		});
 	}
-	// Socket listening for handed in scores, all players must hand in score before all scores can be displayed
+
 	io.on('playersScoreReady', (ready) => {
 		playersScoreReady = [...playersScoreReady, ready];
+		console.log(playersScoreReady);
 		let waiting = document.getElementById('waiting');
 		waiting.innerHTML = 'waiting for other players score';
 		let numberOfPlayersReady = document.getElementById('playersReady');
@@ -34,7 +36,7 @@
 		}
 		if (playersScoreReady.length === 4) {
 			let statsFromStore = get(storedStats);
-
+			console.log(statsFromStore);
 			// Removes empty index 0 from object array
 			removeFirstObject(statsFromStore);
 

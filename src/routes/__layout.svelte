@@ -20,18 +20,22 @@
 
 	let i = 0;
 
+	// let newRoundClicked = 0;
 	function newRound() {
+		// newRoundClicked ++
+		// if (newRoundClicked > 4){
 		i = i + 1;
+		//	}
 	}
 
 	function gameFinished() {
 		i = 3;
 	}
 
-	let score = 0;
+	// let score = 0;
 
 	function addToScore() {
-		let score = parseInt(localStorage.getItem("Score"));
+		let score = parseInt(localStorage.getItem('Score'));
 		let newScore = score + 1;
 		localStorage.setItem('Score', JSON.stringify(newScore));
 	}
@@ -39,20 +43,19 @@
 	function restart() {
 		i = 0;
 		storedStats.set([]);
-		score = 0;
+		let score = 0;
+		localStorage.setItem('Score', JSON.stringify(score));
 	}
 </script>
 
 <div class="layoutWrapper">
-	<main>
-		<svelte:component
-			this={round[i].component}
-			on:newRound={newRound}
-			on:gameFinished={gameFinished}
-			on:correct={addToScore}
-			on:restartGame={restart}
-		/>
-	</main>
+	<svelte:component
+		this={round[i].component}
+		on:newRound={newRound}
+		on:gameFinished={gameFinished}
+		on:correct={addToScore}
+		on:restartGame={restart}
+	/>
 	<Footer />
 </div>
 
@@ -61,9 +64,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		height: 800px;
+		height: 100vh;
 	}
-
-	
-
 </style>

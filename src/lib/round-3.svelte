@@ -12,16 +12,8 @@
 	const dispatch = createEventDispatcher();
 	let round = 'Round 3';
 	let objects = get(questions);
-	let data;
 	let playersReadyToStart = [];
-	let snippets = [];
 	let song1 = '';
-	let artist1 = '';
-	let distractor1 = '';
-	let distractor2 = '';
-	let allAlternatives = [];
-	let shuffled = [];
-	// let answerAlts = [];
 	let extraPoint = [];
 	let playersAnswered = 0;
 
@@ -58,118 +50,14 @@
 		// io.emit('start', start);
 	});
 
-	// // Sends one song and 2 distractors per player to the server for saving it to store.
-	// async function shareData() {
-	// 	let songs = objects;
-	// 	console.log(songs[1].answer.song, 'songs from getRandom');
-	// 	// let answerAlts = [
-	// 	// 	{ song: data.song.answer.song, id: 'button1' },
-	// 	// 	{ song: data.distractor1, id: 'button2' },
-	// 	// 	{ song: data.distractor2, id: 'button3' }
-	// 	// ];
-
-	// 	data = {
-	// 		song: songs[1].answer,
-	// 		distractor1: distractors[2],
-	// 		distractor2: distractors[3],
-	// 		answerAlts: [
-	// 			{ song: distractors[2], id: 'button2' },
-	// 			{ song: distractors[3], id: 'button3' },
-	// 			{ song: songs[1].answer.song, id: 'button1' }
-	// 		]
-	// 	};
-	// 	console.log(data, 'all data');
-	// 	console.log(data.answerAlts);
-	// 	io.emit('data', data);
-	// }
-
-	// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
-	// async function fetchLyrics() {
-	// 	song1 = objects[0].data.song.answer.song;
-	// 	artist1 = objects[0].data.song.answer.artist;
-	// 	distractor1 = objects[0].data.distractor1;
-	// 	distractor2 = objects[0].data.distractor2;
-	// 	alts = [
-	// 		{ song: song1, id: 'button1' },
-	// 		{ song: distractor1, id: 'button2' },
-	// 		{ song: distractor2, id: 'button3' }
-	// 	];
-	// 	allAlternatives = [...allAlternatives, alts];
-	// 	//Shuffle alts so that the correct answer is not always the first
-	// 	shuffled = randomArrayShuffle(alts);
-	// 	let stylisticLine = document.getElementById('stylisticLine');
-	// 	let header = document.createElement('h1');
-	// 	header.className = 'header';
-	// 	header.innerHTML = 'Which song is this?';
-	// 	header.style.marginBottom = '0';
-	// 	header.style.marginTop = '0';
-	// 	stylisticLine.appendChild(header);
-	// 	stylisticLine.style.borderBottom = '1px solid white';
-
-	// 	let lyricsWrapper = document.getElementById('lyricsWrapper1');
-	// 	lyricsWrapper.style.color = 'white';
-
-	// 	let url = 'https://api.lyrics.ovh/v1/' + artist1 + '/' + song1;
-	// 	let lyrics = await fetch(url);
-	// 	if (!lyrics.ok) {
-	// 		let failedToFetch = document.getElementById('lyricsWrapper1');
-	// 		let sorryMessage = document.createElement('p');
-	// 		sorryMessage.id = 'sorryMessage';
-	// 		sorryMessage.innerHTML =
-	// 			"Sorry, we couldn't get the lyrics for you. Have a blind guess and earn 2 points if you are correct!";
-	// 		sorryMessage.style.backgroundColor = 'red';
-	// 		sorryMessage.style.padding = '5px 10px 5px 10px';
-	// 		sorryMessage.style.borderRadius = '10px';
-	// 		sorryMessage.style.width = '280px';
-	// 		sorryMessage.style.fontWeight = 'bold';
-	// 		failedToFetch.appendChild(sorryMessage);
-	// 		extraPoint.push('1');
-	// 	}
-	// 	let lyricsResponse = await lyrics.json();
-	// 	let textSplitted = splitLyrics(lyricsResponse.lyrics);
-	// 	snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-	// 	// Function to fetch lyrics again if result contains Paroles and therefor is faulty
-	// 	// RECURSIVE FUNCTION INSTEAD OF NESTED IF STATEMENT FOR ALL ROUNDS
-	// 	if (textSplitted[0].includes('Paroles')) {
-	// 		lyricsWrapper.style.visibility = 'hidden';
-	// 		let lyrics = await fetch(url);
-	// 		let lyricsResponse = await lyrics.json();
-	// 		let textSplitted = splitLyrics(lyricsResponse.lyrics);
-	// 		snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-
-	// 		if (textSplitted[0].includes('Paroles')) {
-	// 			lyricsWrapper.style.visibility = 'hidden';
-	// 			let lyrics = await fetch(url);
-	// 			let lyricsResponse = await lyrics.json();
-	// 			let textSplitted = splitLyrics(lyricsResponse.lyrics);
-	// 			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-	// 		}
-	// 	}
-	// 	if (textSplitted[0].length + textSplitted[1].length > 70) {
-	// 		snippets = [textSplitted[0], textSplitted[1], textSplitted[2]];
-	// 	}
-	// 	if (textSplitted[0].length < 40 && textSplitted[1].length < 10) {
-	// 		textSplitted[1] = textSplitted[0] + textSplitted[1];
-	// 		textSplitted.splice(0, 1);
-	// 		snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-	// 	}
-
-	// 	lyricsWrapper.style.visibility = 'visible';
-	// 	return snippets;
-	// }
 	let lyrics;
 	let answerAlts;
+	let splittedLyrics;
 	function displayLyrics() {
+		splittedLyrics = splitLyrics(lyrics);
 		song1 = objects[0].data[2].song.answer.song;
 		lyrics = objects[0].data[2].song.answer.lyrics;
 		answerAlts = randomArrayShuffle(objects[0].data[2].answerAlts);
-
-		// 	{ song: data.song.answer.song, id: 'button1' },
-		// 	{ song: data.distractor1, id: 'button2' },
-		// 	{ song: data.distractor2, id: 'button3' }
-		// ];
-		// console.log(answerAlts, 'answer alternatives');
-		// await fetchLyrics();
 	}
 
 	// Sends info to server that you are ready to start the round
@@ -208,7 +96,6 @@
 			io.emit('answered');
 		}, 2000);
 	}
-	// shareData();
 </script>
 
 <div id="mainWrapper" class="mainWrapper">
@@ -222,12 +109,14 @@
 			<p id="playersReady" />
 		</div>
 		<div class="lyricsWrapper1" id="lyricsWrapper1">
-			{#if lyrics}
-				<div class="displayLyrics">
-					<p class="snippet">
-						{lyrics}
-					</p>
-				</div>
+			{#if splittedLyrics}
+				{#each splittedLyrics as splittedLyric}
+					<div class="displayLyrics">
+						<p class="snippet">
+							{splittedLyric}
+						</p>
+					</div>
+				{/each}
 			{/if}
 		</div>
 		<div class="alternatives" id="alternatives">

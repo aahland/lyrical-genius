@@ -11,6 +11,13 @@ html {
     height: 100vh;
 }
 
+#stylisticLine {
+    color: #198dc1;
+    border: 1px solid #198dc1;
+    width: 70%;
+    margin-top: 15px;
+}
+
 main {
     display: flex;
     flex-direction: row;
@@ -82,6 +89,7 @@ button:hover {
     margin-bottom: 0px;
     font-weight: bold;
     padding: 0px 0px 0px 0px;
+    line-height: 30px;
 }
 
 .componentWrapper {
@@ -91,7 +99,7 @@ button:hover {
 }
 
 .round {
-    color: #ffffffd4;
+    color:  #198dc1;
     text-align: center;
     margin-bottom: 0;
     position: relative;

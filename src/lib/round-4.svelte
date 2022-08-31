@@ -4,20 +4,12 @@
 	import { storedStats, questions } from '../helpers/store';
 	import { get } from 'svelte/store';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
-	import { splitLyrics } from '../helpers/splitLyrics';
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 4';
 	let objects = get(questions);
 	let allStats = [{}];
-	let snippets = [];
 	let song1 = '';
-	let artist1 = '';
-	let distractor1 = '';
-	let distractor2 = '';
-	let allAlternatives = [];
-	let shuffled = [];
-	let alts = [];
 	let playersReadytoStart = [];
 	let extraPoint = [];
 
@@ -49,81 +41,12 @@
 			displayLyrics();
 		}
 	});
-	// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
-	// async function fetchLyrics() {
-	// 	song1 = objects[3].data.song.answer.song;
-	// 	artist1 = objects[3].data.song.answer.artist;
-	// 	distractor1 = objects[3].data.distractor1;
-	// 	distractor2 = objects[3].data.distractor2;
-	// 	alts = [
-	// 		{ song: song1, id: 'button1' },
-	// 		{ song: distractor1, id: 'button2' },
-	// 		{ song: distractor2, id: 'button3' }
-	// 	];
-	// 	allAlternatives = [...allAlternatives, alts];
-	// 	//Shuffle alts so that the correct answer is not always the first
-	// 	shuffled = randomArrayShuffle(alts);
-	// 	let btn = document.getElementById('btn');
-	// 	btn.remove();
-	// 	let stylisticLine = document.getElementById('stylisticLine');
-	// 	let header = document.createElement('h1');
-	// 	header.className = 'header';
-	// 	header.innerHTML = 'Which song is this?';
-	// 	header.style.marginBottom = '0';
-	// 	header.style.marginTop = '0';
-	// 	stylisticLine.appendChild(header);
-	// 	stylisticLine.style.borderBottom = '1px solid white';
-	// 	let lyricsWrapper = document.getElementById('lyricsWrapper');
-	// 	lyricsWrapper.style.color = 'white';
 
-	// 	let url = 'https://api.lyrics.ovh/v1/' + artist1 + '/' + song1;
-	// 	let lyrics = await fetch(url);
-	// 	if (!lyrics.ok) {
-	// 		let failedToFetch = document.getElementById('lyricsWrapper');
-	// 		let sorryMessage = document.createElement('p');
-	// 		sorryMessage.innerHTML =
-	// 			"Sorry, we couldn't get the lyrics for you. Have a blind guess and earn 2 points if you are correct";
-	// 		sorryMessage.style.backgroundColor = 'red';
-	// 		sorryMessage.style.padding = '5px 10px 5px 10px';
-	// 		sorryMessage.style.borderRadius = '10px';
-	// 		sorryMessage.style.width = '280px';
-	// 		sorryMessage.style.fontWeight = 'bold';
-	// 		failedToFetch.appendChild(sorryMessage);
-	// 		extraPoint.push('1');
-	// 	}
-	// 	let lyricsResponse = await lyrics.json();
-	// 	let textSplitted = splitLyrics(lyricsResponse.lyrics);
-	// 	snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-	// 	// Function to fetch lyrics again if result contains Paroles and therefor is faulty
-	// 	if (textSplitted[0].includes('Paroles')) {
-	// 		lyricsWrapper.style.visibility = 'hidden';
-	// 		let lyrics = await fetch(url);
-	// 		let lyricsResponse = await lyrics.json();
-	// 		let textSplitted = splitLyrics(lyricsResponse.lyrics);
-	// 		snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-
-	// 		if (textSplitted[0].includes('Paroles')) {
-	// 			lyricsWrapper.style.visibility = 'hidden';
-	// 			let lyrics = await fetch(url);
-	// 			let lyricsResponse = await lyrics.json();
-	// 			let textSplitted = splitLyrics(lyricsResponse.lyrics);
-	// 			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-	// 		}
-	// 	}
-	// 	if (textSplitted[0].length + textSplitted[1].length > 70) {
-	// 		snippets = [textSplitted[0], textSplitted[1], textSplitted[2]];
-	// 	}
-	// 	if (textSplitted[0].length < 40 && textSplitted[1].length < 10) {
-	// 		textSplitted[1] = textSplitted[0] + textSplitted[1];
-	// 		textSplitted.splice(0, 1);
-	// 		snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-	// 	}
-	// 	lyricsWrapper.style.visibility = 'visible';
-	// 	return snippets;
-	// }
 	let lyrics;
 	let answerAlts;
+	let splittedLyrics;
 	async function displayLyrics() {
+		splittedLyrics = splitLyrics(lyrics);
 		song1 = objects[0].data[3].song.answer.song;
 		lyrics = objects[0].data[3].song.answer.lyrics;
 		answerAlts = randomArrayShuffle(objects[0].data[3].answerAlts);
@@ -182,12 +105,14 @@
 			<p id="playersReady" />
 		</div>
 		<div class="lyricsWrapper1" id="lyricsWrapper1">
-			{#if lyrics}
-				<div class="displayLyrics">
-					<p class="snippet">
-						{lyrics}
-					</p>
-				</div>
+			{#if splittedLyrics}
+				{#each splittedLyrics as splittedLyric}
+					<div class="displayLyrics">
+						<p class="snippet">
+							{splittedLyric}
+						</p>
+					</div>
+				{/each}
 			{/if}
 		</div>
 		<div class="alternatives" id="alternatives">

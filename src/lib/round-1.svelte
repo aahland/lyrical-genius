@@ -5,6 +5,7 @@
 	import { distractors } from '../helpers/sendAlternatives';
 	import { questions, storedStats } from '../helpers/store';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
+	import { splitLyrics } from '../helpers/splitLyrics';
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 1';
@@ -114,9 +115,11 @@
 
 	let lyrics;
 	let answerAlts;
+	let splittedLyrics;
 	function displayLyrics() {
 		lyrics = objects[0].data[0].song.answer.lyrics;
-
+		splittedLyrics = splitLyrics(lyrics);
+		console.log(splittedLyrics);
 		answerAlts = randomArrayShuffle(objects[0].data[0].answerAlts);
 	}
 
@@ -170,12 +173,14 @@
 			<p id="playersReady" />
 		</div>
 		<div class="lyricsWrapper1" id="lyricsWrapper1">
-			{#if lyrics}
-				<div class="displayLyrics">
-					<p class="snippet">
-						{lyrics}
-					</p>
-				</div>
+			{#if splittedLyrics}
+				{#each splittedLyrics as splittedLyric}
+					<div class="displayLyrics">
+						<p class="snippet">
+							{splittedLyric}
+						</p>
+					</div>
+				{/each}
 			{/if}
 		</div>
 		<div class="alternatives" id="alternatives">

@@ -4,6 +4,7 @@
 	import { storedStats, questions } from '../helpers/store';
 	import { get } from 'svelte/store';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
+	import { splitLyrics } from '../helpers/splitLyrics';
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 4';
@@ -46,9 +47,9 @@
 	let answerAlts;
 	let splittedLyrics;
 	async function displayLyrics() {
-		splittedLyrics = splitLyrics(lyrics);
 		song1 = objects[0].data[3].song.answer.song;
 		lyrics = objects[0].data[3].song.answer.lyrics;
+		splittedLyrics = splitLyrics(lyrics);
 		answerAlts = randomArrayShuffle(objects[0].data[3].answerAlts);
 	}
 	// Sends info to server that you are ready to start the round

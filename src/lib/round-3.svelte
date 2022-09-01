@@ -54,9 +54,9 @@
 	let answerAlts;
 	let splittedLyrics;
 	function displayLyrics() {
-		splittedLyrics = splitLyrics(lyrics);
 		song1 = objects[0].data[2].song.answer.song;
 		lyrics = objects[0].data[2].song.answer.lyrics;
+		splittedLyrics = splitLyrics(lyrics);
 		answerAlts = randomArrayShuffle(objects[0].data[2].answerAlts);
 	}
 

@@ -4,6 +4,7 @@
 	import { questions } from '../helpers/store';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
 	import { get } from 'svelte/store';
+	import { splitLyrics } from '../helpers/splitLyrics';
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 2';
@@ -50,9 +51,9 @@
 	let answerAlts;
 	let splittedLyrics;
 	function displayLyrics() {
-		splittedLyrics = splitLyrics(lyrics);
 		song1 = objects[0].data[1].song.answer.song;
 		lyrics = objects[0].data[1].song.answer.lyrics;
+		splittedLyrics = splitLyrics(lyrics);
 		answerAlts = randomArrayShuffle(objects[0].data[1].answerAlts);
 	}
 

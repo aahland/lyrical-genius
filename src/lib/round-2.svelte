@@ -1,26 +1,18 @@
 <script>
+	import { io } from '$lib/realtime';
 	import { createEventDispatcher } from 'svelte';
 	import { questions } from '../helpers/store';
-	import { get } from 'svelte/store';
-	import { io } from '$lib/realtime';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
+	import { get } from 'svelte/store';
 	import { splitLyrics } from '../helpers/splitLyrics';
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 2';
-	let score = 0;
 	let objects = get(questions);
-
-	let snippets = [];
-	let song1 = '';
-	let artist1 = '';
-	let distractor1 = '';
-	let distractor2 = '';
-	let allAlternatives = [];
-	let shuffled = [];
-	let alts = [];
 	let playersReadyToStart = [];
+	let song1 = '';
 	let extraPoint = [];
+	let playersAnswered = 0;
 
 	// Listening on players ready to start round. Won't start until all 4 players are ready
 	io.on('start', (start) => {
@@ -44,80 +36,23 @@
 		}
 	});
 
-	// Function for creating answer alternatives, shuffle the order of them before displaying and fetching the lyrics of the song
-	async function fetchLyrics() {
-		song1 = objects[1].data.song.answer.song;
-		artist1 = objects[1].data.song.answer.artist;
-		distractor1 = objects[1].data.distractor1;
-		distractor2 = objects[1].data.distractor2;
-		alts = [
-			{ song: song1, id: 'button1' },
-			{ song: distractor1, id: 'button2' },
-			{ song: distractor2, id: 'button3' }
-		];
-		allAlternatives = [...allAlternatives, alts];
-		//Shuffle alts so that the correct answer is not always the first
-		shuffled = randomArrayShuffle(alts);
-		let btn = document.getElementById('btn');
-		btn.remove();
-		let stylisticLine = document.getElementById('stylisticLine');
-		let header = document.createElement('h1');
-		header.className = 'header';
-		header.innerHTML = 'Which song is this?';
-		header.style.marginBottom = '0';
-		header.style.marginTop = '0';
-		stylisticLine.appendChild(header);
-		stylisticLine.style.borderBottom = '1px solid white';
-		let lyricsWrapper = document.getElementById('lyricsWrapper');
-		lyricsWrapper.style.color = 'white';
-		let url = 'https://api.lyrics.ovh/v1/' + artist1 + '/' + song1;
-		let lyrics = await fetch(url);
-		if (!lyrics.ok) {
-			let failedToFetch = document.getElementById('lyricsWrapper');
-			let sorryMessage = document.createElement('p');
-			sorryMessage.innerHTML =
-				"Sorry, we couldn't get the lyrics for you. Have a blind guess and earn 2 points if you are correct";
-			sorryMessage.style.backgroundColor = 'red';
-			sorryMessage.style.padding = '5px 10px 5px 10px';
-			sorryMessage.style.borderRadius = '10px';
-			sorryMessage.style.width = '280px';
-			sorryMessage.style.fontWeight = 'bold';
-			failedToFetch.appendChild(sorryMessage);
-			extraPoint.push('1');
+	io.on('answered', (answered) => {
+		playersAnswered++;
+		if (playersAnswered === 4) {
+			dispatch('newRound');
 		}
-		let lyricsResponse = await lyrics.json();
-		let textSplitted = splitLyrics(lyricsResponse.lyrics);
-		snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-		// Function to fetch lyrics again if result contains Paroles and therefor is faulty
-		if (textSplitted[0].includes('Paroles')) {
-			lyricsWrapper.style.visibility = 'hidden';
-			let lyrics = await fetch(url);
-			let lyricsResponse = await lyrics.json();
-			let textSplitted = splitLyrics(lyricsResponse.lyrics);
-			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
+		let start = 'start';
+		io.emit('start', start);
+	});
 
-			if (textSplitted[0].includes('Paroles')) {
-				lyricsWrapper.style.visibility = 'hidden';
-				let lyrics = await fetch(url);
-				let lyricsResponse = await lyrics.json();
-				let textSplitted = splitLyrics(lyricsResponse.lyrics);
-				snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-			}
-		}
-		if (textSplitted[0].length + textSplitted[1].length > 70) {
-			snippets = [textSplitted[0], textSplitted[1], textSplitted[2]];
-		}
-		if (textSplitted[0].length < 40 && textSplitted[1].length < 10) {
-			textSplitted[1] = textSplitted[0] + textSplitted[1];
-			textSplitted.splice(0, 1);
-			snippets = [textSplitted[0], textSplitted[1], textSplitted[2], textSplitted[3]];
-		}
-		lyricsWrapper.style.visibility = 'visible';
-		return snippets;
-	}
-
-	async function displayLyrics() {
-		await fetchLyrics();
+	let lyrics;
+	let answerAlts;
+	let splittedLyrics;
+	function displayLyrics() {
+		song1 = objects[0].data[1].song.answer.song;
+		lyrics = objects[0].data[1].song.answer.lyrics;
+		splittedLyrics = splitLyrics(lyrics);
+		answerAlts = randomArrayShuffle(objects[0].data[1].answerAlts);
 	}
 
 	// Sends info to server that you are ready to start the round
@@ -135,7 +70,6 @@
 		let button = event.target.id;
 		if (innerHtml === song1) {
 			document.getElementById(button).style.backgroundColor = 'green';
-			score = score + 1;
 			let audio = new Audio('../static/sounds/correct.wav');
 			audio.play();
 			dispatch('correct');
@@ -154,7 +88,7 @@
 			correct.style.backgroundColor = 'green';
 		}
 		setTimeout(function () {
-			dispatch('newRound');
+			io.emit('answered');
 		}, 2000);
 	}
 </script>
@@ -163,28 +97,33 @@
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">{round}</p>
 		<div id="stylisticLine" />
-		<button id="btn" class="button" on:click={startRound}>start round</button>
+		<!-- change this id -->
+		<!-- <button id="btn" class="button" on:click={startRound}>start round</button> -->
 		<div class="waitingForPlayers">
 			<p id="waiting" />
 			<p id="playersReady" />
 		</div>
-		<div class="lyricsWrapper" id="lyricsWrapper">
-			{#each snippets as snippet}
-				<div class="displayLyrics">
-					<p class="snippet">
-						{snippet}
-					</p>
-				</div>
-			{/each}
+		<div class="lyricsWrapper1" id="lyricsWrapper1">
+			{#if splittedLyrics}
+				{#each splittedLyrics as splittedLyric}
+					<div class="displayLyrics">
+						<p class="snippet">
+							{splittedLyric}
+						</p>
+					</div>
+				{/each}
+			{/if}
 		</div>
 		<div class="alternatives" id="alternatives">
-			{#each alts as alt}
-				<div class="altBtns">
-					<button on:click={buttonClicked} class="altBtn" id={alt.id}>
-						{alt.song}
-					</button>
-				</div>
-			{/each}
+			{#if answerAlts}
+				{#each answerAlts as answerAlt}
+					<div class="altBtns">
+						<button on:click={buttonClicked} class="altBtn" id={answerAlt.id}>
+							{answerAlt.song}
+						</button>
+					</div>
+				{/each}
+			{/if}
 		</div>
 	</div>
 </div>

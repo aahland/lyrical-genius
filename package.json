@@ -1,41 +1,42 @@
 {
-  "name": "lyrical-genius",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "start": "node build/index.js",
-    "test": "jest src",
-    "test:watch": "npm run test -- --watch",
-    "package": "svelte-kit package",
-    "preview": "svelte-kit preview",
-    "prepare": "svelte-kit sync",
-    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
-    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.16.11",
-    "@sveltejs/adapter-node": "^1.0.0-next.73",
-    "@sveltejs/kit": "next",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/svelte": "^3.1.1",
-    "@testing-library/user-event": "^14.1.1",
-    "babel-jest": "^27.5.1",
-    "babel-plugin-transform-vite-meta-env": "^1.0.3",
-    "jest": "^27.5.1",
-    "jest-transform-stub": "^2.0.0",
-    "prettier": "^2.5.1",
-    "prettier-plugin-svelte": "^2.5.0",
-    "svelte": "^3.46.0",
-    "svelte-jester": "^2.3.2"
-  },
-  "type": "module",
-  "dependencies": {
-    "@fontsource/fira-mono": "^4.5.0",
-    "@lukeed/uuid": "^2.0.0",
-    "@sveltejs/adapter-auto": "^1.0.0-next.35",
-    "cookie": "^0.4.1",
-    "socket.io": "^4.4.1",
-    "socket.io-client": "^4.4.1"
-  }
+	"name": "lyrical-genius",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"start": "node ./server",
+		"test": "jest src",
+		"test:watch": "npm run test -- --watch",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview",
+		"prepare": "svelte-kit sync",
+		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
+		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+	},
+	"devDependencies": {
+		"@babel/preset-env": "^7.16.11",
+		"@sveltejs/adapter-node": "^1.0.0-next.73",
+		"@sveltejs/kit": "next",
+		"@testing-library/jest-dom": "^5.16.4",
+		"@testing-library/svelte": "^3.1.1",
+		"@testing-library/user-event": "^14.1.1",
+		"babel-jest": "^27.5.1",
+		"babel-plugin-transform-vite-meta-env": "^1.0.3",
+		"jest": "^27.5.1",
+		"jest-transform-stub": "^2.0.0",
+		"prettier": "^2.5.1",
+		"prettier-plugin-svelte": "^2.5.0",
+		"svelte": "^3.46.0",
+		"svelte-jester": "^2.3.2"
+	},
+	"type": "module",
+	"dependencies": {
+		"@fontsource/fira-mono": "^4.5.0",
+		"@lukeed/uuid": "^2.0.0",
+		"@sveltejs/adapter-auto": "^1.0.0-next.35",
+		"cookie": "^0.4.1",
+		"express": "^4.18.1",
+		"socket.io": "^4.4.1",
+		"socket.io-client": "^4.4.1"
+	}
 }

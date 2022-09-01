@@ -2,20 +2,27 @@ body {
     background-color: rgb(0, 0, 0);
     margin: 0px;
     overflow: hidden;
-    max-height: 700px;
+    /* max-height: 700px; */
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html {
     overflow: hidden;
-    height: 100%;
+    height: 100vh;
+}
+
+#stylisticLine {
+    color: #198dc1;
+    border: 1px solid #198dc1;
+    width: 70%;
+    margin-top: 15px;
 }
 
 main {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 450px;
+    height: 100vh;
 }
 
 
@@ -60,6 +67,7 @@ button:hover {
     font-weight: 400px;
     width: 340px;
     margin-top: 20px;
+    margin-left: 41px;
 }
 
 .lyricsWrapper1 {
@@ -81,6 +89,7 @@ button:hover {
     margin-bottom: 0px;
     font-weight: bold;
     padding: 0px 0px 0px 0px;
+    line-height: 30px;
 }
 
 .componentWrapper {
@@ -90,7 +99,7 @@ button:hover {
 }
 
 .round {
-    color: #ffffffd4;
+    color:  #198dc1;
     text-align: center;
     margin-bottom: 0;
     position: relative;
@@ -110,6 +119,10 @@ button:hover {
     margin-top: 0px;
 }
 
+#sorryMessage {
+    margin-left: 20px;
+}
+
 @media screen and (min-width: 768px) {
 
     body {
@@ -126,7 +139,7 @@ button:hover {
 
     
     body {
-        max-height: 768px ;
+        max-height: 100vh ;
     }
 
     .gameHeading > h1 {
@@ -142,7 +155,7 @@ button:hover {
 @media screen and (min-width: 1440px) {
 
     body {
-        max-height: 1080px;
+        max-height: 100vh;
     }
 
     button {
@@ -160,4 +173,3 @@ button:hover {
         font-size: 20px;
     }
   }
-

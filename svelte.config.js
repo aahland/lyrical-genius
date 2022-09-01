@@ -1,6 +1,7 @@
 import { Server } from 'socket.io';
 import node from '@sveltejs/adapter-node';
 import auto from '@sveltejs/adapter-auto';
+import cloudflare from '@sveltejs/adapter-cloudflare'
 // import preprocess from 'svelte-preprocess';
 
 // export const webSocketServer = {
@@ -17,7 +18,7 @@ import auto from '@sveltejs/adapter-auto';
 const config = {
 
 	kit: {
-		adapter: node(),
+		adapter: cloudflare(),
 		vite: {
 			plugins: [
 				{

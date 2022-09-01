@@ -100,7 +100,7 @@
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">{round}</p>
 		<div id="stylisticLine" />
-		<button id="btn" class="button" on:click={startRound}>start round</button>
+		<!-- <button id="btn" class="button" on:click={startRound}>start round</button> -->
 		<div class="waitingForPlayers">
 			<p id="waiting" />
 			<p id="playersReady" />

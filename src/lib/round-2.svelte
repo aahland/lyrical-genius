@@ -14,8 +14,6 @@
 	let extraPoint = [];
 	let playersAnswered = 0;
 
-	console.log(objects, 'objects from store');
-
 	// Listening on players ready to start round. Won't start until all 4 players are ready
 	io.on('start', (start) => {
 		playersReadyToStart = [...playersReadyToStart, start];
@@ -43,8 +41,8 @@
 		if (playersAnswered === 4) {
 			dispatch('newRound');
 		}
-		// let start = 'start';
-		// io.emit('start', start);
+		let start = 'start';
+		io.emit('start', start);
 	});
 
 	let lyrics;
@@ -100,7 +98,7 @@
 		<p class="round">{round}</p>
 		<div id="stylisticLine" />
 		<!-- change this id -->
-		<button id="btn" class="button" on:click={startRound}>start round</button>
+		<!-- <button id="btn" class="button" on:click={startRound}>start round</button> -->
 		<div class="waitingForPlayers">
 			<p id="waiting" />
 			<p id="playersReady" />

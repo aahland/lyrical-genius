@@ -29,8 +29,8 @@
 		inputAndBtn.remove();
 		let wrap = document.getElementById('wrap');
 		wrap.style.maxHeight = '239px';
-		let instructions = document.getElementById('instructions');
-		instructions.style.visibility = 'hidden';
+		// let instructions = document.getElementById('instructions');
+		// instructions.style.visibility = 'hidden';
 		let users = document.getElementById('playernames');
 		users.style.marginTop = '0px';
 		users.style.visibility = 'visible';
@@ -49,6 +49,10 @@
 			sendName();
 		}
 	}
+
+	function startSinglePlay() {
+		dispatch('singlePlay');
+	}
 </script>
 
 <div class="wrap" id="wrap">
@@ -59,9 +63,10 @@
 		<form action="#" on:submit|preventDefault={submitName}>
 			<div class="signInContainer" id="signInContainer">
 				<input id="input" type="text" bind:value={textfield} placeholder="Enter your name..." />
-				<button id="btn" type="submit">Join</button>
+				<button id="btn" type="submit">Join multiplayer</button>
 			</div>
 		</form>
+		<button on:click={startSinglePlay} id="singlePlay">Single player version</button>
 	</div>
 	<div class="playernames" id="playernames">
 		<div>
@@ -80,7 +85,7 @@
 		</div>
 	</div>
 
-	<div class="instructions" id="instructions">
+	<!-- <div class="instructions" id="instructions">
 		<div>
 			<h2>Game Instructions</h2>
 			<p>
@@ -89,7 +94,7 @@
 				after 4 rounds wins. Fair play!
 			</p>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <style>
@@ -126,6 +131,10 @@
 		margin-top: 20px;
 		position: relative;
 		bottom: 40px;
+	}
+
+	#singlePlay {
+		margin-bottom: 10px;
 	}
 
 	.instructions,

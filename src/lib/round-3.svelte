@@ -1,13 +1,10 @@
 <script>
 	import { io } from '$lib/realtime';
 	import { createEventDispatcher } from 'svelte';
-	import { getRandomAnswer } from '../helpers/answers';
-	import { distractors } from '../helpers/sendAlternatives';
 	import { questions } from '../helpers/store';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
 	import { splitLyrics } from '../helpers/splitLyrics';
 	import { get } from 'svelte/store';
-	import { getRandomDistractors } from '../helpers/distractors';
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 3';
@@ -46,8 +43,8 @@
 		if (playersAnswered === 4) {
 			dispatch('newRound');
 		}
-		// let start = 'start';
-		// io.emit('start', start);
+		let start = 'start';
+		io.emit('start', start);
 	});
 
 	let lyrics;
@@ -103,7 +100,7 @@
 		<p class="round">{round}</p>
 		<div id="stylisticLine" />
 		<!-- change this id -->
-		<button id="btn" class="button" on:click={startRound}>start round</button>
+		<!-- <button id="btn" class="button" on:click={startRound}>start round</button> -->
 		<div class="waitingForPlayers">
 			<p id="waiting" />
 			<p id="playersReady" />

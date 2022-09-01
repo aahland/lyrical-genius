@@ -51,8 +51,8 @@
 		if (playersAnswered === 4) {
 			dispatch('newRound');
 		}
-		// let start = 'start';
-		// io.emit('start', start);
+		let start = 'start';
+		io.emit('start', start);
 	});
 
 	// Sends one song and 2 distractors per player to the server for saving it to store.

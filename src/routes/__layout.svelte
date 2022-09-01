@@ -8,6 +8,7 @@
 	import Footer from '../lib/footr.svelte';
 	import Signin from '../lib/signin.svelte';
 	import { storedStats } from '../helpers/store';
+	import SinglePlayer from '$lib/singlePlayer.svelte';
 
 	const round = [
 		{ component: Signin },
@@ -15,7 +16,8 @@
 		{ component: Round2 },
 		{ component: Round3 },
 		{ component: Round4 },
-		{ component: Gamefinished }
+		{ component: Gamefinished },
+		{ component: SinglePlayer }
 	];
 
 	let i = 0;
@@ -46,6 +48,10 @@
 		let score = 0;
 		localStorage.setItem('Score', JSON.stringify(score));
 	}
+
+	function loadSinglePlayer() {
+		i = 6;
+	}
 </script>
 
 <div class="layoutWrapper">
@@ -55,6 +61,7 @@
 		on:gameFinished={gameFinished}
 		on:correct={addToScore}
 		on:restartGame={restart}
+		on:singlePlay={loadSinglePlayer}
 	/>
 	<Footer />
 </div>

@@ -109,7 +109,7 @@ export function getRandomAnswer() {
 		{ answer: songs[2] },
 		{ answer: songs[3] }
 	]	
-    console.log(answer, "answers from answer")
+ 
    
 	return answer;
 

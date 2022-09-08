@@ -6,6 +6,17 @@
 	import { questions, storedStats } from '../helpers/store';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
 	import { splitLyrics } from '../helpers/splitLyrics';
+	import supabase from '$lib/db';
+
+	async function getSupaData() {
+		const { data, error } = await supabase.from('lyrical-genius').select('*');
+		if (error) throw new Error(error.message);
+
+		return data;
+	}
+
+	console.log(getSupaData(), 'supadata');
+	console.log('hello');
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 1';

@@ -7,16 +7,58 @@
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
 	import { splitLyrics } from '../helpers/splitLyrics';
 	import supabase from '$lib/db';
-
+	let supaSongs;
 	async function getSupaData() {
 		const { data, error } = await supabase.from('lyrical-genius').select('*');
 		if (error) throw new Error(error.message);
+		randomArrayShuffle(data);
 
-		return data;
+		supaSongs = [
+			{
+				song: [{ song: data[0].song, artist: data[0].artist, lyric: data[0].lyric }],
+				distractor1: distractors[0],
+				distractor2: distractors[1],
+				answerAlts: [
+					{ song: distractors[0], id: 'button2' },
+					{ song: distractors[1], id: 'button3' },
+					{ song: data[0].song, id: 'button1' }
+				]
+			},
+			{
+				song: [{ song: data[1].song, artist: data[1].artist, lyric: data[1].lyric }],
+				distractor1: distractors[2],
+				distractor2: distractors[3],
+				answerAlts: [
+					{ song: distractors[2], id: 'button2' },
+					{ song: distractors[3], id: 'button3' },
+					{ song: data[1].song, id: 'button1' }
+				]
+			},
+			{
+				song: [{ song: data[2].song, artist: data[2].artist, lyric: data[2].lyric }],
+				distractor1: distractors[4],
+				distractor2: distractors[5],
+				answerAlts: [
+					{ song: distractors[4], id: 'button2' },
+					{ song: distractors[5], id: 'button3' },
+					{ song: data[2].song, id: 'button1' }
+				]
+			},
+			{
+				song: [{ song: data[3].song, artist: data[3].artist, lyric: data[3].lyric }],
+				distractor1: distractors[6],
+				distractor2: distractors[7],
+				answerAlts: [
+					{ song: distractors[6], id: 'button2' },
+					{ song: distractors[7], id: 'button3' },
+					{ song: data[3].song, id: 'button1' }
+				]
+			}
+		];
+		return supaSongs;
 	}
 
 	console.log(getSupaData(), 'supadata');
-	console.log('hello');
 
 	const dispatch = createEventDispatcher();
 	let round = 'Round 1';
@@ -29,10 +71,11 @@
 
 	// recieves sent data contains all songs and distractors for all 4 rounds. Saves data to store
 	io.on('data', (data) => {
+		console.log(data);
 		storedStats.set([]);
 		objects = [data];
 		questions.set(objects);
-		console.log(objects, 'object should be same for all');
+		console.log(objects[0].data[0].song[0].song, 'object should be same for all');
 	});
 
 	// Listening on players ready to start round. Won't start until all 4 players are ready
@@ -66,61 +109,8 @@
 		io.emit('start', start);
 	});
 
-	// Sends one song and 2 distractors per player to the server for saving it to store.
 	async function shareData() {
-		let songs = getRandomAnswer();
-		song1 = songs[0].answer.song;
-		console.log(songs, 'songs from getRandom');
-		// let answerAlts = [
-		// 	{ song: data.song.answer.song, id: 'button1' },
-		// 	{ song: data.distractor1, id: 'button2' },
-		// 	{ song: data.distractor2, id: 'button3' }
-		// ];
-
-		data = [
-			{
-				song: songs[0],
-				distractor1: distractors[0],
-				distractor2: distractors[1],
-				answerAlts: [
-					{ song: distractors[0], id: 'button2' },
-					{ song: distractors[1], id: 'button3' },
-					{ song: songs[0].answer.song, id: 'button1' }
-				]
-			},
-			{
-				song: songs[1],
-				distractor1: distractors[2],
-				distractor2: distractors[3],
-				answerAlts: [
-					{ song: distractors[2], id: 'button2' },
-					{ song: distractors[3], id: 'button3' },
-					{ song: songs[1].answer.song, id: 'button1' }
-				]
-			},
-			{
-				song: songs[2],
-				distractor1: distractors[4],
-				distractor2: distractors[5],
-				answerAlts: [
-					{ song: distractors[4], id: 'button2' },
-					{ song: distractors[5], id: 'button3' },
-					{ song: songs[2].answer.song, id: 'button1' }
-				]
-			},
-			{
-				song: songs[3],
-				distractor1: distractors[6],
-				distractor2: distractors[7],
-				answerAlts: [
-					{ song: distractors[6], id: 'button2' },
-					{ song: distractors[7], id: 'button3' },
-					{ song: songs[3].answer.song, id: 'button1' }
-				]
-			}
-		];
-		console.log(data, 'all data');
-
+		data = await getSupaData();
 		io.emit('data', data);
 	}
 
@@ -128,7 +118,7 @@
 	let answerAlts;
 	let splittedLyrics;
 	function displayLyrics() {
-		lyrics = objects[0].data[0].song.answer.lyrics;
+		lyrics = objects[0].data[0].song[0].lyric;
 		splittedLyrics = splitLyrics(lyrics);
 		console.log(splittedLyrics);
 		answerAlts = randomArrayShuffle(objects[0].data[0].answerAlts);

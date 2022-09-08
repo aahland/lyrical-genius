@@ -51,19 +51,10 @@
 	let answerAlts;
 	let splittedLyrics;
 	function displayLyrics() {
-		song1 = objects[0].data[2].song.answer.song;
-		lyrics = objects[0].data[2].song.answer.lyrics;
+		song1 = objects[0].data[2].song[0].song;
+		lyrics = objects[0].data[2].song[0].lyric;
 		splittedLyrics = splitLyrics(lyrics);
 		answerAlts = randomArrayShuffle(objects[0].data[2].answerAlts);
-	}
-
-	// Sends info to server that you are ready to start the round
-	function startRound() {
-		let start = 'start';
-		io.emit('start', start);
-		let btn = document.getElementById('btn');
-		btn.style.height = '0px';
-		btn.style.visibility = 'hidden';
 	}
 
 	// Handles the players answer

@@ -1,66 +1,70 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { getRandomAnswer } from '../helpers/answers';
 	import { distractors } from '../helpers/sendAlternatives';
-	import { questions } from '../helpers/store';
 	import { randomArrayShuffle } from '../helpers/randomArrayShuffle';
 	import { splitLyrics } from '../helpers/splitLyrics';
-	import { get } from 'svelte/store';
+	import supabase from '$lib/db';
+
+	let supaSongs;
+	async function getSupaData() {
+		const { data, error } = await supabase.from('lyrical-genius').select('*');
+		if (error) throw new Error(error.message);
+		randomArrayShuffle(data);
+
+		supaSongs = [
+			{
+				song: [{ song: data[0].song, artist: data[0].artist, lyric: data[0].lyric }],
+				distractor1: distractors[0],
+				distractor2: distractors[1],
+				answerAlts: [
+					{ song: distractors[0], id: 'button2' },
+					{ song: distractors[1], id: 'button3' },
+					{ song: data[0].song, id: 'button1' }
+				]
+			},
+			{
+				song: [{ song: data[1].song, artist: data[1].artist, lyric: data[1].lyric }],
+				distractor1: distractors[2],
+				distractor2: distractors[3],
+				answerAlts: [
+					{ song: distractors[2], id: 'button2' },
+					{ song: distractors[3], id: 'button3' },
+					{ song: data[1].song, id: 'button1' }
+				]
+			},
+			{
+				song: [{ song: data[2].song, artist: data[2].artist, lyric: data[2].lyric }],
+				distractor1: distractors[4],
+				distractor2: distractors[5],
+				answerAlts: [
+					{ song: distractors[4], id: 'button2' },
+					{ song: distractors[5], id: 'button3' },
+					{ song: data[2].song, id: 'button1' }
+				]
+			},
+			{
+				song: [{ song: data[3].song, artist: data[3].artist, lyric: data[3].lyric }],
+				distractor1: distractors[6],
+				distractor2: distractors[7],
+				answerAlts: [
+					{ song: distractors[6], id: 'button2' },
+					{ song: distractors[7], id: 'button3' },
+					{ song: data[3].song, id: 'button1' }
+				]
+			}
+		];
+		return supaSongs;
+	}
 
 	const dispatch = createEventDispatcher();
 	let round = 1;
 	let lyrics;
 	let answerAlts;
+	let all;
 	let splittedLyrics;
 	let song1;
 	let i = 0;
 	localStorage.setItem('Score', '0');
-	let songs = getRandomAnswer();
-	console.log(songs[0]);
-	$: song1 = songs[i].answer.song;
-	console.log(song1);
-	let data = [
-		{
-			song: songs[0],
-			distractor1: distractors[0],
-			distractor2: distractors[1],
-			answerAlts: [
-				{ song: distractors[0], id: 'button2' },
-				{ song: distractors[1], id: 'button3' },
-				{ song: songs[0].answer.song, id: 'button1' }
-			]
-		},
-		{
-			song: songs[1],
-			distractor1: distractors[2],
-			distractor2: distractors[3],
-			answerAlts: [
-				{ song: distractors[2], id: 'button2' },
-				{ song: distractors[3], id: 'button3' },
-				{ song: songs[1].answer.song, id: 'button1' }
-			]
-		},
-		{
-			song: songs[2],
-			distractor1: distractors[4],
-			distractor2: distractors[5],
-			answerAlts: [
-				{ song: distractors[4], id: 'button2' },
-				{ song: distractors[5], id: 'button3' },
-				{ song: songs[2].answer.song, id: 'button1' }
-			]
-		},
-		{
-			song: songs[3],
-			distractor1: distractors[6],
-			distractor2: distractors[7],
-			answerAlts: [
-				{ song: distractors[6], id: 'button2' },
-				{ song: distractors[7], id: 'button3' },
-				{ song: songs[3].answer.song, id: 'button1' }
-			]
-		}
-	];
 
 	function buttonClicked(event) {
 		let innerHtml = event.target.innerHTML;
@@ -86,19 +90,22 @@
 			if (i > 3) {
 				gameOver();
 			}
-			lyrics = data[i].song.answer.lyrics;
+			lyrics = all[i].song[0].lyric;
+			song1 = all[i].song[0].song;
 			splittedLyrics = splitLyrics(lyrics);
 			console.log(splittedLyrics);
-			answerAlts = randomArrayShuffle(data[i].answerAlts);
-			console.log(answerAlts);
+			answerAlts = randomArrayShuffle(supaSongs[i].answerAlts);
 		}, 500);
 	}
 
-	function displayLyrics() {
-		lyrics = data[0].song.answer.lyrics;
+	async function displayLyrics() {
+		all = await getSupaData();
+		console.log(all);
+		lyrics = all[i].song[0].lyric;
+		song1 = all[i].song[0].song;
 		splittedLyrics = splitLyrics(lyrics);
 		console.log(splittedLyrics);
-		answerAlts = randomArrayShuffle(data[0].answerAlts);
+		answerAlts = randomArrayShuffle(supaSongs[i].answerAlts);
 	}
 
 	function gameOver() {

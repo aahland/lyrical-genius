@@ -49,19 +49,10 @@
 	let answerAlts;
 	let splittedLyrics;
 	function displayLyrics() {
-		song1 = objects[0].data[1].song.answer.song;
-		lyrics = objects[0].data[1].song.answer.lyrics;
+		song1 = objects[0].data[1].song[0].song;
+		lyrics = objects[0].data[1].song[0].lyric;
 		splittedLyrics = splitLyrics(lyrics);
 		answerAlts = randomArrayShuffle(objects[0].data[1].answerAlts);
-	}
-
-	// Sends info to server that you are ready to start the round
-	function startRound() {
-		let start = 'start';
-		io.emit('start', start);
-		let btn = document.getElementById('btn');
-		btn.style.height = '0px';
-		btn.style.visibility = 'hidden';
 	}
 
 	// Handles the players answer
@@ -97,8 +88,7 @@
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">{round}</p>
 		<div id="stylisticLine" />
-		<!-- change this id -->
-		<!-- <button id="btn" class="button" on:click={startRound}>start round</button> -->
+
 		<div class="waitingForPlayers">
 			<p id="waiting" />
 			<p id="playersReady" />

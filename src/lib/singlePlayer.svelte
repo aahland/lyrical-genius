@@ -120,6 +120,17 @@
 		mainWrapper.appendChild(scoreDisplay);
 		let score = localStorage.getItem('Score');
 		scoreDisplay.innerHTML = score + '/4';
+		scoreDisplay.id = 'scoreDisplay';
+		scoreDisplay.style.color = 'white';
+		scoreDisplay.style.fontWeight = 'bold';
+		let playAgain = document.createElement('button');
+		playAgain.innerHTML = 'Play Again';
+		mainWrapper.appendChild(playAgain);
+		playAgain.onclick = restartGame;
+	}
+
+	function restartGame() {
+		dispatch('restartGame');
 	}
 
 	displayLyrics();
@@ -129,10 +140,6 @@
 	<div class="componentWrapper" id="componentWrapper">
 		<p class="round">Round{round}</p>
 		<div id="stylisticLine" />
-		<div class="waitingForPlayers">
-			<p id="waiting" />
-			<p id="playersReady" />
-		</div>
 		<div class="lyricsWrapper1" id="lyricsWrapper1">
 			{#if splittedLyrics}
 				{#each splittedLyrics as splittedLyric}

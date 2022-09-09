@@ -110,31 +110,8 @@
 		margin-bottom: 5px;
 	}
 
-	.instructions {
-		color: rgba(255, 255, 255, 0.8);
-		text-align: center;
-		max-width: 250px;
-		padding: 0px 5px 5px 5px;
-		border: 1px solid rgba(255, 255, 255, 0.8);
-		border-radius: 10px;
-		margin-top: 20px;
-		position: relative;
-		bottom: 40px;
-	}
-
 	#singlePlay {
 		margin-bottom: 10px;
-	}
-
-	.instructions,
-	h2 {
-		margin-top: 5px;
-		margin-bottom: 0px;
-	}
-
-	.instructions,
-	p {
-		margin-top: 5px;
 	}
 
 	.signinAndUsernamesWrapper {

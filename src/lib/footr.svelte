@@ -100,6 +100,7 @@
 		width: 100vw;
 		height: 200px;
 		bottom: 0px;
+		margin-top: 10px;
 	}
 
 	.triangleContainer {

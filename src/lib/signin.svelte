@@ -29,8 +29,6 @@
 		inputAndBtn.remove();
 		let wrap = document.getElementById('wrap');
 		wrap.style.maxHeight = '239px';
-		// let instructions = document.getElementById('instructions');
-		// instructions.style.visibility = 'hidden';
 		let users = document.getElementById('playernames');
 		users.style.marginTop = '0px';
 		users.style.visibility = 'visible';
@@ -51,7 +49,39 @@
 	}
 
 	function startSinglePlay() {
-		dispatch('singlePlay');
+		let singlePlayBtn = document.getElementById('singlePlay');
+		singlePlayBtn.remove();
+		let multiBtn = document.getElementById('btn');
+		multiBtn.remove();
+		let inputField = document.getElementById('input');
+		inputField.remove();
+		let fourRounds = document.createElement('button');
+		let eightRounds = document.createElement('button');
+		let twelveRounds = document.createElement('button');
+		let singleWrap = document.getElementById('singleWrap');
+		singleWrap.appendChild(fourRounds);
+		singleWrap.appendChild(eightRounds);
+		singleWrap.appendChild(twelveRounds);
+		fourRounds.innerHTML = '4 rounds';
+		eightRounds.innerHTML = '8 rounds';
+		twelveRounds.innerHTML = '12 rounds';
+		fourRounds.onclick = startSingle;
+		eightRounds.onclick = startSingle;
+		twelveRounds.onclick = startSingle;
+	}
+
+	function startSingle(event) {
+		let innerHtml = event.target.innerHTML;
+		if (innerHtml === '4 rounds') {
+			dispatch('singlePlay');
+			localStorage.setItem('Rounds', '4');
+		} else if (innerHtml === '8 rounds') {
+			dispatch('singlePlay');
+			localStorage.setItem('Rounds', '8');
+		} else if (innerHtml === '12 rounds') {
+			dispatch('singlePlay');
+			localStorage.setItem('Rounds', '12');
+		}
 	}
 </script>
 
@@ -66,7 +96,9 @@
 				<button id="btn" type="submit">Join multiplayer</button>
 			</div>
 		</form>
-		<button on:click={startSinglePlay} id="singlePlay">Single player version</button>
+		<div id="singleWrap">
+			<button on:click={startSinglePlay} id="singlePlay">Single player version</button>
+		</div>
 	</div>
 	<div class="playernames" id="playernames">
 		<div>
@@ -143,6 +175,11 @@
 
 	.wait {
 		font-weight: bold;
+	}
+
+	#singleWrap {
+		display: flex;
+		flex-direction: column;
 	}
 
 	@media screen and (min-width: 1440px) {

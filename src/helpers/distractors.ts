@@ -121,7 +121,39 @@ export function getRandomDistractors() {
 	let r7 = randomNumbers4[0];
 	let r8 = randomNumbers4[1];
 
-	let eightDistractors = [
+	let randomNumbers5 = getRandomDistractor();
+	let r9 = randomNumbers5[0];
+	let r10 = randomNumbers5[1];
+
+	let randomNumbers6 = getRandomDistractor();
+	let r11 = randomNumbers6[0];
+	let r12 = randomNumbers6[1];
+
+	let randomNumbers7 = getRandomDistractor();
+	let r13 = randomNumbers7[0];
+	let r14 = randomNumbers7[1];
+
+	let randomNumbers8 = getRandomDistractor();
+	let r15 = randomNumbers8[0];
+	let r16 = randomNumbers8[1];
+
+	let randomNumbers9 = getRandomDistractor();
+	let r17 = randomNumbers9[0];
+	let r18 = randomNumbers9[1];
+
+	let randomNumbers10 = getRandomDistractor();
+	let r19 = randomNumbers10[0];
+	let r20 = randomNumbers10[1];
+
+	let randomNumbers11 = getRandomDistractor();
+	let r21 = randomNumbers11[0];
+	let r22 = randomNumbers11[1];
+
+	let randomNumbers12 = getRandomDistractor();
+	let r23 = randomNumbers12[0];
+	let r24 = randomNumbers12[1];
+
+	let twentyfourDistractors = [
 		distractors[r1],
 		distractors[r2],
 		distractors[r3],
@@ -129,8 +161,24 @@ export function getRandomDistractors() {
 		distractors[r5],
 		distractors[r6],
 		distractors[r7],
-		distractors[r8]
+		distractors[r8],
+		distractors[r9],
+		distractors[r10],
+		distractors[r11],
+		distractors[r12],
+		distractors[r13],
+		distractors[r14],
+		distractors[r15],
+		distractors[r16],
+		distractors[r17],
+		distractors[r18],
+		distractors[r19],
+		distractors[r20],
+		distractors[r21],
+		distractors[r22],
+		distractors[r23],
+		distractors[r24]
 	];
 
-	return eightDistractors;
+	return twentyfourDistractors;
 }
